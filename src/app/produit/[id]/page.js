@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { getProduct } from "@/lib/shopify";
 import { useCart } from "@/contexts/CartContext";
 import Navigation from "../../components/Navigation";
@@ -80,9 +81,9 @@ export default function ProductPage() {
             </svg>
             <h1 className="text-2xl font-serif font-bold text-charcoal mb-2">Produit non trouvé</h1>
             <p className="text-charcoal/70 mb-6">Ce produit n&apos;existe pas ou n&apos;est plus disponible.</p>
-            <a href="/collections" className="bg-charcoal text-soft px-6 py-3 rounded-lg font-medium hover:bg-rustic transition-colors duration-300">
+            <Link href="/collections" className="bg-charcoal text-soft px-6 py-3 rounded-lg font-medium hover:bg-rustic transition-colors duration-300">
               Retour aux collections
-            </a>
+            </Link>
           </div>
         </div>
         <Cart />
@@ -103,9 +104,9 @@ export default function ProductPage() {
         {/* Breadcrumb */}
         <nav className="mb-8">
           <ol className="flex items-center space-x-2 text-sm">
-            <li><a href="/" className="text-charcoal/60 hover:text-charcoal">Accueil</a></li>
+            <li><Link href="/" className="text-charcoal/60 hover:text-charcoal">Accueil</Link></li>
             <li className="text-charcoal/40">/</li>
-            <li><a href="/collections" className="text-charcoal/60 hover:text-charcoal">Collections</a></li>
+            <li><Link href="/collections" className="text-charcoal/60 hover:text-charcoal">Collections</Link></li>
             <li className="text-charcoal/40">/</li>
             <li className="text-charcoal font-medium">{product.title}</li>
           </ol>
