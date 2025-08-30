@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -37,12 +38,18 @@ export default function Hero() {
 
           {/* Boutons d'action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-white/90 text-charcoal px-8 py-4 rounded-lg font-medium hover:bg-white transition-colors duration-300 shadow-lg backdrop-blur-sm">
-              Découvrir nos collections
-            </button>
-            <button className="border-2 border-white/80 text-white px-8 py-4 rounded-lg font-medium hover:bg-white/20 backdrop-blur-sm transition-colors duration-300">
+            <Link
+              href="/collections"
+              className="bg-white/90 text-charcoal px-8 py-4 rounded-lg font-medium hover:bg-white transition-colors duration-300 shadow-lg backdrop-blur-sm text-center"
+            >
+              Découvrir nos articles
+            </Link>
+            <Link
+              href="/a-propos"
+              className="border-2 border-white/80 text-white px-8 py-4 rounded-lg font-medium hover:bg-white/20 backdrop-blur-sm transition-colors duration-300 text-center"
+            >
               En savoir plus
-            </button>
+            </Link>
           </div>
         </div>
       </div>

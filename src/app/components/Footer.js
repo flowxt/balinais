@@ -43,12 +43,12 @@ export default function Footer() {
                   href="/collections"
                   className="text-creamy hover:text-soft transition-colors duration-200"
                 >
-                  Collections
+                  Nos Articles
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/a-propos"
                   className="text-creamy hover:text-soft transition-colors duration-200"
                 >
                   À propos

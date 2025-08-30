@@ -1,6 +1,7 @@
+import Link from "next/link";
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
-import ProductGrid from "./components/ProductGrid";
+import FeaturedProducts from "./components/FeaturedProducts";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
 
@@ -19,8 +20,8 @@ export default function Home() {
                 Notre savoir-faire
               </h2>
               <p className="text-lg text-charcoal/80 max-w-3xl mx-auto leading-relaxed">
-                Chaque meuble de notre collection est soigneusement sélectionné
-                pour sa qualité artisanale et son authenticité. Nous travaillons
+                Chaque article de notre sélection est soigneusement choisi pour
+                sa qualité artisanale et son authenticité. Nous travaillons
                 directement avec des artisans balinais pour vous offrir des
                 pièces uniques qui transforment votre espace de vie.
               </p>
@@ -97,16 +98,16 @@ export default function Home() {
                   Pièces uniques
                 </h3>
                 <p className="text-charcoal/70">
-                  Collection limitée pour garantir le caractère exclusif de
-                  votre intérieur.
+                  Articles en édition limitée pour garantir le caractère
+                  exclusif de votre intérieur.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section Produits Shopify */}
-        <ProductGrid />
+        {/* Section Coups de Cœur */}
+        <FeaturedProducts />
 
         {/* Section Call to Action */}
         <section className="py-20 bg-gradient-to-r from-warm to-creamy">
@@ -115,16 +116,22 @@ export default function Home() {
               Prêt à transformer votre espace ?
             </h2>
             <p className="text-lg text-charcoal/80 mb-8 leading-relaxed">
-              Découvrez nos collections et laissez-vous inspirer par
+              Découvrez nos articles et laissez-vous inspirer par
               l&apos;élégance et la sérénité du mobilier balinais authentique.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-charcoal text-soft px-8 py-4 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 shadow-lg">
-                Voir nos collections
-              </button>
-              <button className="border-2 border-charcoal text-charcoal px-8 py-4 rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300">
+              <Link
+                href="/collections"
+                className="bg-charcoal text-soft px-8 py-4 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 shadow-lg text-center"
+              >
+                Voir nos articles
+              </Link>
+              <Link
+                href="/contact"
+                className="border-2 border-charcoal text-charcoal px-8 py-4 rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300 text-center"
+              >
                 Prendre rendez-vous
-              </button>
+              </Link>
             </div>
           </div>
         </section>

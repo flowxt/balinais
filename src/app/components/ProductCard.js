@@ -33,6 +33,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                 src={image.src}
                 alt={product.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover"
               />
             ) : (
@@ -95,6 +96,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
             src={image.src}
             alt={product.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover"
           />
         ) : (

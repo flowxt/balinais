@@ -40,10 +40,10 @@ export default function Navigation() {
               href="/collections"
               className="text-charcoal hover:text-rustic transition-colors duration-200 font-medium"
             >
-              Collections
+              Nos Articles
             </Link>
             <Link
-              href="/about"
+              href="/a-propos"
               className="text-charcoal hover:text-rustic transition-colors duration-200 font-medium"
             >
               À propos

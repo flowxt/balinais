@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { getAllProducts } from '@/lib/shopify';
-import ProductCard from './ProductCard';
+import { useState, useEffect } from "react";
+import { getAllProducts } from "@/lib/shopify";
+import ProductCard from "./ProductCard";
 
 export default function ProductGrid() {
   const [products, setProducts] = useState([]);
@@ -16,7 +16,7 @@ export default function ProductGrid() {
         const fetchedProducts = await getAllProducts();
         setProducts(fetchedProducts);
       } catch (err) {
-        setError('Erreur lors du chargement des produits');
+        setError("Erreur lors du chargement des produits");
         console.error(err);
       } finally {
         setLoading(false);
@@ -49,7 +49,7 @@ export default function ProductGrid() {
           Aucun produit disponible pour le moment
         </h3>
         <p className="text-charcoal/70">
-          Nos nouvelles collections arrivent bientôt !
+          Nos nouveaux articles arrivent bientôt !
         </p>
       </div>
     );
@@ -60,11 +60,12 @@ export default function ProductGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-charcoal mb-6">
-            Nos Collections
+            Nos Articles
           </h2>
           <p className="text-lg text-charcoal/80 max-w-3xl mx-auto">
-            Découvrez notre sélection de meubles balinais authentiques, 
-            chaque pièce étant soigneusement choisie pour sa qualité et son caractère unique.
+            Découvrez notre sélection d&apos;articles balinais authentiques,
+            chaque pièce étant soigneusement choisie pour sa qualité et son
+            caractère unique.
           </p>
         </div>
 

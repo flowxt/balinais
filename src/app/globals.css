@@ -43,13 +43,4 @@ body {
   font-weight: 300;
 }
 
-/* Utilité pour limiter les lignes de texte */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.5;
-  max-height: calc(1.5em * 3); /* 3 lignes exactement */
-}
+

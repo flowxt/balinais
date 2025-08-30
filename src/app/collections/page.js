@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import Navigation from "../components/Navigation";
 import CollectionProductGrid from "../components/CollectionProductGrid";
+import CategoryPreview from "../components/CategoryPreview";
 import Cart from "../components/Cart";
 import Footer from "../components/Footer";
+import { categories } from "@/lib/categories";
 
 export default function Collections() {
   return (
@@ -14,50 +17,36 @@ export default function Collections() {
         <section className="relative py-20 bg-gradient-to-br from-creamy to-warm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal mb-6">
-              Nos Collections
+              Nos Articles
             </h1>
             <p className="text-xl md:text-2xl text-charcoal/80 max-w-3xl mx-auto leading-relaxed">
-              Découvrez l&apos;art authentique du mobilier balinais, où chaque
-              pièce raconte une histoire unique et apporte sérénité à votre
-              intérieur.
+              Choisissez le type d&apos;article qui vous intéresse pour
+              découvrir nos créations balinaises authentiques.
             </p>
           </div>
         </section>
 
-        {/* Filtres et catégories */}
-        <section className="py-12 bg-soft border-b border-creamy">
+        {/* Aperçus par catégories */}
+        <section className="py-20 bg-soft">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="mb-6 md:mb-0">
-                <h2 className="font-serif text-2xl font-semibold text-charcoal mb-2">
-                  Artisanat Balinais Authentique
-                </h2>
-                <p className="text-charcoal/70">
-                  Pièces uniques sélectionnées avec soin
-                </p>
-              </div>
+            <div className="text-center mb-16">
+              <h2 className="font-serif text-2xl md:text-3xl font-light text-charcoal mb-4 tracking-wide">
+                Découvrez nos Collections
+              </h2>
+              <p className="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
+                Chaque catégorie reflète un aspect unique de l&apos;artisanat
+                balinais traditionnel. Explorez nos sélections d&apos;articles authentiques.
+              </p>
+            </div>
 
-              {/* Filtres futurs */}
-              <div className="flex flex-wrap gap-3">
-                <button className="px-4 py-2 bg-charcoal text-soft rounded-lg font-medium hover:bg-rustic transition-colors duration-300">
-                  Tous les produits
-                </button>
-                <button className="px-4 py-2 border border-charcoal text-charcoal rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300">
-                  Mobilier
-                </button>
-                <button className="px-4 py-2 border border-charcoal text-charcoal rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300">
-                  Décoration
-                </button>
-                <button className="px-4 py-2 border border-charcoal text-charcoal rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300">
-                  Spiritualité
-                </button>
-              </div>
+            {/* Aperçu de chaque catégorie */}
+            <div className="space-y-16">
+              {categories.map((category) => (
+                <CategoryPreview key={category.id} category={category} />
+              ))}
             </div>
           </div>
         </section>
-
-        {/* Grille de produits */}
-        <CollectionProductGrid />
 
         {/* Section informative */}
         <section className="py-20 bg-gradient-to-r from-warm to-creamy">
