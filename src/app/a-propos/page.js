@@ -16,7 +16,7 @@ export default function APropos() {
       <section className="relative py-20 bg-gradient-to-br from-creamy to-warm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal mb-6 tracking-wide">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal mb-6">
               À propos de Bohemian House
             </h1>
             <p className="text-xl md:text-2xl text-charcoal/80 max-w-3xl mx-auto leading-relaxed">
@@ -26,66 +26,145 @@ export default function APropos() {
         </div>
       </section>
 
-      {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <nav className="flex items-center space-x-2 text-sm">
-          <Link
-            href="/"
-            className="text-charcoal/60 hover:text-charcoal transition-colors"
-          >
-            Accueil
-          </Link>
-          <span className="text-charcoal/40">/</span>
-          <span className="text-charcoal font-medium">À propos</span>
-        </nav>
-      </div>
-
-      {/* Section Sandra */}
+      {/* Section Sandra - Présentation zen avec Bali */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-8 tracking-wide">
-                L&apos;histoire de Sandra
-              </h2>
-              <div className="space-y-6 text-lg text-charcoal/80 leading-relaxed">
-                <p>
-                  Tout a commencé lors d&apos;un voyage magique à Bali. Sandra
-                  est tombée sous le charme de cette île extraordinaire, de sa
-                  culture riche et de son artisanat d&apos;exception.
-                </p>
-                <p>
-                  Fascinée par la beauté et l&apos;authenticité des meubles
-                  balinais, elle a eu l&apos;idée de partager cette passion en
-                  France. Chaque pièce qu&apos;elle sélectionne raconte une
-                  histoire, porte en elle l&apos;âme de Bali et le savoir-faire
-                  ancestral des artisans locaux.
-                </p>
-                <p>
-                  Bohemian House est né de cette rencontre entre Sandra et
-                  l&apos;art balinais : une boutique où chaque meuble voyage
-                  tout droit de l&apos;île des dieux pour apporter sérénité et
-                  élégance dans votre intérieur.
-                </p>
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6">
+              Rencontrez Sandra
+            </h2>
+            <p className="text-lg text-charcoal/70 max-w-2xl mx-auto">
+              La fondatrice de Bohemian House vous raconte son histoire
+            </p>
+          </div>
+
+          {/* Layout alterné avec images entrelacées */}
+          <div className="max-w-6xl mx-auto space-y-20">
+            {/* Section 1 : Introduction + Image plage à droite */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h3 className="text-3xl font-serif text-charcoal mb-6">
+                  Rencontrez Sandra
+                </h3>
+                <div className="prose prose-lg max-w-none text-charcoal/80 space-y-6">
+                  <p>
+                    Je m&apos;appelle Sandra, j&apos;ai 34 ans, et je suis ravie
+                    de vous accueillir dans mon univers.
+                  </p>
+                  <p>
+                    Mon aventure a commencé en <strong>2022</strong>, lors de
+                    mon premier voyage à Bali, un véritable coup de cœur.
+                    L&apos;île m&apos;a charmée par sa beauté, sa culture, et
+                    surtout par son artisanat exceptionnel.
+                  </p>
+                  <p>
+                    Passionnée depuis toujours par l&apos;artisanat et la
+                    décoration d&apos;intérieur, c&apos;est là-bas que j&apos;ai
+                    découvert un monde fascinant. Ce qui m&apos;a
+                    particulièrement touchée, c&apos;est le savoir-faire,
+                    l&apos;énergie, l&apos;amour et la passion que les artisans
+                    mettent dans leurs créations, ainsi que leur persévérance à
+                    transmettre leur art de génération en génération.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/plage-bali.jpg"
+                    alt="Plage paradisiaque de Bali - Source d'inspiration"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-white text-lg font-serif italic bg-black/20 backdrop-blur-sm rounded-md px-3 py-2 inline-block">
+                      L&apos;île des Dieux, source d&apos;inspiration infinie
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div>
-              <div className="relative h-80 bg-creamy rounded-2xl overflow-hidden shadow-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-warm/30 to-charcoal/20 flex items-center justify-center">
-                  <div className="text-center text-charcoal/60">
-                    <div className="w-20 h-20 mx-auto mb-3 bg-charcoal/10 rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-10 h-10"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
-                    </div>
-                    <p className="font-serif text-lg">Photo de Sandra</p>
-                    <p className="text-sm">À ajouter</p>
+            {/* Section 2 : Image temple à gauche + Suite présentation */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative lg:order-1">
+                <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/temple.jpg"
+                    alt="Temple traditionnel balinais - Spiritualité et artisanat"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-white text-lg font-serif italic bg-black/20 backdrop-blur-sm rounded-md px-3 py-2 inline-block">
+                      Spiritualité et artisanat ancestral
+                    </p>
                   </div>
+                </div>
+              </div>
+
+              <div className="space-y-6 lg:order-2">
+                <div className="prose prose-lg max-w-none text-charcoal/80 space-y-6">
+                  <p>
+                    Un autre moment clé de mon parcours a été la lecture du
+                    livre{" "}
+                    <strong>« L&apos;homme qui voulait être heureux »</strong>{" "}
+                    de Laurent Gounelle. Véritable révélation, il m&apos;a
+                    encouragée à suivre mes passions et à me lancer dans ce
+                    projet avec conviction et détermination.
+                  </p>
+                  <p>
+                    En <strong>2023</strong>, j&apos;ai choisi de repartir à
+                    Bali pour commencer cette aventure, un peu folle mais
+                    excitante. J&apos;y ai exploré des ruelles et découvert des
+                    ateliers incroyables où chaque objet est une pièce unique.
+                  </p>
+                  <p>
+                    Chaque article a été soigneusement sélectionné pour apporter
+                    une touche d&apos;exotisme et de sérénité à votre foyer,
+                    tout en vous invitant à voyager à travers ses créations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3 : Conclusion centrée */}
+            <div className="max-w-4xl mx-auto space-y-8 text-center">
+              <div className="prose prose-lg max-w-none text-charcoal/80 space-y-6">
+                <p>
+                  Aujourd&apos;hui, <strong>Bohemian House</strong> vous propose
+                  des objets de décoration uniques, alliant tradition, qualité
+                  et beauté, tout en soutenant l&apos;artisanat et les matières
+                  premières.
+                </p>
+                <p>
+                  Que ce soit des pots en rotin tissés, des paniers en bananier,
+                  des poteries en argile ou des boîtes en bambou, chaque produit
+                  est le fruit d&apos;une sélection minutieuse et d&apos;un
+                  travail amoureux.
+                </p>
+                <p>
+                  <strong>Merci de faire partie de cette aventure !</strong> Je
+                  suis heureuse de partager avec vous un peu de Bali et de ma
+                  passion pour la décoration et l&apos;artisanat.
+                </p>
+                <p>
+                  Cette expérience a donné naissance à Bohemian House : une
+                  boutique où chaque pièce voyage directement de l&apos;île des
+                  Dieux pour apporter sérénité et élégance dans votre intérieur.
+                </p>
+                <p className="italic">
+                  Si vous avez des questions ou besoin de conseils,
+                  n&apos;hésitez pas à me contacter, je serai ravie de vous
+                  aider.
+                </p>
+                <div className="mt-8">
+                  <span className="text-lg font-medium text-rustic">
+                    — Sandra
+                  </span>
                 </div>
               </div>
             </div>
@@ -97,20 +176,21 @@ export default function APropos() {
       <section className="py-20 bg-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6 tracking-wide">
+            <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6">
               Notre Mission
             </h2>
             <p className="text-lg text-charcoal/80 max-w-3xl mx-auto leading-relaxed">
-              Apporter l&apos;authenticité et la sérénité balinaise dans votre
-              quotidien
+              Partager la beauté et l&apos;authenticité de l&apos;artisanat
+              balinais, tout en soutenant les artisans et leurs traditions
+              ancestrales
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-warm to-creamy rounded-full flex items-center justify-center">
+            <div className="text-center p-8 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 mx-auto mb-6 bg-charcoal rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-charcoal"
+                  className="w-8 h-8 text-soft"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -123,19 +203,19 @@ export default function APropos() {
                   />
                 </svg>
               </div>
-              <h3 className="font-serif text-xl font-medium text-charcoal mb-4">
-                Authenticité
+              <h3 className="font-serif text-xl font-semibold text-charcoal mb-4">
+                Sélection Authentique
               </h3>
               <p className="text-charcoal/70 leading-relaxed">
-                Chaque pièce est soigneusement sélectionnée directement auprès
-                d&apos;artisans balinais authentiques.
+                Chaque pièce est soigneusement choisie lors de mes voyages à
+                Bali, directement dans les ateliers des artisans locaux.
               </p>
             </div>
 
-            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-warm to-creamy rounded-full flex items-center justify-center">
+            <div className="text-center p-8 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 mx-auto mb-6 bg-charcoal rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-charcoal"
+                  className="w-8 h-8 text-soft"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -148,19 +228,19 @@ export default function APropos() {
                   />
                 </svg>
               </div>
-              <h3 className="font-serif text-xl font-medium text-charcoal mb-4">
-                Passion
+              <h3 className="font-serif text-xl font-semibold text-charcoal mb-4">
+                Passion & Amour
               </h3>
               <p className="text-charcoal/70 leading-relaxed">
-                Notre amour pour l&apos;art balinais guide chacun de nos choix
-                et de nos recommandations.
+                Mon amour pour l&apos;artisanat et la culture balinaise guide
+                chacun de mes choix et se ressent dans chaque création.
               </p>
             </div>
 
-            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-warm to-creamy rounded-full flex items-center justify-center">
+            <div className="text-center p-8 bg-white rounded-lg shadow-sm">
+              <div className="w-16 h-16 mx-auto mb-6 bg-charcoal rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-charcoal"
+                  className="w-8 h-8 text-soft"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -173,12 +253,12 @@ export default function APropos() {
                   />
                 </svg>
               </div>
-              <h3 className="font-serif text-xl font-medium text-charcoal mb-4">
-                Sérénité
+              <h3 className="font-serif text-xl font-semibold text-charcoal mb-4">
+                Voyage & Évasion
               </h3>
               <p className="text-charcoal/70 leading-relaxed">
-                Nos meubles apportent paix et harmonie, créant des espaces
-                propices à la détente et à la méditation.
+                Chaque objet vous invite à voyager et apporte une touche
+                d&apos;exotisme et de sérénité dans votre foyer.
               </p>
             </div>
           </div>
@@ -189,7 +269,7 @@ export default function APropos() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6 tracking-wide">
+            <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6">
               Nos Valeurs
             </h2>
           </div>
@@ -243,7 +323,7 @@ export default function APropos() {
                   Respect de l&apos;Environnement
                 </h3>
                 <p className="text-charcoal/80 leading-relaxed">
-                  Nos meubles sont fabriqués à partir de matériaux naturels et
+                  Nos objets sont fabriqués à partir de matériaux naturels et
                   durables, dans le respect de l&apos;environnement balinais.
                 </p>
               </div>
@@ -310,7 +390,7 @@ export default function APropos() {
       {/* Call to Action */}
       <section className="py-20 bg-gradient-to-r from-warm to-creamy">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6 tracking-wide">
+          <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6">
             Rejoignez l&apos;aventure Bohemian House
           </h2>
           <p className="text-lg text-charcoal/80 mb-8 leading-relaxed">
