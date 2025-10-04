@@ -1,18 +1,37 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
+  const images = ["/images/fond1.jpeg", "/images/fond2.jpeg"];
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 10000); // Change toutes les 10 secondes
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <section className="relative h-screen flex items-center justify-center">
-      {/* Image de fond */}
+      {/* Images de fond avec transition */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/fond1.jpeg"
-          alt="Mobilier balinais Bohemian House"
-          fill
-          className="object-cover"
-          priority
-        />
+        {images.map((src, index) => (
+          <Image
+            key={src}
+            src={src}
+            alt="Mobilier balinais Bohemian House"
+            fill
+            className={`object-cover transition-opacity duration-1000 ${
+              index === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+            priority={index === 0}
+          />
+        ))}
         {/* Overlay pour améliorer la lisibilité */}
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
