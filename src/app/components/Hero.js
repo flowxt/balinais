@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Image de fond */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/meuble-hero.png"
+          src="/images/fond1.jpeg"
           alt="Mobilier balinais Bohemian House"
           fill
           className="object-cover"
