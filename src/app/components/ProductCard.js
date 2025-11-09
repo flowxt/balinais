@@ -89,7 +89,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                 </select>
               )}
 
-              {/* Bouton d'action */}
+              {/* Boutons d'action */}
               <button
                 onClick={handleAddToCart}
                 disabled={loading || !selectedVariant?.id || !selectedVariant?.availableForSale}
@@ -115,6 +115,13 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   )}
                 </span>
               </button>
+              
+              <Link 
+                href={`/produit/${productId}`}
+                className="block w-full text-center text-sm text-charcoal hover:text-rustic transition-colors py-1 mt-2"
+              >
+                Voir les détails
+              </Link>
             </div>
           </div>
         </div>
@@ -185,32 +192,41 @@ export default function ProductCard({ product, viewMode = "grid" }) {
           </div>
         )}
 
-        {/* Bouton d'action */}
-        <button
-          onClick={handleAddToCart}
-          disabled={loading || !selectedVariant?.id || !selectedVariant?.availableForSale}
-          className="group/btn w-full bg-charcoal text-white py-2.5 rounded-md text-sm font-medium hover:bg-rustic transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-        >
-          <span className="flex items-center justify-center gap-2">
-            {loading ? (
-              "Ajout..."
-            ) : selectedVariant?.availableForSale ? (
-              <>
-                Ajouter
-                <svg 
-                  className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-              </>
-            ) : (
-              "Épuisé"
-            )}
-          </span>
-        </button>
+        {/* Boutons d'action */}
+        <div className="space-y-2">
+          <button
+            onClick={handleAddToCart}
+            disabled={loading || !selectedVariant?.id || !selectedVariant?.availableForSale}
+            className="group/btn w-full bg-charcoal text-white py-2.5 rounded-md text-sm font-medium hover:bg-rustic transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <span className="flex items-center justify-center gap-2">
+              {loading ? (
+                "Ajout..."
+              ) : selectedVariant?.availableForSale ? (
+                <>
+                  Ajouter
+                  <svg 
+                    className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                </>
+              ) : (
+                "Épuisé"
+              )}
+            </span>
+          </button>
+          
+          <Link 
+            href={`/produit/${productId}`}
+            className="block w-full text-center text-sm text-charcoal hover:text-rustic transition-colors py-1"
+          >
+            Voir les détails
+          </Link>
+        </div>
       </div>
     </div>
   );

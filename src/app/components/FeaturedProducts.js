@@ -15,8 +15,16 @@ export default function FeaturedProducts() {
       try {
         setLoading(true);
         const fetchedProducts = await getAllProducts();
-        // Prendre seulement les 3 premiers produits
-        setProducts(fetchedProducts.slice(0, 3));
+        
+        // Mélanger aléatoirement les produits (Fisher-Yates shuffle)
+        const shuffled = [...fetchedProducts];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
+        // Prendre les 3 premiers produits après mélange
+        setProducts(shuffled.slice(0, 3));
       } catch (err) {
         setError("Erreur lors du chargement des produits");
         console.error(err);
