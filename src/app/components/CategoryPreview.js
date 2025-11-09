@@ -13,7 +13,7 @@ export default function CategoryPreview({ category }) {
     async function fetchCategoryPreview() {
       try {
         setLoading(true);
-        const previewProducts = await getProductsPreviewByCategory(category.id, 4);
+        const previewProducts = await getProductsPreviewByCategory(category.id, 3);
         setProducts(previewProducts);
       } catch (error) {
         console.error(`Erreur lors du chargement des produits pour ${category.name}:`, error);
@@ -34,8 +34,8 @@ export default function CategoryPreview({ category }) {
           </h2>
           <div className="w-24 h-8 bg-charcoal/10 rounded animate-pulse"></div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[...Array(4)].map((_, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(3)].map((_, i) => (
             <div key={i} className="bg-charcoal/5 rounded-2xl h-80 animate-pulse"></div>
           ))}
         </div>
@@ -95,7 +95,7 @@ export default function CategoryPreview({ category }) {
       </div>
 
       {/* Grille de produits en aperçu */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

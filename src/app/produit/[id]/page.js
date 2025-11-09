@@ -17,6 +17,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -50,8 +51,9 @@ export default function ProductPage() {
   }, [params.id]);
 
   const handleAddToCart = async () => {
-    if (product?.variants?.[0]?.id) {
-      await addToCart(product.variants[0].id, quantity);
+    const selectedVariant = product?.variants?.[selectedVariantIndex];
+    if (selectedVariant?.id) {
+      await addToCart(selectedVariant.id, quantity);
     }
   };
 
@@ -91,10 +93,11 @@ export default function ProductPage() {
     );
   }
 
-  const variant = product.variants?.[0];
-  const price = variant?.price?.amount || "0";
-  const currencyCode = variant?.price?.currencyCode || "EUR";
+  const selectedVariant = product.variants?.[selectedVariantIndex] || product.variants?.[0];
+  const price = selectedVariant?.price?.amount || "0";
+  const currencyCode = selectedVariant?.price?.currencyCode || "EUR";
   const images = product.images || [];
+  const hasMultipleVariants = product.variants && product.variants.length > 1;
 
   return (
     <div className="min-h-screen bg-soft">
@@ -165,8 +168,8 @@ export default function ProductPage() {
                 <span className="font-serif text-3xl font-bold text-rustic">
                   {price} {currencyCode}
                 </span>
-                {/* Affichage du stock - on considère disponible si le variant existe et que le produit est disponible */}
-                {variant && product.availableForSale ? (
+                {/* Affichage du stock - on considère disponible si le variant sélectionné est disponible */}
+                {selectedVariant?.availableForSale ? (
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <span className="text-green-600 font-medium">Disponible</span>
@@ -187,6 +190,34 @@ export default function ProductPage() {
                 {product.description || "Aucune description disponible."}
               </p>
             </div>
+
+            {/* Sélecteur de variantes (si plusieurs variantes existent) */}
+            {hasMultipleVariants && (
+              <div className="space-y-3">
+                <label className="font-medium text-charcoal block">
+                  Sélectionnez une option :
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {product.variants.map((variant, index) => (
+                    <button
+                      key={variant.id}
+                      onClick={() => setSelectedVariantIndex(index)}
+                      disabled={!variant.availableForSale}
+                      className={`px-4 py-2 border-2 rounded-lg font-medium transition-all duration-200 ${
+                        selectedVariantIndex === index
+                          ? "border-rustic bg-rustic text-white"
+                          : variant.availableForSale
+                          ? "border-charcoal text-charcoal hover:border-rustic hover:text-rustic"
+                          : "border-gray-300 text-gray-400 cursor-not-allowed line-through"
+                      }`}
+                    >
+                      {variant.title}
+                      {!variant.availableForSale && " (Épuisé)"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Sélecteur de quantité et ajout au panier */}
             <div className="space-y-4">
@@ -214,10 +245,10 @@ export default function ProductPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={handleAddToCart}
-                  disabled={cartLoading || !product.availableForSale || !variant?.id}
+                  disabled={cartLoading || !selectedVariant?.availableForSale || !selectedVariant?.id}
                   className="flex-1 bg-charcoal text-soft px-8 py-4 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {cartLoading ? "Ajout en cours..." : product.availableForSale ? "Ajouter au panier" : "Non disponible"}
+                  {cartLoading ? "Ajout en cours..." : selectedVariant?.availableForSale ? "Ajouter au panier" : "Non disponible"}
                 </button>
                 
                 <button className="flex-1 border-2 border-charcoal text-charcoal px-8 py-4 rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300">

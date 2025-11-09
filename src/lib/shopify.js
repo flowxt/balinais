@@ -247,7 +247,7 @@ export async function getAllProducts() {
                   }
                 }
               }
-              variants(first: 1) {
+              variants(first: 50) {
                 edges {
                   node {
                     id
@@ -321,13 +321,102 @@ export async function getAllProducts() {
 // Fonction pour récupérer un produit par ID
 export async function getProduct(productId) {
   try {
-    const shopifyClient = await getShopifyClient();
-    if (!shopifyClient) {
-      // Retourner un produit de test
+    // Si les variables d'environnement ne sont pas définies, retourner des données de test
+    if (!SHOPIFY_DOMAIN || !SHOPIFY_TOKEN) {
+      console.warn("Variables d'environnement Shopify manquantes, utilisation de données de test");
       const mockProducts = getMockProducts();
       return mockProducts.find(p => p.id === productId) || null;
     }
-    const product = await shopifyClient.product.fetch(productId);
+
+    // Utiliser une requête GraphQL pour récupérer le produit avec toutes les variantes et leur stock
+    const query = `
+      {
+        product(id: "${productId}") {
+          id
+          title
+          description
+          descriptionHtml
+          tags
+          availableForSale
+          images(first: 10) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+          variants(first: 50) {
+            edges {
+              node {
+                id
+                title
+                availableForSale
+                quantityAvailable
+                priceV2 {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch(
+      `https://${SHOPIFY_DOMAIN}/api/2023-01/graphql.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": SHOPIFY_TOKEN,
+        },
+        body: JSON.stringify({ query }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { data, errors } = await response.json();
+
+    if (errors) {
+      console.error("Erreurs GraphQL:", errors);
+      return null;
+    }
+
+    if (!data.product) {
+      return null;
+    }
+
+    const node = data.product;
+
+    // Transformer les données pour correspondre au format attendu
+    const product = {
+      id: node.id,
+      title: node.title,
+      description: node.description,
+      descriptionHtml: node.descriptionHtml,
+      tags: node.tags,
+      availableForSale: node.availableForSale,
+      images: node.images.edges.map(({ node: imageNode }) => ({
+        src: imageNode.url,
+        altText: imageNode.altText,
+      })),
+      variants: node.variants.edges.map(({ node: variantNode }) => ({
+        id: variantNode.id,
+        title: variantNode.title,
+        availableForSale: variantNode.availableForSale,
+        quantityAvailable: variantNode.quantityAvailable,
+        price: {
+          amount: variantNode.priceV2.amount,
+          currencyCode: variantNode.priceV2.currencyCode,
+        },
+      })),
+    };
+
     return product;
   } catch (error) {
     console.error("Erreur lors de la récupération du produit:", error);

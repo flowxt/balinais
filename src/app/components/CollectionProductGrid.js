@@ -134,27 +134,27 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
   }
 
   return (
-    <section className="py-20 bg-soft">
+    <section className="py-16 bg-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Contrôles d'affichage et tri */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-16 pb-8 border-b border-charcoal/10">
           <div className="mb-4 md:mb-0">
-            <p className="text-charcoal/70">
-              {products.length} {products.length === 1 ? "produit" : "produits"}{" "}
+            <p className="text-charcoal/60 font-medium">
+              {products.length} {products.length === 1 ? "article" : "articles"}{" "}
               disponible{products.length > 1 ? "s" : ""}
             </p>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-6">
             {/* Sélecteur de tri */}
-            <div className="flex items-center space-x-2">
-              <label className="text-sm text-charcoal font-medium">
-                Trier par:
+            <div className="flex items-center gap-3">
+              <label className="text-sm text-charcoal/70 font-medium">
+                Trier par
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-rustic focus:border-transparent"
+                className="border border-charcoal/20 rounded-xl px-4 py-2.5 text-sm bg-white font-medium text-charcoal focus:ring-2 focus:ring-rustic focus:border-transparent transition-all duration-200 hover:border-rustic/50"
               >
                 <option value="featured">Sélection</option>
                 <option value="name">Nom (A-Z)</option>
@@ -164,15 +164,18 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
             </div>
 
             {/* Sélecteur de vue */}
-            <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+            <div className="flex items-center gap-2 bg-creamy/50 rounded-xl p-1.5">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 rounded ${
-                  viewMode === "grid" ? "bg-white shadow-sm" : ""
+                className={`p-2.5 rounded-lg transition-all duration-200 ${
+                  viewMode === "grid" 
+                    ? "bg-white shadow-md text-charcoal" 
+                    : "text-charcoal/50 hover:text-charcoal/80"
                 }`}
+                title="Vue grille"
               >
                 <svg
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -181,12 +184,15 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 rounded ${
-                  viewMode === "list" ? "bg-white shadow-sm" : ""
+                className={`p-2.5 rounded-lg transition-all duration-200 ${
+                  viewMode === "list" 
+                    ? "bg-white shadow-md text-charcoal" 
+                    : "text-charcoal/50 hover:text-charcoal/80"
                 }`}
+                title="Vue liste"
               >
                 <svg
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -201,8 +207,8 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
         <div
           className={
             viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-              : "space-y-6"
+              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              : "space-y-4"
           }
         >
           {sortedProducts.map((product) => (
@@ -216,15 +222,22 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
 
         {/* Message informatif si peu de produits */}
         {products.length <= 3 && (
-          <div className="mt-16 text-center p-8 bg-creamy/50 rounded-2xl">
-            <h3 className="font-serif text-xl font-semibold text-charcoal mb-3">
-              Plus de merveilles arrivent bientôt !
-            </h3>
-            <p className="text-charcoal/70 leading-relaxed">
-              Nos artisans balinais travaillent actuellement sur de nouvelles
-              pièces exceptionnelles. Suivez-nous pour être informé des
-              dernières arrivées.
-            </p>
+          <div className="mt-20 text-center p-12 bg-gradient-to-br from-warm/20 to-creamy/30 rounded-3xl border border-charcoal/5">
+            <div className="max-w-2xl mx-auto">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-charcoal to-rustic rounded-2xl flex items-center justify-center">
+                <svg className="w-8 h-8 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+              <h3 className="font-serif text-2xl font-light text-charcoal mb-4 tracking-wide">
+                Plus de merveilles arrivent bientôt !
+              </h3>
+              <p className="text-charcoal/70 leading-relaxed text-lg">
+                Nos artisans balinais travaillent actuellement sur de nouvelles
+                pièces exceptionnelles. Suivez-nous pour être informé des
+                dernières arrivées.
+              </p>
+            </div>
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
@@ -7,78 +8,113 @@ import { extractProductId } from "@/lib/utils";
 
 export default function ProductCard({ product, viewMode = "grid" }) {
   const { addToCart, loading } = useCart();
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
 
   if (!product) return null;
 
-  const variant = product.variants?.[0];
-  const price = variant?.price?.amount || "0";
-  const currencyCode = variant?.price?.currencyCode || "EUR";
   const image = product.images?.[0];
   const productId = extractProductId(product.id);
+  const hasMultipleVariants = product.variants && product.variants.length > 1;
+  
+  // Variante sélectionnée
+  const selectedVariant = product.variants?.[selectedVariantIndex] || product.variants?.[0];
+  const displayPrice = selectedVariant?.price?.amount || "0";
+  const currencyCode = selectedVariant?.price?.currencyCode || "EUR";
 
   const handleAddToCart = async () => {
-    if (variant?.id) {
-      await addToCart(variant.id, 1);
+    if (selectedVariant?.id) {
+      await addToCart(selectedVariant.id, 1);
     }
   };
 
   if (viewMode === "list") {
     return (
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      <div className="group bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100">
         <div className="flex flex-col md:flex-row">
           {/* Image du produit */}
-          <div className="relative w-full md:w-64 h-48 md:h-auto bg-creamy flex-shrink-0">
+          <Link href={`/produit/${productId}`} className="relative w-full md:w-64 h-56 md:h-auto bg-gray-50 flex-shrink-0 overflow-hidden">
             {image ? (
               <Image
                 src={image.src}
                 alt={product.title}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 256px"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             ) : (
               <div className="flex items-center justify-center h-full">
-                <span className="text-rustic">Aucune image</span>
+                <span className="text-gray-400 text-sm">Aucune image</span>
               </div>
             )}
-          </div>
+            
+            {/* Badge si épuisé */}
+            {!selectedVariant?.availableForSale && (
+              <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
+                Épuisé
+              </div>
+            )}
+          </Link>
 
           {/* Informations du produit */}
-          <div className="p-6 flex-1">
-            <div className="flex flex-col md:flex-row md:justify-between h-full">
-              <div className="flex-1 mb-4 md:mb-0">
-                <h3 className="font-serif text-xl font-semibold text-charcoal mb-2">
+          <div className="p-5 flex-1 flex flex-col md:flex-row md:items-center gap-4">
+            <div className="flex-1">
+              <Link href={`/produit/${productId}`}>
+                <h3 className="font-medium text-lg text-charcoal mb-2 hover:text-rustic transition-colors">
                   {product.title}
                 </h3>
-                <p className="text-charcoal/70 mb-4">{product.description}</p>
+              </Link>
+              <p className="text-sm text-gray-600 line-clamp-2 mb-3">{product.description}</p>
+              
+              {/* Prix */}
+              <div className="mb-3">
+                <span className="text-2xl font-semibold text-golden">{displayPrice}</span>
+                <span className="text-sm text-gray-500 ml-1">{currencyCode}</span>
               </div>
+            </div>
 
-              <div className="md:ml-6 flex flex-col justify-between items-end">
-                <div className="font-serif mb-4">
-                  <span className="text-xl font-semibold text-golden">
-                    {price}
-                  </span>
-                  <span className="text-sm font-normal ml-1 text-golden/70">
-                    {currencyCode}
-                  </span>
-                </div>
+            <div className="flex flex-col gap-3 md:w-56">
+              {/* Sélecteur de variantes */}
+              {hasMultipleVariants && (
+                <select
+                  value={selectedVariantIndex}
+                  onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-rustic focus:border-rustic"
+                >
+                  {product.variants.map((variant, index) => (
+                    <option key={variant.id} value={index} disabled={!variant.availableForSale}>
+                      {variant.title} - {variant.price.amount} {variant.price.currencyCode}
+                      {!variant.availableForSale && " (Épuisé)"}
+                    </option>
+                  ))}
+                </select>
+              )}
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleAddToCart}
-                    disabled={loading || !variant?.id}
-                    className="bg-charcoal text-soft px-4 py-2 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {loading ? "Ajout..." : "Ajouter"}
-                  </button>
-                  <Link
-                    href={`/produit/${productId}`}
-                    className="border border-charcoal text-charcoal px-4 py-2 rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300 text-center"
-                  >
-                    Détails
-                  </Link>
-                </div>
-              </div>
+              {/* Bouton d'action */}
+              <button
+                onClick={handleAddToCart}
+                disabled={loading || !selectedVariant?.id || !selectedVariant?.availableForSale}
+                className="group/btn w-full bg-charcoal text-white py-2.5 rounded-md text-sm font-medium hover:bg-rustic transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {loading ? (
+                    "Ajout..."
+                  ) : selectedVariant?.availableForSale ? (
+                    <>
+                      Ajouter
+                      <svg 
+                        className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                    </>
+                  ) : (
+                    "Épuisé"
+                  )}
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -88,61 +124,93 @@ export default function ProductCard({ product, viewMode = "grid" }) {
 
   // Vue grille par défaut
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+    <div className="group bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 h-full flex flex-col overflow-hidden border border-gray-100">
       {/* Image du produit */}
-      <div className="relative h-64 bg-creamy flex-shrink-0">
+      <Link href={`/produit/${productId}`} className="relative aspect-square bg-gray-50 overflow-hidden">
         {image ? (
           <Image
             src={image.src}
             alt={product.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="flex items-center justify-center h-full">
-            <span className="text-rustic">Aucune image</span>
+            <span className="text-gray-400 text-sm">Aucune image</span>
           </div>
         )}
-      </div>
+        
+        {/* Badge si épuisé */}
+        {!selectedVariant?.availableForSale && (
+          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
+            Épuisé
+          </div>
+        )}
+      </Link>
 
       {/* Informations du produit */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-serif text-xl font-semibold text-charcoal mb-2">
-          {product.title}
-        </h3>
+      <div className="p-4 flex flex-col flex-1">
+        <Link href={`/produit/${productId}`}>
+          <h3 className="font-medium text-charcoal mb-2 line-clamp-2 hover:text-rustic transition-colors">
+            {product.title}
+          </h3>
+        </Link>
 
-        <p className="text-charcoal/70 mb-4 flex-1 line-clamp-3">
+        <p className="text-sm text-gray-600 mb-3 flex-1 line-clamp-2">
           {product.description}
         </p>
 
-        {/* Section prix et boutons fixée en bas */}
-        <div className="mt-auto">
-          <div className="flex items-center justify-between mb-4">
-            <div className="font-serif">
-              <span className="text-xl font-semibold text-golden">{price}</span>
-              <span className="text-sm font-normal ml-1 text-golden/70">
-                {currencyCode}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={handleAddToCart}
-              disabled={loading || !variant?.id}
-              className="flex-1 bg-charcoal text-soft px-4 py-2 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-center"
-            >
-              {loading ? "Ajout..." : "Ajouter"}
-            </button>
-            <Link
-              href={`/produit/${productId}`}
-              className="flex-1 border border-charcoal text-charcoal px-4 py-2 rounded-lg font-medium hover:bg-charcoal hover:text-soft transition-colors duration-300 text-center"
-            >
-              Détails
-            </Link>
-          </div>
+        {/* Prix */}
+        <div className="mb-3">
+          <span className="text-xl font-semibold text-golden">{displayPrice}</span>
+          <span className="text-sm text-gray-500 ml-1">{currencyCode}</span>
         </div>
+
+        {/* Sélecteur de variantes */}
+        {hasMultipleVariants && (
+          <div className="mb-3">
+            <select
+              value={selectedVariantIndex}
+              onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-rustic focus:border-rustic"
+            >
+              {product.variants.map((variant, index) => (
+                <option key={variant.id} value={index} disabled={!variant.availableForSale}>
+                  {variant.title} - {variant.price.amount} {variant.price.currencyCode}
+                  {!variant.availableForSale && " (Épuisé)"}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Bouton d'action */}
+        <button
+          onClick={handleAddToCart}
+          disabled={loading || !selectedVariant?.id || !selectedVariant?.availableForSale}
+          className="group/btn w-full bg-charcoal text-white py-2.5 rounded-md text-sm font-medium hover:bg-rustic transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <span className="flex items-center justify-center gap-2">
+            {loading ? (
+              "Ajout..."
+            ) : selectedVariant?.availableForSale ? (
+              <>
+                Ajouter
+                <svg 
+                  className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+              </>
+            ) : (
+              "Épuisé"
+            )}
+          </span>
+        </button>
       </div>
     </div>
   );
