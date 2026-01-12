@@ -45,7 +45,7 @@ export default function Hero() {
 
           {/* Sous-titre */}
           <p className="font-serif text-xl md:text-2xl text-white/90 mb-8 italic drop-shadow-lg font-light tracking-wide">
-            L&apos;art du mobilier balinais authentique
+            Une invitation au voyage à travers nos créations
           </p>
 
           {/* Description */}
