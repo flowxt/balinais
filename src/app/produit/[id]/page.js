@@ -186,9 +186,16 @@ export default function ProductPage() {
             {/* Description */}
             <div className="prose prose-charcoal max-w-none">
               <h3 className="font-serif text-xl font-semibold text-charcoal mb-3">Description</h3>
-              <p className="text-charcoal/80 leading-relaxed whitespace-pre-line">
-                {product.description || "Aucune description disponible."}
-              </p>
+              {product.descriptionHtml ? (
+                <div 
+                  className="text-charcoal/80 leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0"
+                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                />
+              ) : (
+                <p className="text-charcoal/80 leading-relaxed">
+                  {product.description || "Aucune description disponible."}
+                </p>
+              )}
             </div>
 
             {/* Sélecteur de variantes (si plusieurs variantes existent) */}
