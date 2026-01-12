@@ -198,6 +198,27 @@ export default function ProductPage() {
               )}
             </div>
 
+            {/* Encart "Réalisé à la main" */}
+            <div className="bg-gradient-to-r from-creamy/50 to-warm/30 rounded-xl p-5 border border-warm/20">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-charcoal rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-serif font-semibold text-charcoal mb-1">
+                    Réalisé à la main
+                  </h4>
+                  <p className="text-sm text-charcoal/70 leading-relaxed">
+                    Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique, avec de légères variations de couleur, de texture et de dimensions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Sélecteur de variantes (si plusieurs variantes existent) */}
             {hasMultipleVariants && (
               <div className="space-y-3">
