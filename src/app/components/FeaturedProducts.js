@@ -112,41 +112,43 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-gradient-to-b from-soft to-white relative">
+      {/* Décoration subtile */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warm/30 to-transparent"></div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-charcoal mb-6 tracking-wide">
+          <span className="inline-block text-warm/80 text-sm font-medium tracking-[0.3em] uppercase mb-4">
+            Sélection exclusive
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl font-light text-charcoal mb-6 tracking-wide">
             Les Coups de Cœur de Sandra
           </h2>
-          <p className="text-lg text-charcoal/80 max-w-3xl mx-auto leading-relaxed">
-            Découvrez une sélection d&apos;articles authentiques choisis avec passion.
-            Chaque pièce raconte une histoire et apporte l&apos;âme de Bali dans votre intérieur.
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-6"></div>
+          <p className="text-lg text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
+            Une sélection d&apos;articles authentiques choisis avec passion.
+            Chaque pièce raconte une histoire unique.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        {/* Call to Action */}
+        {/* Call to Action élégant */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-warm/20 to-creamy/20 rounded-3xl p-8 md:p-12">
-            <h3 className="font-serif text-2xl md:text-3xl font-light text-charcoal mb-4 tracking-wide">
-              Envie de découvrir plus de merveilles ?
-            </h3>
-            <p className="text-lg text-charcoal/80 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Explorez toute notre collection d&apos;articles balinais authentiques 
-              et laissez-vous séduire par la richesse de l&apos;artisanat traditionnel.
-            </p>
+          <div className="relative inline-block">
             <Link
               href="/collections"
-              className="inline-flex items-center bg-charcoal text-soft px-8 py-4 rounded-lg font-medium hover:bg-rustic transition-colors duration-300 shadow-lg"
+              className="group inline-flex items-center text-charcoal font-medium text-lg hover:text-warm transition-colors duration-300"
             >
-              Voir tous nos articles
+              <span className="border-b-2 border-charcoal/20 group-hover:border-warm pb-1 transition-colors duration-300">
+                Découvrir toute la collection
+              </span>
               <svg
-                className="w-5 h-5 ml-2"
+                className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
