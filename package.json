@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "graphql-request": "^7.2.0",
-    "next": "15.3.5",
+    "next": "^16.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "shopify-buy": "^3.0.7"
@@ -19,7 +19,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.3.5",
+    "eslint-config-next": "^16.1.1",
     "tailwindcss": "^4"
   }
 }
