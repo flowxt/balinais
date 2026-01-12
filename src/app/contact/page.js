@@ -176,24 +176,6 @@ export default function Contact() {
               </h2>
               
               <div className="space-y-8">
-                
-                {/* Adresse */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-warm to-creamy rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-medium text-charcoal mb-2">Showroom</h3>
-                    <p className="text-charcoal/80 leading-relaxed">
-                      123 Rue de la Paix<br />
-                      75001 Paris, France<br />
-                      <span className="text-sm text-charcoal/60 italic">Sur rendez-vous uniquement</span>
-                    </p>
-                  </div>
-                </div>
 
                 {/* Téléphone */}
                 <div className="flex items-start space-x-4">
@@ -205,13 +187,9 @@ export default function Contact() {
                   <div>
                     <h3 className="font-serif text-xl font-medium text-charcoal mb-2">Téléphone</h3>
                     <p className="text-charcoal/80 leading-relaxed">
-                      <a href="tel:+33123456789" className="hover:text-warm transition-colors">
-                        +33 1 23 45 67 89
-                      </a><br />
-                      <span className="text-sm text-charcoal/60">
-                        Lun - Ven : 9h00 - 18h00<br />
-                        Sam : 10h00 - 16h00
-                      </span>
+                      <a href="tel:+33772776090" className="hover:text-warm transition-colors">
+                        07 72 77 60 90
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -252,9 +230,6 @@ export default function Contact() {
                       <a href="#" className="text-charcoal/80 hover:text-warm transition-colors">
                         Facebook
                       </a>
-                      <a href="#" className="text-charcoal/80 hover:text-warm transition-colors">
-                        Pinterest
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -290,11 +265,11 @@ export default function Contact() {
 
             <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
-                Puis-je voir les meubles avant achat ?
+                Comment puis-je passer commande ?
               </h3>
               <p className="text-charcoal/80 leading-relaxed">
-                Absolument ! Notre showroom est ouvert sur rendez-vous. Contactez-nous 
-                pour planifier votre visite et découvrir nos pièces en personne.
+                Toutes nos commandes se font directement en ligne via notre boutique. 
+                Parcourez nos collections, ajoutez vos coups de cœur au panier et finalisez votre achat en toute simplicité !
               </p>
             </div>
 
