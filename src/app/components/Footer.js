@@ -81,7 +81,7 @@ export default function Footer() {
                   className="text-soft/60 hover:text-soft transition-colors duration-200 text-sm inline-flex items-center group"
                 >
                   <span className="w-0 group-hover:w-3 h-px bg-warm mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                  Nos Articles
+                  Boutique
                 </Link>
               </li>
               <li>

@@ -50,7 +50,7 @@ export default function Navigation() {
               href="/collections"
               className="relative px-4 py-2 text-charcoal/70 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
             >
-              Nos Articles
+              Boutique
               <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-warm scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
@@ -157,7 +157,7 @@ export default function Navigation() {
               onClick={() => setMobileMenuOpen(false)}
               className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
             >
-              Nos Articles
+              Boutique
             </Link>
             <Link
               href="/a-propos"
