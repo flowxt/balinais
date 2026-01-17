@@ -13,7 +13,7 @@ export default function Home() {
         <Hero />
 
         {/* Section de présentation */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-gradient-to-b from-soft via-creamy/30 to-soft relative overflow-hidden">
           {/* Motif décoratif subtil */}
           <div className="absolute inset-0 opacity-[0.02]">
             <div className="absolute top-0 left-0 w-96 h-96 bg-warm rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -127,7 +127,7 @@ export default function Home() {
         <FeaturedProducts />
 
         {/* Section Réassurance */}
-        <section className="py-16 bg-white border-y border-charcoal/5">
+        <section className="py-16 bg-gradient-to-r from-creamy/40 via-warm/20 to-creamy/40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               <div className="text-center group">

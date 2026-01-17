@@ -38,7 +38,7 @@ export default function FeaturedProducts() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center py-20">
             <div className="text-center">
@@ -55,7 +55,7 @@ export default function FeaturedProducts() {
 
   if (error) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center py-20">
             <div className="text-center">
@@ -82,7 +82,7 @@ export default function FeaturedProducts() {
 
   if (products.length === 0) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-20">
             <svg
@@ -112,7 +112,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-soft to-white relative">
+    <section className="py-24 bg-gradient-to-b from-warm/10 via-creamy/20 to-soft relative">
       {/* Décoration subtile */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warm/30 to-transparent"></div>
       
