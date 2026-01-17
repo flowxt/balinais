@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import { extractProductId } from "@/lib/utils";
+import FavoriteButton from "./FavoriteButton";
 
 export default function ProductCard({ product, viewMode = "grid" }) {
   const { addToCart, loading } = useCart();
@@ -170,9 +171,9 @@ export default function ProductCard({ product, viewMode = "grid" }) {
             </div>
           )}
 
-          {/* Badge "Fait main" */}
-          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-charcoal/70 px-3 py-1.5 rounded-full text-[10px] font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Fait main
+          {/* Bouton Favori */}
+          <div className="absolute top-4 right-4 z-10">
+            <FavoriteButton productId={product.id} />
           </div>
 
           {/* Bouton rapide d'ajout au panier */}

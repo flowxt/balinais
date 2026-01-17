@@ -4,9 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useFavorites } from "@/contexts/FavoritesContext";
 
 export default function Navigation() {
   const { toggleCart, getTotalItems } = useCart();
+  const { isAuthenticated, customer } = useAuth();
+  const { favoritesCount } = useFavorites();
   const totalItems = getTotalItems();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -71,6 +75,59 @@ export default function Navigation() {
             {/* Séparateur vertical */}
             <div className="w-px h-6 bg-charcoal/10 mx-2"></div>
 
+            {/* Icône Favoris */}
+            <Link
+              href={isAuthenticated ? "/compte/favoris" : "/connexion"}
+              className="relative p-2.5 text-charcoal/60 hover:text-warm transition-colors duration-200 rounded-full hover:bg-warm/10"
+              title="Mes favoris"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              {favoritesCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Icône Compte */}
+            <Link
+              href={isAuthenticated ? "/compte" : "/connexion"}
+              className="relative p-2.5 text-charcoal/60 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-warm/10 group"
+              title={isAuthenticated ? `Bonjour ${customer?.firstName || ""}` : "Se connecter"}
+            >
+              {isAuthenticated ? (
+                <div className="w-5 h-5 bg-warm rounded-full flex items-center justify-center text-[10px] font-semibold text-charcoal">
+                  {customer?.firstName?.[0]?.toUpperCase() || "U"}
+                </div>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              )}
+            </Link>
+
             {/* Icône du panier */}
             <button
               onClick={toggleCart}
@@ -97,8 +154,59 @@ export default function Navigation() {
             </button>
           </div>
 
-          {/* Mobile: Cart + Menu button */}
-          <div className="md:hidden flex items-center gap-2">
+          {/* Mobile: Icons + Menu button */}
+          <div className="md:hidden flex items-center gap-1">
+            {/* Favoris mobile */}
+            <Link
+              href={isAuthenticated ? "/compte/favoris" : "/connexion"}
+              className="relative p-2 text-charcoal/60 hover:text-warm transition-colors"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              {favoritesCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Compte mobile */}
+            <Link
+              href={isAuthenticated ? "/compte" : "/connexion"}
+              className="relative p-2 text-charcoal/60 hover:text-charcoal transition-colors"
+            >
+              {isAuthenticated ? (
+                <div className="w-5 h-5 bg-warm rounded-full flex items-center justify-center text-[10px] font-semibold text-charcoal">
+                  {customer?.firstName?.[0]?.toUpperCase() || "U"}
+                </div>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              )}
+            </Link>
+
             {/* Panier mobile */}
             <button
               onClick={toggleCart}
@@ -172,6 +280,21 @@ export default function Navigation() {
               className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
             >
               Contact
+            </Link>
+            
+            {/* Séparateur */}
+            <div className="h-px bg-charcoal/5 my-2"></div>
+            
+            {/* Compte */}
+            <Link
+              href={isAuthenticated ? "/compte" : "/connexion"}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              {isAuthenticated ? `Mon compte (${customer?.firstName || ""})` : "Se connecter"}
             </Link>
           </div>
         )}

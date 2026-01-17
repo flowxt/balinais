@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProduct } from "@/lib/shopify";
 import { useCart } from "@/contexts/CartContext";
+import FavoriteButton from "../../components/FavoriteButton";
 import Navigation from "../../components/Navigation";
 import Cart from "../../components/Cart";
 import Footer from "../../components/Footer";
@@ -185,9 +186,12 @@ export default function ProductPage() {
           <div className="lg:py-4">
             {/* Titre et prix */}
             <div className="mb-8">
-              <h1 className="font-serif text-3xl lg:text-4xl text-charcoal mb-6 leading-tight">
-                {product.title}
-              </h1>
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <h1 className="font-serif text-3xl lg:text-4xl text-charcoal leading-tight">
+                  {product.title}
+                </h1>
+                <FavoriteButton productId={product.id} className="mt-1" />
+              </div>
               
               <div className="flex items-center gap-6">
                 <div>

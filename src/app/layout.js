@@ -1,6 +1,8 @@
 import { Source_Sans_3, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { FavoritesProvider } from "@/contexts/FavoritesContext";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-sans",
@@ -27,7 +29,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${sourceSans.variable} ${cormorant.variable} antialiased`}
       >
-        <CartProvider>{children}</CartProvider>
+        <AuthProvider>
+          <FavoritesProvider>
+            <CartProvider>{children}</CartProvider>
+          </FavoritesProvider>
+        </AuthProvider>
       </body>
     </html>
   );
