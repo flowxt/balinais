@@ -84,12 +84,20 @@ export default function Connexion() {
 
               {/* Mot de passe */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-charcoal mb-2"
-                >
-                  Mot de passe
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-charcoal"
+                  >
+                    Mot de passe
+                  </label>
+                  <Link
+                    href="/mot-de-passe-oublie"
+                    className="text-sm text-warm hover:text-charcoal transition-colors"
+                  >
+                    Mot de passe oublié ?
+                  </Link>
+                </div>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
