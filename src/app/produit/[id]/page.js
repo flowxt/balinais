@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getProduct } from "@/lib/shopify";
 import { useCart } from "@/contexts/CartContext";
 import FavoriteButton from "../../components/FavoriteButton";
+import ProductReviews from "../../components/ProductReviews";
 import Navigation from "../../components/Navigation";
 import Cart from "../../components/Cart";
 import Footer from "../../components/Footer";
@@ -368,6 +369,11 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Section Avis */}
+        <div className="mt-16">
+          <ProductReviews productId={product.id} productTitle={product.title} />
         </div>
       </main>
 

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import { extractProductId } from "@/lib/utils";
 import FavoriteButton from "./FavoriteButton";
+import ProductRating from "./ProductRating";
 
 export default function ProductCard({ product, viewMode = "grid" }) {
   const { addToCart, loading } = useCart();
@@ -75,6 +76,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   {product.title}
                 </h3>
               </Link>
+              <ProductRating productId={product.id} size="sm" />
               <p className="text-sm text-charcoal/60 line-clamp-2 leading-relaxed">{product.description}</p>
               
               {/* Prix */}
@@ -208,9 +210,12 @@ export default function ProductCard({ product, viewMode = "grid" }) {
         {/* Informations du produit */}
         <div className="p-5 flex flex-col flex-1">
           <Link href={`/produit/${productId}`} className="flex-1">
-            <h3 className="font-serif text-lg text-charcoal mb-2 line-clamp-2 group-hover:text-warm transition-colors duration-300 leading-snug">
+            <h3 className="font-serif text-lg text-charcoal mb-1 line-clamp-2 group-hover:text-warm transition-colors duration-300 leading-snug">
               {product.title}
             </h3>
+            <div className="mb-2">
+              <ProductRating productId={product.id} size="sm" />
+            </div>
           </Link>
 
           {/* Prix et variantes */}
