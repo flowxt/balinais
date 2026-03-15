@@ -51,19 +51,22 @@ export default function APropos() {
               </h2>
               <div className="space-y-6 text-charcoal/70 leading-relaxed">
                 <p className="text-lg">
-                  Je m&apos;appelle Sandra, j&apos;ai 34 ans, et je suis ravie
+                  Je m&apos;appelle Sandra, j&apos;ai 35 ans, et je suis heureuse
                   de vous accueillir dans mon univers.
                 </p>
                 <p>
-                  Mon aventure a commencé en <span className="text-charcoal font-medium">2022</span>, lors de
-                  mon premier voyage à Bali, un véritable coup de cœur.
-                  L&apos;île m&apos;a charmée par sa beauté, sa culture, et
-                  surtout par son artisanat exceptionnel.
+                  Tout a commencé lors d&apos;un voyage à Bali en <span className="text-charcoal font-medium">2022</span>,
+                  un véritable coup de cœur. J&apos;ai été immédiatement séduite
+                  par la beauté de l&apos;île, la richesse de sa culture et, surtout,
+                  par son artisanat d&apos;exception. Passionnée depuis toujours par
+                  la décoration d&apos;intérieur et les créations authentiques,
+                  j&apos;y ai découvert un univers profondément inspirant et fascinant.
                 </p>
                 <p>
-                  Passionnée depuis toujours par l&apos;artisanat et la
-                  décoration d&apos;intérieur, c&apos;est là-bas que j&apos;ai
-                  découvert un monde fascinant.
+                  Au-delà des objets, ce sont les femmes et les hommes derrière
+                  chaque création qui m&apos;ont touchée : leur savoir-faire, leur
+                  passion, leur sens du détail, et cette envie précieuse de
+                  transmettre leur art de génération en génération.
                 </p>
               </div>
             </div>
@@ -71,15 +74,15 @@ export default function APropos() {
             <div className="order-1 lg:order-2 relative">
               <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl shadow-charcoal/10">
                 <Image
-                  src="/images/plage-bali.jpg"
-                  alt="Plage paradisiaque de Bali"
+                  src="/images/temple.jpg"
+                  alt="Temple traditionnel balinais"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent"></div>
                 <div className="absolute bottom-8 left-8 right-8">
                   <p className="text-soft/90 text-lg font-serif italic">
-                    L&apos;île des Dieux, source d&apos;inspiration infinie
+                    Spiritualité et artisanat ancestral
                   </p>
                 </div>
               </div>
@@ -96,7 +99,7 @@ export default function APropos() {
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
               </svg>
               <p className="text-xl lg:text-2xl text-charcoal/80 leading-relaxed font-light italic mb-6">
-                Ce qui m&apos;a particulièrement touchée, c&apos;est le savoir-faire, l&apos;énergie, l&apos;amour et la passion que les artisans mettent dans leurs créations, ainsi que leur persévérance à transmettre leur art de génération en génération.
+                Au-delà des objets, ce sont les femmes et les hommes derrière chaque création qui m&apos;ont touchée : leur savoir-faire, leur passion, leur sens du détail, et cette envie précieuse de transmettre leur art de génération en génération.
               </p>
               <span className="text-warm font-medium">— Sandra</span>
             </div>
@@ -105,17 +108,17 @@ export default function APropos() {
           {/* Le déclic */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
             <div className="relative">
-              <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl shadow-charcoal/10">
+              <div className="relative h-[750px] rounded-3xl overflow-hidden shadow-2xl shadow-charcoal/10">
                 <Image
-                  src="/images/temple.jpg"
-                  alt="Temple traditionnel balinais"
+                  src="/images/presentation.jpg"
+                  alt="Sandra, fondatrice de Bohemian House"
                   fill
-                  className="object-cover"
+                  className="object-contain object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent"></div>
                 <div className="absolute bottom-8 left-8 right-8">
                   <p className="text-soft/90 text-lg font-serif italic">
-                    Spiritualité et artisanat ancestral
+                    Le début d&apos;une aventure passionnante
                   </p>
                 </div>
               </div>
@@ -132,19 +135,18 @@ export default function APropos() {
               </h3>
               <div className="space-y-6 text-charcoal/70 leading-relaxed">
                 <p>
-                  Un moment clé de mon parcours a été la lecture du livre
-                  <span className="text-charcoal font-medium"> « L&apos;homme qui voulait être heureux »</span> de Laurent Gounelle. 
-                  Véritable révélation, il m&apos;a encouragée à suivre mes passions.
+                  La lecture du livre
+                  <span className="text-charcoal font-medium"> « L&apos;homme qui voulait être heureux »</span> de Laurent Gounelle
+                  a également marqué un tournant dans mon parcours. Ce livre a résonné
+                  en moi comme une évidence et m&apos;a encouragée à suivre mes passions
+                  avec conviction et détermination. J&apos;ai alors choisi de repartir à
+                  Bali pour commencer cette aventure, un peu folle mais excitante.
                 </p>
                 <p>
-                  En <span className="text-charcoal font-medium">2023</span>, j&apos;ai choisi de repartir à
-                  Bali pour commencer cette aventure, un peu folle mais
-                  excitante. J&apos;y ai exploré des ruelles et découvert des
-                  ateliers incroyables où chaque objet est une pièce unique.
-                </p>
-                <p>
-                  Chaque article a été soigneusement sélectionné pour apporter
-                  une touche d&apos;exotisme et de sérénité à votre foyer.
+                  C&apos;est ainsi que l&apos;envie de créer <span className="text-charcoal font-medium">Bohemian House</span> est
+                  née. Au fil de mes découvertes à Bali, entre petites ruelles, ateliers
+                  cachés et rencontres inoubliables, j&apos;ai sélectionné avec soin des
+                  pièces uniques, porteuses d&apos;âme et d&apos;histoire.
                 </p>
               </div>
             </div>
@@ -161,18 +163,22 @@ export default function APropos() {
             <div className="space-y-6 text-charcoal/70 leading-relaxed text-lg">
               <p>
                 Aujourd&apos;hui, <span className="text-charcoal font-medium">Bohemian House</span> vous propose
-                des objets de décoration uniques, alliant tradition, qualité
-                et beauté, tout en soutenant l&apos;artisanat et les matières
-                premières.
+                une sélection d&apos;objets de décoration alliant authenticité, qualité
+                et élégance naturelle. Pots en rotin tissés, paniers en bananier,
+                boîtes en bambou… chaque pièce a été choisie avec amour pour apporter
+                à votre intérieur une touche d&apos;évasion, de douceur et de sérénité.
               </p>
               <p>
-                Que ce soit des pots en rotin tissés, des paniers en bananier,
-                des poteries en argile ou des boîtes en bambou, chaque produit
-                est le fruit d&apos;une sélection minutieuse et d&apos;un
-                travail amoureux.
+                Merci de faire partie de cette belle aventure. À travers Bohemian House,
+                je suis heureuse de partager avec vous un peu de Bali, de son âme, et de
+                ma passion pour l&apos;artisanat et la décoration. Je suis profondément
+                convaincue que le bonheur et la paix intérieure commencent chez soi, dans
+                un espace où l&apos;on se sent bien et où l&apos;on peut créer un cocon
+                qui nous ressemble.
               </p>
               <p className="text-charcoal font-medium">
-                Merci de faire partie de cette aventure !
+                Si vous avez des questions ou besoin de conseils, n&apos;hésitez pas à
+                me contacter, je serai ravie de vous accompagner.
               </p>
             </div>
             <div className="mt-10">
