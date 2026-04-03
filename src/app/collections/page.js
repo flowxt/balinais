@@ -37,10 +37,7 @@ export default function Collections() {
         {/* Filtres rapides par catégorie */}
         <section className="bg-white border-b border-charcoal/5 sticky top-20 z-30 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
-              <span className="text-sm text-charcoal/50 whitespace-nowrap hidden sm:block">
-                Filtrer :
-              </span>
+            <div className="flex flex-wrap items-center gap-2.5">
               <Link
                 href="/collections"
                 className="px-5 py-2.5 rounded-full bg-charcoal text-soft text-sm font-medium hover:bg-warm transition-colors whitespace-nowrap shadow-sm"

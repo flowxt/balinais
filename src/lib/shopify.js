@@ -231,7 +231,7 @@ export async function getAllProducts() {
     // Utiliser une requête GraphQL pour récupérer les tags
     const query = `
       {
-        products(first: 50) {
+        products(first: 250) {
           edges {
             node {
               id
