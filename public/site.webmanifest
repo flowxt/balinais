@@ -1,0 +1,21 @@
+{
+  "name": "Bohemian House",
+  "short_name": "Bohemian House",
+  "description": "Décoration balinaise authentique et artisanale",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#2d2a26",
+  "background_color": "#f9f6f1",
+  "display": "standalone",
+  "start_url": "/"
+}
