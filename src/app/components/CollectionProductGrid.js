@@ -59,7 +59,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
 
   if (loading) {
     return (
-      <section className="py-20 bg-soft">
+      <section className="py-20 bg-gradient-to-b from-soft via-creamy/20 to-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center py-20">
             <div className="text-center">
@@ -76,7 +76,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
 
   if (error) {
     return (
-      <section className="py-20 bg-soft">
+      <section className="py-20 bg-gradient-to-b from-soft via-creamy/20 to-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center py-20">
             <div className="text-center">
@@ -103,7 +103,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
 
   if (products.length === 0) {
     return (
-      <section className="py-20 bg-soft">
+      <section className="py-20 bg-gradient-to-b from-soft via-creamy/20 to-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-20">
             <svg
@@ -134,8 +134,13 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
   }
 
   return (
-    <section className="py-16 bg-soft">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-gradient-to-b from-soft via-creamy/20 to-soft relative overflow-hidden">
+      {/* Motifs décoratifs chaleureux */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-warm/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-0 w-[400px] h-[400px] bg-creamy/20 rounded-full blur-3xl"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Contrôles d'affichage et tri */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-16 pb-8 border-b border-charcoal/10">
           <div className="mb-4 md:mb-0">

@@ -56,7 +56,7 @@ export default function ProductPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft">
         <Navigation />
         <div className="flex justify-center items-center py-32">
           <div className="text-center">
@@ -71,7 +71,7 @@ export default function ProductPage() {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft">
         <Navigation />
         <div className="flex justify-center items-center py-32">
           <div className="text-center max-w-md mx-auto px-4">
@@ -105,10 +105,15 @@ export default function ProductPage() {
   const hasMultipleVariants = product.variants && product.variants.length > 1;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft relative overflow-hidden">
+      {/* Motifs décoratifs chaleureux */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-40 right-0 w-[500px] h-[500px] bg-warm/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-creamy/20 rounded-full blur-3xl"></div>
+      </div>
       <Navigation />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 relative">
         {/* Breadcrumb élégant */}
         <nav className="mb-8 lg:mb-12">
           <ol className="flex items-center space-x-2 text-sm">
