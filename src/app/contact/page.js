@@ -85,8 +85,12 @@ export default function Contact() {
       </div>
 
       {/* Section principale */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-b from-soft via-creamy/25 to-soft relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-40">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-warm/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-creamy/30 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             
             {/* Formulaire de contact */}
@@ -259,26 +263,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Réseaux sociaux */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-warm to-creamy rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-medium text-charcoal mb-2">Suivez-nous</h3>
-                    <div className="flex space-x-4">
-                      <a href="#" className="text-charcoal/80 hover:text-warm transition-colors">
-                        Instagram
-                      </a>
-                      <a href="#" className="text-charcoal/80 hover:text-warm transition-colors">
-                        Facebook
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
@@ -286,7 +270,7 @@ export default function Contact() {
       </section>
 
       {/* Section FAQ */}
-      <section className="py-20 bg-soft">
+      <section className="py-20 bg-gradient-to-b from-creamy/20 via-soft to-creamy/15 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-serif text-3xl md:text-4xl font-light text-charcoal mb-6 tracking-wide">
@@ -298,7 +282,7 @@ export default function Contact() {
           </div>
 
           <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
                 Proposez-vous des livraisons partout en France ?
               </h3>
@@ -308,7 +292,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
                 Comment puis-je passer commande ?
               </h3>
@@ -318,7 +302,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
                 Vos meubles sont-ils authentiquement balinais ?
               </h3>
@@ -328,7 +312,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
                 Proposez-vous des services de décoration ?
               </h3>

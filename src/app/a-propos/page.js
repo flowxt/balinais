@@ -37,8 +37,12 @@ export default function APropos() {
       </section>
 
       {/* Section Sandra - Design zen et épuré */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-b from-soft via-creamy/25 to-soft relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.35]">
+          <div className="absolute top-20 right-0 w-[420px] h-[420px] bg-warm/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-0 w-80 h-80 bg-creamy/40 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           
           {/* Introduction avec grande image */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
@@ -49,7 +53,7 @@ export default function APropos() {
               <h2 className="font-serif text-4xl text-charcoal mb-8 leading-tight">
                 Rencontrez Sandra
               </h2>
-              <div className="space-y-6 text-charcoal/70 leading-relaxed">
+              <div className="space-y-6 text-charcoal/85 leading-relaxed">
                 <p className="text-lg">
                   Je m&apos;appelle Sandra, j&apos;ai 35 ans, et je suis heureuse
                   de vous accueillir dans mon univers.
@@ -133,7 +137,7 @@ export default function APropos() {
               <h3 className="font-serif text-3xl text-charcoal mb-8 leading-tight">
                 De la passion à l&apos;aventure
               </h3>
-              <div className="space-y-6 text-charcoal/70 leading-relaxed">
+              <div className="space-y-6 text-charcoal/85 leading-relaxed">
                 <p>
                   La lecture du livre
                   <span className="text-charcoal font-medium"> « L&apos;homme qui voulait être heureux »</span> de Laurent Gounelle
@@ -160,7 +164,7 @@ export default function APropos() {
             <h3 className="font-serif text-3xl text-charcoal mb-8 leading-tight">
               Bohemian House
             </h3>
-            <div className="space-y-6 text-charcoal/70 leading-relaxed text-lg">
+            <div className="space-y-6 text-charcoal/85 leading-relaxed text-lg">
               <p>
                 Aujourd&apos;hui, <span className="text-charcoal font-medium">Bohemian House</span> vous propose
                 une sélection d&apos;objets de décoration alliant authenticité, qualité
@@ -235,7 +239,7 @@ export default function APropos() {
             ].map((value, i) => (
               <div 
                 key={i} 
-                className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-warm/5 transition-all duration-500 hover:-translate-y-1"
+                className="group bg-gradient-to-br from-creamy/35 to-soft rounded-2xl p-8 border border-creamy/70 shadow-sm hover:shadow-xl hover:shadow-warm/5 transition-all duration-500 hover:-translate-y-1"
               >
                 <div className="w-14 h-14 bg-charcoal rounded-2xl flex items-center justify-center mb-6 group-hover:bg-warm transition-colors duration-300">
                   <svg className="w-7 h-7 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,7 +249,7 @@ export default function APropos() {
                 <h3 className="font-serif text-xl text-charcoal mb-3">
                   {value.title}
                 </h3>
-                <p className="text-charcoal/60 leading-relaxed text-sm">
+                <p className="text-charcoal/75 leading-relaxed text-sm">
                   {value.desc}
                 </p>
               </div>
@@ -264,7 +268,7 @@ export default function APropos() {
           <h2 className="font-serif text-4xl text-charcoal mb-6 leading-tight">
             Rejoignez l&apos;aventure
           </h2>
-          <p className="text-lg text-charcoal/60 mb-10 leading-relaxed">
+          <p className="text-lg text-charcoal/75 mb-10 leading-relaxed">
             Découvrez nos créations et laissez-vous transporter par la magie de
             Bali. Chaque pièce vous invite à créer un intérieur unique.
           </p>
@@ -280,7 +284,7 @@ export default function APropos() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center border-2 border-charcoal/20 text-charcoal px-8 py-4 rounded-full font-medium hover:border-charcoal/40 hover:bg-white/50 transition-all duration-300"
+              className="inline-flex items-center justify-center border-2 border-charcoal/25 text-charcoal px-8 py-4 rounded-full font-medium hover:border-charcoal/40 hover:bg-creamy/25 transition-all duration-300"
             >
               Nous contacter
             </Link>

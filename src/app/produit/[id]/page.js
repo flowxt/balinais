@@ -118,7 +118,7 @@ export default function ProductPage() {
         <nav className="mb-8 lg:mb-12">
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-charcoal/40 hover:text-charcoal transition-colors">
+              <Link href="/" className="text-charcoal/55 hover:text-charcoal transition-colors">
                 Accueil
               </Link>
             </li>
@@ -128,7 +128,7 @@ export default function ProductPage() {
               </svg>
             </li>
             <li>
-              <Link href="/collections" className="text-charcoal/40 hover:text-charcoal transition-colors">
+              <Link href="/collections" className="text-charcoal/55 hover:text-charcoal transition-colors">
                 Boutique
               </Link>
             </li>
@@ -145,13 +145,13 @@ export default function ProductPage() {
           {/* Galerie d'images */}
           <div className="space-y-4">
             {/* Image principale */}
-            <div className="relative aspect-square bg-soft/30 rounded-3xl overflow-hidden">
+            <div className="relative aspect-square bg-creamy/30 rounded-3xl overflow-hidden">
               {images.length > 0 ? (
                 <Image
                   src={images[selectedImageIndex]?.src || images[0]?.src}
                   alt={product.title}
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                   priority
                 />
               ) : (
@@ -180,7 +180,7 @@ export default function ProductPage() {
                       src={image.src}
                       alt={`${product.title} ${index + 1}`}
                       fill
-                      className="object-cover"
+                      className="object-contain p-1.5 bg-creamy/20"
                     />
                   </button>
                 ))}
@@ -204,7 +204,7 @@ export default function ProductPage() {
                   <span className="text-3xl lg:text-4xl font-light text-charcoal">
                     {price}
                   </span>
-                  <span className="text-lg text-charcoal/40 ml-2">{currencyCode}</span>
+                  <span className="text-lg text-charcoal/55 ml-2">{currencyCode}</span>
                 </div>
                 
                 {/* Disponibilité */}
@@ -227,11 +227,11 @@ export default function ProductPage() {
             <div className="mb-8 pb-8 border-b border-charcoal/10">
               {product.descriptionHtml ? (
                 <div 
-                  className="prose prose-charcoal max-w-none text-charcoal/70 leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0"
+                  className="prose prose-charcoal max-w-none text-charcoal leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:text-charcoal [&>li]:text-charcoal [&>h1]:text-charcoal [&>h2]:text-charcoal [&>h3]:text-charcoal"
                   dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                 />
               ) : (
-                <p className="text-charcoal/70 leading-relaxed">
+                <p className="text-charcoal leading-relaxed">
                   {product.description || "Aucune description disponible."}
                 </p>
               )}
@@ -249,7 +249,7 @@ export default function ProductPage() {
                   <h4 className="font-serif text-lg text-charcoal mb-2">
                     Réalisé à la main
                   </h4>
-                  <p className="text-sm text-charcoal/60 leading-relaxed">
+                  <p className="text-sm text-charcoal/80 leading-relaxed">
                     Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique, avec de légères variations de couleur, de texture et de dimensions.
                   </p>
                 </div>
@@ -272,7 +272,7 @@ export default function ProductPage() {
                         selectedVariantIndex === index
                           ? "bg-charcoal text-soft shadow-lg"
                           : variant.availableForSale
-                          ? "bg-soft text-charcoal hover:bg-charcoal/5 border border-charcoal/10"
+                          ? "bg-soft text-charcoal hover:bg-creamy/40 border border-charcoal/15"
                           : "bg-gray-100 text-gray-400 cursor-not-allowed line-through"
                       }`}
                     >
@@ -348,24 +348,24 @@ export default function ProductPage() {
 
             {/* Avantages */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-charcoal/10">
-              <div className="flex items-center gap-3 text-sm text-charcoal/70">
-                <div className="w-10 h-10 bg-soft rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-3 text-sm text-charcoal">
+                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <span>Artisanat balinais</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-charcoal/70">
-                <div className="w-10 h-10 bg-soft rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-3 text-sm text-charcoal">
+                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                 </div>
                 <span>Livraison soignée</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-charcoal/70">
-                <div className="w-10 h-10 bg-soft rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-3 text-sm text-charcoal">
+                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>

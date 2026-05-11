@@ -9,7 +9,7 @@ import { categories } from "@/lib/categories";
 
 export default function Collections() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-soft">
       <Navigation />
       <main>
         {/* Hero Section Boutique */}
@@ -35,12 +35,12 @@ export default function Collections() {
         </section>
 
         {/* Filtres rapides par catégorie */}
-        <section className="bg-white border-b border-charcoal/5 sticky top-20 z-30 shadow-sm">
+        <section className="bg-terracotta border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
             <div className="flex flex-wrap items-center gap-2.5">
               <Link
                 href="/collections"
-                className="px-5 py-2.5 rounded-full bg-charcoal text-soft text-sm font-medium hover:bg-warm transition-colors whitespace-nowrap shadow-sm"
+                className="px-5 py-2.5 rounded-full bg-charcoal text-soft text-sm font-medium hover:bg-charcoal/90 transition-colors whitespace-nowrap shadow-sm"
               >
                 Tous les articles
               </Link>
@@ -48,7 +48,7 @@ export default function Collections() {
                 <Link
                   key={category.id}
                   href={`/collections/${category.slug}`}
-                  className="px-5 py-2.5 rounded-full border border-charcoal/10 text-charcoal/70 text-sm font-medium hover:border-charcoal/30 hover:text-charcoal hover:bg-soft/50 transition-all whitespace-nowrap"
+                  className="px-5 py-2.5 rounded-full border border-charcoal/25 bg-soft/45 text-charcoal text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
                 >
                   {category.name}
                 </Link>

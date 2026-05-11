@@ -90,7 +90,7 @@ export default function ProductReviews({ productId, productTitle }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg shadow-charcoal/5">
+    <div className="rounded-3xl p-8 md:p-10 shadow-lg shadow-charcoal/10 bg-gradient-to-br from-creamy/35 via-soft to-warm/15 border border-creamy/60">
       {/* En-tête */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-8 border-b border-charcoal/10">
         <div>
@@ -100,7 +100,7 @@ export default function ProductReviews({ productId, productTitle }) {
           {count > 0 && (
             <div className="flex items-center gap-3">
               <StarRating rating={rating} count={count} size="lg" />
-              <span className="text-charcoal/60">
+              <span className="text-charcoal/80">
                 {rating.toFixed(1)} / 5 ({count} avis)
               </span>
             </div>
@@ -227,7 +227,7 @@ export default function ProductReviews({ productId, productTitle }) {
       {loading ? (
         <div className="text-center py-8">
           <div className="w-8 h-8 border-2 border-charcoal/20 border-t-warm rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-charcoal/60">Chargement des avis...</p>
+          <p className="text-charcoal/75">Chargement des avis...</p>
         </div>
       ) : reviews.length === 0 ? (
         <div className="text-center py-12">
@@ -237,7 +237,7 @@ export default function ProductReviews({ productId, productTitle }) {
             </svg>
           </div>
           <h3 className="font-serif text-lg text-charcoal mb-2">Aucun avis pour le moment</h3>
-          <p className="text-charcoal/60 text-sm">
+          <p className="text-charcoal/80 text-sm">
             Soyez le premier à partager votre expérience !
           </p>
         </div>
@@ -270,7 +270,7 @@ export default function ProductReviews({ productId, productTitle }) {
               {review.title && (
                 <h4 className="font-medium text-charcoal mb-2">{review.title}</h4>
               )}
-              <p className="text-charcoal/70 text-sm leading-relaxed">
+              <p className="text-charcoal/85 text-sm leading-relaxed">
                 {review.body}
               </p>
             </div>

@@ -35,12 +35,12 @@ export default function ProductCard({ product, viewMode = "grid" }) {
 
   if (viewMode === "list") {
     return (
-      <div className="group bg-white rounded-2xl overflow-hidden border border-charcoal/5 hover:border-warm/30 transition-all duration-500 hover:shadow-xl hover:shadow-warm/5">
+      <div className="group bg-gradient-to-b from-creamy/30 via-soft to-creamy/15 rounded-2xl overflow-hidden border border-creamy/60 hover:border-warm/35 transition-all duration-500 hover:shadow-xl hover:shadow-warm/5">
         <div className="flex flex-col md:flex-row">
           {/* Image du produit */}
           <Link 
             href={`/produit/${productId}`} 
-            className="relative w-full md:w-72 h-64 md:h-auto bg-soft/50 flex-shrink-0 overflow-hidden"
+            className="relative w-full md:w-72 h-64 md:h-auto md:min-h-[16rem] bg-creamy/25 flex-shrink-0 overflow-hidden"
           >
             {image ? (
               <>
@@ -49,7 +49,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   alt={product.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 288px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-contain p-2 transition-opacity duration-700 group-hover:opacity-95"
                 />
                 {/* Overlay subtil au hover */}
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/5 transition-colors duration-500"></div>
@@ -77,7 +77,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                 </h3>
               </Link>
               <ProductRating productId={product.id} size="sm" />
-              <p className="text-sm text-charcoal/60 line-clamp-2 leading-relaxed">{product.description}</p>
+              <p className="text-sm text-charcoal/75 line-clamp-2 leading-relaxed">{product.description}</p>
               
               {/* Prix */}
               <div className="pt-2">
@@ -132,9 +132,9 @@ export default function ProductCard({ product, viewMode = "grid" }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-charcoal/5 hover:border-warm/20 transition-all duration-500 hover:shadow-2xl hover:shadow-warm/10 hover:-translate-y-1">
+      <div className="bg-gradient-to-b from-creamy/35 via-soft to-creamy/20 rounded-2xl overflow-hidden h-full flex flex-col border border-creamy/55 hover:border-warm/30 transition-all duration-500 hover:shadow-2xl hover:shadow-warm/10 hover:-translate-y-1">
         {/* Image du produit */}
-        <Link href={`/produit/${productId}`} className="relative aspect-[4/5] bg-soft/30 overflow-hidden">
+        <Link href={`/produit/${productId}`} className="relative aspect-[4/5] bg-creamy/25 overflow-hidden">
           {image ? (
             <>
               {/* Image principale */}
@@ -143,7 +143,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                 alt={product.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className={`object-cover transition-all duration-700 ${isHovered && secondImage ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+                className={`object-contain p-3 transition-opacity duration-700 ${isHovered && secondImage ? "opacity-0" : "opacity-100"}`}
               />
               {/* Deuxième image au hover (si disponible) */}
               {secondImage && (
@@ -152,7 +152,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   alt={`${product.title} - vue alternative`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className={`object-cover transition-all duration-700 absolute inset-0 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
+                  className={`object-contain p-3 transition-all duration-700 absolute inset-0 ${isHovered ? "opacity-100" : "opacity-0"}`}
                 />
               )}
               {/* Overlay gradient subtil */}
@@ -208,7 +208,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
         </Link>
 
         {/* Informations du produit */}
-        <div className="p-5 flex flex-col flex-1">
+        <div className="p-5 flex flex-col flex-1 bg-creamy/10 border-t border-creamy/40">
           <Link href={`/produit/${productId}`} className="flex-1">
             <h3 className="font-serif text-lg text-charcoal mb-1 line-clamp-2 group-hover:text-warm transition-colors duration-300 leading-snug">
               {product.title}

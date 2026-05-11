@@ -26,6 +26,7 @@
   --color-creamy: #DACFB6;
   --color-soft: #F9F5ED;
   --color-golden: #B8860B;
+  --color-terracotta: #C4715A;
 }
 
 @media (prefers-color-scheme: dark) {

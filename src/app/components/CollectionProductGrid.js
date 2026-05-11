@@ -159,7 +159,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="border border-charcoal/20 rounded-xl px-4 py-2.5 text-sm bg-white font-medium text-charcoal focus:ring-2 focus:ring-rustic focus:border-transparent transition-all duration-200 hover:border-rustic/50"
+                className="border border-charcoal/20 rounded-xl px-4 py-2.5 text-sm bg-soft font-medium text-charcoal focus:ring-2 focus:ring-rustic focus:border-transparent transition-all duration-200 hover:border-rustic/50"
               >
                 <option value="featured">Sélection</option>
                 <option value="name">Nom (A-Z)</option>
@@ -174,7 +174,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
                 onClick={() => setViewMode("grid")}
                 className={`p-2.5 rounded-lg transition-all duration-200 ${
                   viewMode === "grid" 
-                    ? "bg-white shadow-md text-charcoal" 
+                    ? "bg-soft shadow-md text-charcoal border border-creamy/60" 
                     : "text-charcoal/50 hover:text-charcoal/80"
                 }`}
                 title="Vue grille"
@@ -191,7 +191,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
                 onClick={() => setViewMode("list")}
                 className={`p-2.5 rounded-lg transition-all duration-200 ${
                   viewMode === "list" 
-                    ? "bg-white shadow-md text-charcoal" 
+                    ? "bg-soft shadow-md text-charcoal border border-creamy/60" 
                     : "text-charcoal/50 hover:text-charcoal/80"
                 }`}
                 title="Vue liste"
@@ -237,10 +237,9 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
               <h3 className="font-serif text-2xl font-light text-charcoal mb-4 tracking-wide">
                 Plus de merveilles arrivent bientôt !
               </h3>
-              <p className="text-charcoal/70 leading-relaxed text-lg">
+              <p className="text-charcoal/80 leading-relaxed">
                 Nos artisans balinais travaillent actuellement sur de nouvelles
-                pièces exceptionnelles. Suivez-nous pour être informé des
-                dernières arrivées.
+                pièces exceptionnelles. Revenez bientôt pour en découvrir plus.
               </p>
             </div>
           </div>
