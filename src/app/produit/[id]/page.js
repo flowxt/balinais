@@ -145,13 +145,13 @@ export default function ProductPage() {
           {/* Galerie d'images */}
           <div className="space-y-4">
             {/* Image principale */}
-            <div className="relative aspect-square bg-creamy/30 rounded-3xl overflow-hidden">
+            <div className="relative aspect-square bg-soft/30 rounded-3xl overflow-hidden">
               {images.length > 0 ? (
                 <Image
                   src={images[selectedImageIndex]?.src || images[0]?.src}
                   alt={product.title}
                   fill
-                  className="object-contain p-4"
+                  className="object-cover"
                   priority
                 />
               ) : (
@@ -180,7 +180,7 @@ export default function ProductPage() {
                       src={image.src}
                       alt={`${product.title} ${index + 1}`}
                       fill
-                      className="object-contain p-1.5 bg-creamy/20"
+                      className="object-cover"
                     />
                   </button>
                 ))}

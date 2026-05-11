@@ -40,7 +40,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
           {/* Image du produit */}
           <Link 
             href={`/produit/${productId}`} 
-            className="relative w-full md:w-72 h-64 md:h-auto md:min-h-[16rem] bg-creamy/25 flex-shrink-0 overflow-hidden"
+            className="relative w-full md:w-72 h-64 md:h-auto bg-soft/50 flex-shrink-0 overflow-hidden"
           >
             {image ? (
               <>
@@ -49,7 +49,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   alt={product.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 288px"
-                  className="object-contain p-2 transition-opacity duration-700 group-hover:opacity-95"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 {/* Overlay subtil au hover */}
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/5 transition-colors duration-500"></div>
@@ -134,7 +134,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
     >
       <div className="bg-gradient-to-b from-creamy/35 via-soft to-creamy/20 rounded-2xl overflow-hidden h-full flex flex-col border border-creamy/55 hover:border-warm/30 transition-all duration-500 hover:shadow-2xl hover:shadow-warm/10 hover:-translate-y-1">
         {/* Image du produit */}
-        <Link href={`/produit/${productId}`} className="relative aspect-[4/5] bg-creamy/25 overflow-hidden">
+        <Link href={`/produit/${productId}`} className="relative aspect-[4/5] bg-soft/30 overflow-hidden">
           {image ? (
             <>
               {/* Image principale */}
@@ -143,7 +143,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                 alt={product.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className={`object-contain p-3 transition-opacity duration-700 ${isHovered && secondImage ? "opacity-0" : "opacity-100"}`}
+                className={`object-cover transition-all duration-700 ${isHovered && secondImage ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
               />
               {/* Deuxième image au hover (si disponible) */}
               {secondImage && (
@@ -152,7 +152,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   alt={`${product.title} - vue alternative`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className={`object-contain p-3 transition-all duration-700 absolute inset-0 ${isHovered ? "opacity-100" : "opacity-0"}`}
+                  className={`object-cover transition-all duration-700 absolute inset-0 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
                 />
               )}
               {/* Overlay gradient subtil */}
