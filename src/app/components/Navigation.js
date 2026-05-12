@@ -15,27 +15,22 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gradient-to-r from-soft/95 via-creamy/90 to-soft/95 backdrop-blur-md sticky top-0 z-50 border-b border-warm/10 shadow-sm">
+    <nav className="bg-warm sticky top-0 z-50 border-b border-charcoal/10 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative rounded-full bg-soft p-1.5 shadow-md ring-1 ring-warm/30 group-hover:ring-warm/60 group-hover:shadow-lg transition-all duration-300">
-                <Image
-                  src="/images/logo.png"
-                  alt="Bohemian House Logo"
-                  width={64}
-                  height={64}
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="Bohemian House Logo"
+                width={64}
+                height={64}
+                className="w-12 h-12 sm:w-14 sm:h-14 object-contain group-hover:scale-105 transition-transform duration-300"
+              />
               <div className="hidden sm:block">
                 <span className="font-serif text-xl text-charcoal tracking-wide block leading-tight">
                   Bohemian House
-                </span>
-                <span className="text-[9px] tracking-[0.2em] uppercase text-charcoal/40">
-                  Artisanat de Bali
                 </span>
               </div>
             </Link>
@@ -45,31 +40,31 @@ export default function Navigation() {
           <div className="hidden md:flex items-center space-x-1">
             <Link
               href="/"
-              className="relative px-4 py-2 text-charcoal/70 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
+              className="relative px-4 py-2 text-charcoal/80 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
             >
               Accueil
-              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-warm scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-charcoal scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/collections"
-              className="relative px-4 py-2 text-charcoal/70 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
+              className="relative px-4 py-2 text-charcoal/80 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
             >
               Boutique
-              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-warm scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-charcoal scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/a-propos"
-              className="relative px-4 py-2 text-charcoal/70 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
+              className="relative px-4 py-2 text-charcoal/80 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
             >
               À propos
-              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-warm scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-charcoal scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/contact"
-              className="relative px-4 py-2 text-charcoal/70 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
+              className="relative px-4 py-2 text-charcoal/80 hover:text-charcoal transition-colors duration-200 text-sm font-medium group"
             >
               Contact
-              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-warm scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-charcoal scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
 
             {/* Séparateur vertical */}
@@ -78,7 +73,7 @@ export default function Navigation() {
             {/* Icône Favoris */}
             <Link
               href={isAuthenticated ? "/compte/favoris" : "/connexion"}
-              className="relative p-2.5 text-charcoal/60 hover:text-warm transition-colors duration-200 rounded-full hover:bg-warm/10"
+              className="relative p-2.5 text-charcoal/70 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-charcoal/10"
               title="Mes favoris"
             >
               <svg
@@ -95,7 +90,7 @@ export default function Navigation() {
                 />
               </svg>
               {favoritesCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-charcoal text-soft text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
                   {favoritesCount}
                 </span>
               )}
@@ -104,11 +99,11 @@ export default function Navigation() {
             {/* Icône Compte */}
             <Link
               href={isAuthenticated ? "/compte" : "/connexion"}
-              className="relative p-2.5 text-charcoal/60 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-warm/10 group"
+              className="relative p-2.5 text-charcoal/70 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-charcoal/10 group"
               title={isAuthenticated ? `Bonjour ${customer?.firstName || ""}` : "Se connecter"}
             >
               {isAuthenticated ? (
-                <div className="w-5 h-5 bg-warm rounded-full flex items-center justify-center text-[10px] font-semibold text-charcoal">
+                <div className="w-5 h-5 bg-charcoal rounded-full flex items-center justify-center text-[10px] font-semibold text-soft">
                   {customer?.firstName?.[0]?.toUpperCase() || "U"}
                 </div>
               ) : (
@@ -131,7 +126,7 @@ export default function Navigation() {
             {/* Icône du panier */}
             <button
               onClick={toggleCart}
-              className="relative p-2.5 text-charcoal/60 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-warm/10"
+              className="relative p-2.5 text-charcoal/70 hover:text-charcoal transition-colors duration-200 rounded-full hover:bg-charcoal/10"
             >
               <svg
                 className="w-5 h-5"
@@ -147,7 +142,7 @@ export default function Navigation() {
                 />
               </svg>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-charcoal text-soft text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -159,7 +154,7 @@ export default function Navigation() {
             {/* Favoris mobile */}
             <Link
               href={isAuthenticated ? "/compte/favoris" : "/connexion"}
-              className="relative p-2 text-charcoal/60 hover:text-warm transition-colors"
+              className="relative p-2 text-charcoal/70 hover:text-charcoal transition-colors"
             >
               <svg
                 className="w-5 h-5"
@@ -175,7 +170,7 @@ export default function Navigation() {
                 />
               </svg>
               {favoritesCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-charcoal text-soft text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
                   {favoritesCount}
                 </span>
               )}
@@ -184,10 +179,10 @@ export default function Navigation() {
             {/* Compte mobile */}
             <Link
               href={isAuthenticated ? "/compte" : "/connexion"}
-              className="relative p-2 text-charcoal/60 hover:text-charcoal transition-colors"
+              className="relative p-2 text-charcoal/70 hover:text-charcoal transition-colors"
             >
               {isAuthenticated ? (
-                <div className="w-5 h-5 bg-warm rounded-full flex items-center justify-center text-[10px] font-semibold text-charcoal">
+                <div className="w-5 h-5 bg-charcoal rounded-full flex items-center justify-center text-[10px] font-semibold text-soft">
                   {customer?.firstName?.[0]?.toUpperCase() || "U"}
                 </div>
               ) : (
@@ -210,7 +205,7 @@ export default function Navigation() {
             {/* Panier mobile */}
             <button
               onClick={toggleCart}
-              className="relative p-2 text-charcoal/60 hover:text-charcoal transition-colors"
+              className="relative p-2 text-charcoal/70 hover:text-charcoal transition-colors"
             >
               <svg
                 className="w-5 h-5"
@@ -226,7 +221,7 @@ export default function Navigation() {
                 />
               </svg>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-warm text-charcoal text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-charcoal text-soft text-[10px] font-medium rounded-full h-4 w-4 flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -235,7 +230,7 @@ export default function Navigation() {
             {/* Bouton menu hamburger */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-charcoal/70 hover:text-charcoal p-2 rounded-lg hover:bg-charcoal/5 transition-colors"
+              className="text-charcoal/80 hover:text-charcoal p-2 rounded-lg hover:bg-charcoal/10 transition-colors"
             >
               {mobileMenuOpen ? (
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -252,44 +247,44 @@ export default function Navigation() {
 
         {/* Menu mobile */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-charcoal/5 py-4 space-y-1">
+          <div className="md:hidden border-t border-charcoal/10 py-4 space-y-1">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+              className="block px-4 py-3 text-charcoal/80 hover:text-charcoal hover:bg-charcoal/10 rounded-lg transition-colors text-sm font-medium"
             >
               Accueil
             </Link>
             <Link
               href="/collections"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+              className="block px-4 py-3 text-charcoal/80 hover:text-charcoal hover:bg-charcoal/10 rounded-lg transition-colors text-sm font-medium"
             >
               Boutique
             </Link>
             <Link
               href="/a-propos"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+              className="block px-4 py-3 text-charcoal/80 hover:text-charcoal hover:bg-charcoal/10 rounded-lg transition-colors text-sm font-medium"
             >
               À propos
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+              className="block px-4 py-3 text-charcoal/80 hover:text-charcoal hover:bg-charcoal/10 rounded-lg transition-colors text-sm font-medium"
             >
               Contact
             </Link>
             
             {/* Séparateur */}
-            <div className="h-px bg-charcoal/5 my-2"></div>
+            <div className="h-px bg-charcoal/10 my-2"></div>
             
             {/* Compte */}
             <Link
               href={isAuthenticated ? "/compte" : "/connexion"}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-charcoal/70 hover:text-charcoal hover:bg-warm/5 rounded-lg transition-colors text-sm font-medium"
+              className="flex items-center gap-3 px-4 py-3 text-charcoal/80 hover:text-charcoal hover:bg-charcoal/10 rounded-lg transition-colors text-sm font-medium"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

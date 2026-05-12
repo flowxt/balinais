@@ -13,34 +13,31 @@ export default function Collections() {
       <Navigation />
       <main>
         {/* Hero Section Boutique */}
-        <section className="relative py-20 lg:py-28 bg-charcoal overflow-hidden">
+        <section className="relative py-20 lg:py-28 bg-rustic overflow-hidden">
           {/* Motifs décoratifs */}
           <div className="absolute inset-0">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-warm/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-creamy/5 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-warm/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-creamy/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
           </div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-            <span className="inline-block text-warm/70 text-sm font-medium tracking-[0.3em] uppercase mb-6">
-              Artisanat balinais authentique
-            </span>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-soft mb-6 tracking-wide">
               La Boutique
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-6"></div>
-            <p className="text-lg text-soft/60 max-w-xl mx-auto leading-relaxed font-light">
+            <p className="text-lg text-soft/80 max-w-xl mx-auto leading-relaxed font-light">
               Découvrez notre collection d&apos;articles uniques, sélectionnés avec passion à Bali
             </p>
           </div>
         </section>
 
         {/* Filtres rapides par catégorie */}
-        <section className="bg-terracotta border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div className="flex flex-wrap items-center gap-2.5">
+        <section className="bg-warm border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4">
+            <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-hide">
               <Link
                 href="/collections"
-                className="px-5 py-2.5 rounded-full bg-charcoal text-soft text-sm font-medium hover:bg-charcoal/90 transition-colors whitespace-nowrap shadow-sm"
+                className="shrink-0 px-3.5 py-2 rounded-full bg-charcoal text-soft text-xs lg:text-sm font-medium hover:bg-charcoal/90 transition-colors whitespace-nowrap shadow-sm"
               >
                 Tous les articles
               </Link>
@@ -48,7 +45,7 @@ export default function Collections() {
                 <Link
                   key={category.id}
                   href={`/collections/${category.slug}`}
-                  className="px-5 py-2.5 rounded-full border border-charcoal/25 bg-soft/45 text-charcoal text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
+                  className="shrink-0 px-3.5 py-2 rounded-full border border-charcoal/25 bg-soft/50 text-charcoal text-xs lg:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
                 >
                   {category.name}
                 </Link>

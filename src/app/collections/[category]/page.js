@@ -35,12 +35,12 @@ export default function CategoryPage() {
         </section>
 
         {/* Filtres rapides par catégorie */}
-        <section className="bg-terracotta border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div className="flex flex-wrap items-center gap-2.5">
+        <section className="bg-warm border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4">
+            <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-hide">
               <Link
                 href="/collections"
-                className="px-5 py-2.5 rounded-full border border-charcoal/25 bg-soft/45 text-charcoal text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
+                className="shrink-0 px-3.5 py-2 rounded-full border border-charcoal/25 bg-soft/50 text-charcoal text-xs lg:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
               >
                 Tous les articles
               </Link>
@@ -48,10 +48,10 @@ export default function CategoryPage() {
                 <Link
                   key={cat.id}
                   href={`/collections/${cat.slug}`}
-                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap shadow-sm ${
+                  className={`shrink-0 px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium transition-all whitespace-nowrap shadow-sm ${
                     cat.id === category.id
                       ? "bg-charcoal text-soft"
-                      : "border border-charcoal/25 bg-soft/45 text-charcoal hover:bg-soft hover:border-charcoal/40"
+                      : "border border-charcoal/25 bg-soft/50 text-charcoal hover:bg-soft hover:border-charcoal/40"
                   }`}
                 >
                   {cat.name}
