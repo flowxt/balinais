@@ -72,7 +72,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
           <div className="p-6 flex-1 flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex-1 space-y-3">
               <Link href={`/produit/${productId}`}>
-                <h3 className="font-serif text-xl text-charcoal group-hover:text-warm transition-colors duration-300">
+                <h3 className="font-serif text-xl lg:text-2xl font-medium text-charcoal group-hover:text-rustic transition-colors duration-300 leading-tight tracking-wide">
                   {product.title}
                 </h3>
               </Link>
@@ -80,9 +80,16 @@ export default function ProductCard({ product, viewMode = "grid" }) {
               <p className="text-sm text-charcoal/75 line-clamp-2 leading-relaxed">{product.description}</p>
               
               {/* Prix */}
-              <div className="pt-2">
-                <span className="text-2xl font-light text-charcoal">{displayPrice}</span>
-                <span className="text-sm text-charcoal/40 ml-1">{currencyCode}</span>
+              <div className="pt-3">
+                <div className="w-10 h-px bg-warm mb-3"></div>
+                <div className="flex items-baseline gap-2">
+                  <span className="font-serif text-3xl font-light text-charcoal tracking-wide leading-none">
+                    {displayPrice}
+                  </span>
+                  <span className="text-[11px] font-medium tracking-[0.25em] uppercase text-charcoal/55">
+                    {currencyCode}
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -208,27 +215,34 @@ export default function ProductCard({ product, viewMode = "grid" }) {
         </Link>
 
         {/* Informations du produit */}
-        <div className="p-5 flex flex-col flex-1 bg-creamy/10 border-t border-creamy/40">
+        <div className="p-5 flex flex-col flex-1 bg-soft border-t border-warm/20">
           <Link href={`/produit/${productId}`} className="flex-1">
-            <h3 className="font-serif text-lg text-charcoal mb-1 line-clamp-2 group-hover:text-warm transition-colors duration-300 leading-snug">
+            <h3 className="font-serif text-lg lg:text-xl font-medium text-charcoal mb-2 line-clamp-2 group-hover:text-rustic transition-colors duration-300 leading-tight tracking-wide">
               {product.title}
             </h3>
-            <div className="mb-2">
+            <div className="mb-3">
               <ProductRating productId={product.id} size="sm" />
             </div>
           </Link>
 
           {/* Prix et variantes */}
-          <div className="mt-auto pt-3 border-t border-charcoal/5">
-            <div className="flex items-end justify-between">
-              <div>
-                <span className="text-xl font-light text-charcoal">{displayPrice}</span>
-                <span className="text-xs text-charcoal/40 ml-1">{currencyCode}</span>
+          <div className="mt-auto pt-4">
+            {/* Trait décoratif */}
+            <div className="w-10 h-px bg-warm mb-3"></div>
+            
+            <div className="flex items-baseline justify-between">
+              <div className="flex items-baseline gap-2">
+                <span className="font-serif text-2xl lg:text-3xl font-light text-charcoal tracking-wide leading-none">
+                  {displayPrice}
+                </span>
+                <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-charcoal/55">
+                  {currencyCode}
+                </span>
               </div>
               
               {/* Indicateur de variantes */}
               {hasMultipleVariants && (
-                <span className="text-[10px] text-charcoal/40 uppercase tracking-wider">
+                <span className="text-[10px] text-charcoal/50 uppercase tracking-[0.2em] font-medium">
                   {product.variants.length} options
                 </span>
               )}
@@ -241,7 +255,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
                   value={selectedVariantIndex}
                   onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full px-3 py-2 border border-charcoal/10 rounded-lg text-xs focus:ring-1 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal/70"
+                  className="w-full px-3 py-2 border border-charcoal/15 rounded-lg text-xs focus:ring-1 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/30 text-charcoal"
                 >
                   {product.variants.map((variant, index) => (
                     <option key={variant.id} value={index} disabled={!variant.availableForSale}>
