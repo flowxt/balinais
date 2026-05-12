@@ -21,13 +21,13 @@ export default function Navigation() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative">
+              <div className="relative rounded-full bg-soft p-1.5 shadow-md ring-1 ring-warm/30 group-hover:ring-warm/60 group-hover:shadow-lg transition-all duration-300">
                 <Image
                   src="/images/logo.png"
                   alt="Bohemian House Logo"
-                  width={48}
-                  height={48}
-                  className="w-11 h-11 group-hover:scale-105 transition-transform duration-300"
+                  width={64}
+                  height={64}
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="hidden sm:block">
