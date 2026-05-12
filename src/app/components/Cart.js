@@ -26,16 +26,16 @@ export default function Cart() {
       <div className="fixed inset-0 bg-black/50 z-40" onClick={closeCart} />
 
       {/* Panier Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform transition-transform duration-300">
+      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-gradient-to-b from-creamy via-soft to-creamy/60 z-50 shadow-2xl transform transition-transform duration-300">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-6 border-b border-warm/40 bg-warm">
             <h2 className="font-serif text-xl font-semibold text-charcoal">
               Panier ({totalItems})
             </h2>
             <button
               onClick={closeCart}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 hover:bg-charcoal/10 rounded-full text-charcoal transition-colors"
             >
               <svg
                 className="w-6 h-6"
@@ -62,7 +62,7 @@ export default function Cart() {
             ) : lineItems.length === 0 ? (
               <div className="text-center py-8">
                 <svg
-                  className="w-16 h-16 mx-auto text-gray-300 mb-4"
+                  className="w-16 h-16 mx-auto text-charcoal/30 mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -77,8 +77,8 @@ export default function Cart() {
                 <h3 className="font-serif text-lg text-charcoal mb-2">
                   Votre panier est vide
                 </h3>
-                <p className="text-gray-500">
-                  Découvrez nos magnifiques meubles balinais
+                <p className="text-charcoal/60">
+                  Découvrez nos magnifiques pièces artisanales
                 </p>
               </div>
             ) : (
@@ -86,7 +86,7 @@ export default function Cart() {
                 {lineItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg"
+                    className="flex items-center space-x-4 p-4 border border-warm/40 bg-soft rounded-lg shadow-sm"
                   >
                     {/* Image du produit */}
                     <div className="relative w-16 h-16 flex-shrink-0">
@@ -98,8 +98,8 @@ export default function Cart() {
                           className="object-cover rounded"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                          <span className="text-xs text-gray-400">Image</span>
+                        <div className="w-full h-full bg-creamy/40 rounded flex items-center justify-center">
+                          <span className="text-xs text-charcoal/50">Image</span>
                         </div>
                       )}
                     </div>
@@ -109,7 +109,7 @@ export default function Cart() {
                       <h4 className="font-medium text-charcoal text-sm">
                         {item.title}
                       </h4>
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-charcoal/60 text-sm">
                         Quantité: {item.quantity}
                       </p>
                       <p className="font-semibold text-rustic text-sm">
@@ -125,19 +125,19 @@ export default function Cart() {
 
           {/* Footer avec total et checkout */}
           {lineItems.length > 0 && (
-            <div className="border-t border-gray-200 p-6 space-y-4">
+            <div className="border-t border-warm/40 bg-warm/60 p-6 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="font-serif text-lg font-semibold text-charcoal">
                   Total:
                 </span>
-                <span className="font-serif text-xl font-bold text-rustic">
+                <span className="font-serif text-xl font-bold text-charcoal">
                   {totalPrice} EUR
                 </span>
               </div>
 
               <button
                 onClick={redirectToCheckout}
-                className="w-full bg-charcoal text-white py-3 px-6 rounded-lg font-medium hover:bg-rustic transition-colors duration-300"
+                className="w-full bg-charcoal text-soft py-3 px-6 rounded-lg font-medium hover:bg-rustic transition-colors duration-300"
                 disabled={loading}
               >
                 {loading ? "Chargement..." : "Procéder au paiement"}
@@ -145,7 +145,7 @@ export default function Cart() {
 
               <button
                 onClick={closeCart}
-                className="w-full border border-charcoal text-charcoal py-3 px-6 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-300"
+                className="w-full border border-charcoal/40 text-charcoal py-3 px-6 rounded-lg font-medium hover:bg-soft transition-colors duration-300"
               >
                 Continuer mes achats
               </button>

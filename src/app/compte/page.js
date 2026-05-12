@@ -30,7 +30,7 @@ export default function Compte() {
       <>
         <Navigation />
         <Cart />
-        <main className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft py-16 flex items-center justify-center">
+        <main className="min-h-screen bg-gradient-to-br from-creamy via-warm/40 to-creamy py-16 flex items-center justify-center">
           <div className="text-center">
             <div className="w-12 h-12 border-2 border-charcoal/20 border-t-warm rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-charcoal/60">Chargement...</p>
@@ -53,8 +53,13 @@ export default function Compte() {
       <Navigation />
       <Cart />
 
-      <main className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft py-12">
-        <div className="max-w-6xl mx-auto px-4">
+      <main className="min-h-screen bg-gradient-to-br from-creamy via-warm/40 to-creamy py-12 relative overflow-hidden">
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-warm/30 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-creamy rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 relative">
           {/* En-tête du compte */}
           <div className="bg-charcoal rounded-3xl p-8 md:p-12 mb-8 text-soft relative overflow-hidden">
             {/* Motifs décoratifs */}
@@ -84,7 +89,7 @@ export default function Compte() {
             {/* Favoris */}
             <Link
               href="/compte/favoris"
-              className="group bg-white rounded-2xl p-6 shadow-lg shadow-charcoal/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group bg-gradient-to-br from-soft to-creamy/40 rounded-2xl p-6 shadow-lg shadow-charcoal/15 border border-warm/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-warm/20 to-creamy rounded-2xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                 <svg className="w-7 h-7 text-warm" fill="currentColor" viewBox="0 0 24 24">
@@ -106,7 +111,7 @@ export default function Compte() {
             </Link>
 
             {/* Commandes */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg shadow-charcoal/5">
+            <div className="bg-gradient-to-br from-soft to-creamy/40 rounded-2xl p-6 shadow-lg shadow-charcoal/15 border border-warm/40">
               <div className="w-14 h-14 bg-gradient-to-br from-creamy to-soft rounded-2xl flex items-center justify-center mb-4">
                 <svg className="w-7 h-7 text-charcoal/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -126,7 +131,7 @@ export default function Compte() {
             {/* Contact */}
             <Link
               href="/contact"
-              className="group bg-white rounded-2xl p-6 shadow-lg shadow-charcoal/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group bg-gradient-to-br from-soft to-creamy/40 rounded-2xl p-6 shadow-lg shadow-charcoal/15 border border-warm/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-soft to-creamy rounded-2xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                 <svg className="w-7 h-7 text-charcoal/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +152,7 @@ export default function Compte() {
           </div>
 
           {/* Historique des commandes */}
-          <div className="bg-white rounded-3xl shadow-lg shadow-charcoal/5 p-8">
+          <div className="bg-gradient-to-br from-soft to-creamy/40 rounded-3xl shadow-lg shadow-charcoal/15 border border-warm/40 p-8">
             <h2 className="font-serif text-2xl text-charcoal mb-6">
               Historique des commandes
             </h2>

@@ -69,20 +69,25 @@ export default function Inscription() {
       <Navigation />
       <Cart />
 
-      <main className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft py-16">
-        <div className="max-w-md mx-auto px-4">
+      <main className="min-h-screen bg-gradient-to-br from-creamy via-warm/40 to-creamy py-16 relative overflow-hidden">
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-warm/30 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-creamy rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+        </div>
+        <div className="max-w-md mx-auto px-4 relative">
           {/* En-tête */}
           <div className="text-center mb-10">
             <h1 className="font-serif text-3xl md:text-4xl text-charcoal mb-4">
               Créer un compte
             </h1>
-            <p className="text-charcoal/60">
+            <p className="text-charcoal/75">
               Rejoignez la communauté Bohemian House
             </p>
           </div>
 
           {/* Formulaire */}
-          <div className="bg-white rounded-3xl shadow-xl shadow-charcoal/5 p-8 md:p-10">
+          <div className="bg-gradient-to-br from-soft to-creamy/40 rounded-3xl shadow-2xl shadow-charcoal/15 p-8 md:p-10 border border-warm/40">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Message d'erreur */}
               {error && (
@@ -106,7 +111,7 @@ export default function Inscription() {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal"
+                    className="w-full px-4 py-3 border border-charcoal/15 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/20 text-charcoal placeholder:text-charcoal/40"
                     placeholder="Sandra"
                   />
                 </div>
@@ -123,7 +128,7 @@ export default function Inscription() {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal"
+                    className="w-full px-4 py-3 border border-charcoal/15 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/20 text-charcoal placeholder:text-charcoal/40"
                     placeholder="Dupont"
                   />
                 </div>
@@ -144,7 +149,7 @@ export default function Inscription() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal"
+                  className="w-full px-4 py-3 border border-charcoal/15 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/20 text-charcoal placeholder:text-charcoal/40"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -166,7 +171,7 @@ export default function Inscription() {
                     onChange={handleChange}
                     required
                     minLength={5}
-                    className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal pr-12"
+                    className="w-full px-4 py-3 border border-charcoal/15 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/20 text-charcoal placeholder:text-charcoal/40 pr-12"
                     placeholder="••••••••"
                   />
                   <button
@@ -206,7 +211,7 @@ export default function Inscription() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-soft/30 text-charcoal"
+                  className="w-full px-4 py-3 border border-charcoal/15 rounded-xl focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/20 text-charcoal placeholder:text-charcoal/40"
                   placeholder="••••••••"
                 />
               </div>

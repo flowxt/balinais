@@ -30,7 +30,7 @@ export default function APropos() {
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-8"></div>
             <p className="text-xl text-soft/60 max-w-2xl mx-auto leading-relaxed font-light">
-              L&apos;histoire d&apos;une passion pour l&apos;artisanat balinais
+              L&apos;histoire d&apos;une passion pour l&apos;artisanat
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function APropos() {
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
               </svg>
               <p className="text-xl lg:text-2xl text-charcoal/80 leading-relaxed font-light italic mb-6">
-                Au-delà des objets, ce sont les femmes et les hommes derrière chaque création qui m&apos;ont touchée : leur savoir-faire, leur passion, leur sens du détail, et cette envie précieuse de transmettre leur art de génération en génération.
+                Promouvoir l&apos;artisanat est, pour moi, une façon de remettre de l&apos;âme dans les objets qui nous entourent. Chaque création porte en elle des mains, du temps, une histoire et un savoir-faire. En choisissant une pièce artisanale, vous n&apos;achetez pas seulement un objet&nbsp;: vous participez à faire vivre des traditions, un savoir-faire et des valeurs humaines précieuses.
               </p>
               <span className="text-warm font-medium">— Sandra</span>
             </div>

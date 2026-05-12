@@ -304,21 +304,11 @@ export default function Contact() {
 
             <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
-                Vos meubles sont-ils authentiquement balinais ?
+                Vos pièces sont-elles authentiquement artisanales ?
               </h3>
               <p className="text-charcoal/80 leading-relaxed">
-                Oui, tous nos meubles sont importés directement de Bali et fabriqués 
+                Oui, toutes nos pièces sont importées directement de Bali et fabriquées 
                 par des artisans locaux selon les techniques traditionnelles.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
-              <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
-                Proposez-vous des services de décoration ?
-              </h3>
-              <p className="text-charcoal/80 leading-relaxed">
-                Nous pouvons vous conseiller dans le choix et l&apos;agencement de vos pièces. 
-                N&apos;hésitez pas à nous parler de votre projet !
               </p>
             </div>
           </div>

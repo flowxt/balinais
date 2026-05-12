@@ -118,26 +118,26 @@ export default function ProductPage() {
         <nav className="mb-8 lg:mb-12">
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-charcoal/55 hover:text-charcoal transition-colors">
+              <Link href="/" className="text-charcoal hover:text-warm transition-colors font-medium">
                 Accueil
               </Link>
             </li>
-            <li className="text-charcoal/20">
+            <li className="text-charcoal/60">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </li>
             <li>
-              <Link href="/collections" className="text-charcoal/55 hover:text-charcoal transition-colors">
+              <Link href="/collections" className="text-charcoal hover:text-warm transition-colors font-medium">
                 Boutique
               </Link>
             </li>
-            <li className="text-charcoal/20">
+            <li className="text-charcoal/60">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </li>
-            <li className="text-charcoal font-medium truncate max-w-[200px]">{product.title}</li>
+            <li className="text-charcoal font-semibold truncate max-w-[200px]">{product.title}</li>
           </ol>
         </nav>
 
@@ -227,18 +227,18 @@ export default function ProductPage() {
             <div className="mb-8 pb-8 border-b border-charcoal/10">
               {product.descriptionHtml ? (
                 <div 
-                  className="prose prose-charcoal max-w-none text-charcoal leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:text-charcoal [&>li]:text-charcoal [&>h1]:text-charcoal [&>h2]:text-charcoal [&>h3]:text-charcoal"
+                  className="prose prose-charcoal max-w-none text-charcoal leading-relaxed font-normal [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:text-charcoal [&>p]:font-normal [&>li]:text-charcoal [&>li]:font-normal [&>ul]:text-charcoal [&>ol]:text-charcoal [&>h1]:text-charcoal [&>h2]:text-charcoal [&>h3]:text-charcoal [&>strong]:text-charcoal [&_strong]:text-charcoal [&_*]:text-charcoal"
                   dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                 />
               ) : (
-                <p className="text-charcoal leading-relaxed">
+                <p className="text-charcoal leading-relaxed font-normal">
                   {product.description || "Aucune description disponible."}
                 </p>
               )}
             </div>
 
             {/* Encart "Réalisé à la main" */}
-            <div className="mb-8 bg-gradient-to-r from-soft via-creamy/20 to-soft rounded-2xl p-6">
+            <div className="mb-8 bg-warm rounded-2xl p-6 shadow-sm">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-charcoal rounded-xl flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -246,11 +246,11 @@ export default function ProductPage() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-serif text-lg text-charcoal mb-2">
+                  <h4 className="font-serif text-lg text-charcoal mb-2 font-medium">
                     Réalisé à la main
                   </h4>
-                  <p className="text-sm text-charcoal/80 leading-relaxed">
-                    Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique, avec de légères variations de couleur, de texture et de dimensions.
+                  <p className="text-sm text-charcoal leading-relaxed font-normal">
+                    Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique. De légères variations de texture, de dimensions ou de teinte peuvent apparaître d&apos;un article à l&apos;autre, rendant chaque pièce singulière. Ce qui pourrait être perçu comme une imperfection fait justement tout le charme et l&apos;authenticité de l&apos;artisanat fait main. De plus, l&apos;éclairage de la photo peut légèrement modifier la perception de la couleur de l&apos;article.
                   </p>
                 </div>
               </div>

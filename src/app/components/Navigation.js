@@ -22,11 +22,11 @@ export default function Navigation() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-sansfond.png"
                 alt="Bohemian House Logo"
-                width={64}
-                height={64}
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain group-hover:scale-105 transition-transform duration-300"
+                width={96}
+                height={96}
+                className="w-14 h-14 sm:w-16 sm:h-16 object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-multiply"
               />
               <div className="hidden sm:block">
                 <span className="font-serif text-xl text-charcoal tracking-wide block leading-tight">

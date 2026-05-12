@@ -127,7 +127,6 @@ export default function FeaturedProducts() {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-6"></div>
           <p className="text-lg text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
             Une sélection d&apos;articles authentiques choisis avec passion.
-            Chaque pièce raconte une histoire unique.
           </p>
         </div>
 
