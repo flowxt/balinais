@@ -90,7 +90,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr" style={{ colorScheme: "light" }}>
+      <head>
+        {/* Force le mode clair : ignore le mode sombre du navigateur / OS */}
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#F9F5ED" />
+      </head>
       <body
         className={`${sourceSans.variable} ${cormorant.variable} antialiased`}
       >

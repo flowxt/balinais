@@ -42,13 +42,13 @@ export default function CategoryPage() {
           </div>
         </section>
 
-        {/* Filtres rapides par catégorie */}
-        <section className="bg-warm/85 backdrop-blur-md border-b border-charcoal/15 sticky top-20 z-30 shadow-sm">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4">
-            <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-hide">
+        {/* Filtres rapides par catégorie - non sticky, scrolle avec la page */}
+        <section className="relative bg-warm/85 backdrop-blur-md border-b border-charcoal/15 shadow-sm">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+            <div className="flex flex-nowrap items-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-hide -mx-1 px-1">
               <Link
                 href="/collections"
-                className="shrink-0 px-3.5 py-2 rounded-full border border-charcoal/25 bg-soft/60 text-charcoal text-xs lg:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
+                className="shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full border border-charcoal/25 bg-soft/70 text-charcoal text-[13px] sm:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
               >
                 Tous les articles
               </Link>
@@ -56,10 +56,10 @@ export default function CategoryPage() {
                 <Link
                   key={cat.id}
                   href={`/collections/${cat.slug}`}
-                  className={`shrink-0 px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium transition-all whitespace-nowrap shadow-sm ${
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-[13px] sm:text-sm font-medium transition-all whitespace-nowrap shadow-sm ${
                     cat.id === category.id
                       ? "bg-rustic text-soft"
-                      : "border border-charcoal/25 bg-soft/60 text-charcoal hover:bg-soft hover:border-charcoal/40"
+                      : "border border-charcoal/25 bg-soft/70 text-charcoal hover:bg-soft hover:border-charcoal/40"
                   }`}
                 >
                   {cat.name}
@@ -67,6 +67,8 @@ export default function CategoryPage() {
               ))}
             </div>
           </div>
+          {/* Dégradé sur le bord droit pour indiquer le scroll horizontal sur mobile */}
+          <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-warm/90 to-transparent sm:hidden"></div>
         </section>
 
         {/* Produits de la catégorie */}

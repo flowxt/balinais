@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  /* Site verrouillé en mode clair : on ignore les préférences sombres du navigateur */
+  color-scheme: light;
+
   /* Couleurs Bohemian House */
   --charcoal-clay: #3A2B20;
   --rustic-taupe: #7E6A52;
@@ -11,6 +14,11 @@
   
   --background: var(--soft-white-beige);
   --foreground: var(--charcoal-clay);
+}
+
+html {
+  color-scheme: light;
+  background-color: var(--soft-white-beige);
 }
 
 @theme inline {
@@ -27,13 +35,6 @@
   --color-soft: #F9F5ED;
   --color-golden: #B8860B;
   --color-terracotta: #C4715A;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
