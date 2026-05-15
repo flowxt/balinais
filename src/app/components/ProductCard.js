@@ -79,17 +79,16 @@ export default function ProductCard({ product, viewMode = "grid" }) {
               <ProductRating productId={product.id} size="sm" />
               <p className="text-sm text-charcoal/75 line-clamp-2 leading-relaxed">{product.description}</p>
               
-              {/* Prix */}
+              {/* Prix - tag élégant */}
               <div className="pt-3">
-                <div className="w-10 h-px bg-warm mb-3"></div>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-serif text-3xl font-light text-charcoal tracking-wide leading-none">
+                <span className="inline-flex items-baseline gap-2 px-5 py-2 bg-warm rounded-full shadow-sm">
+                  <span className="text-lg font-semibold text-charcoal tracking-tight leading-none">
                     {displayPrice}
                   </span>
-                  <span className="text-[11px] font-medium tracking-[0.25em] uppercase text-charcoal/55">
+                  <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-charcoal/70">
                     {currencyCode}
                   </span>
-                </div>
+                </span>
               </div>
             </div>
 
@@ -225,47 +224,35 @@ export default function ProductCard({ product, viewMode = "grid" }) {
             </div>
           </Link>
 
-          {/* Prix et variantes */}
-          <div className="mt-auto pt-4">
-            {/* Trait décoratif */}
-            <div className="w-10 h-px bg-warm mb-3"></div>
-            
-            <div className="flex items-baseline justify-between">
-              <div className="flex items-baseline gap-2">
-                <span className="font-serif text-2xl lg:text-3xl font-light text-charcoal tracking-wide leading-none">
-                  {displayPrice}
-                </span>
-                <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-charcoal/55">
-                  {currencyCode}
-                </span>
-              </div>
-              
-              {/* Indicateur de variantes */}
-              {hasMultipleVariants && (
-                <span className="text-[10px] text-charcoal/50 uppercase tracking-[0.2em] font-medium">
-                  {product.variants.length} options
-                </span>
-              )}
+          {/* Sélecteur de variantes - AU-DESSUS du prix pour alignement uniforme */}
+          {hasMultipleVariants && (
+            <div className="mb-3">
+              <select
+                value={selectedVariantIndex}
+                onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full px-3 py-2 border border-charcoal/15 rounded-lg text-xs focus:ring-1 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/30 text-charcoal"
+              >
+                {product.variants.map((variant, index) => (
+                  <option key={variant.id} value={index} disabled={!variant.availableForSale}>
+                    {variant.title}
+                    {!variant.availableForSale && " (Épuisé)"}
+                  </option>
+                ))}
+              </select>
             </div>
+          )}
 
-            {/* Sélecteur de variantes compact */}
-            {hasMultipleVariants && (
-              <div className="mt-3">
-                <select
-                  value={selectedVariantIndex}
-                  onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-full px-3 py-2 border border-charcoal/15 rounded-lg text-xs focus:ring-1 focus:ring-warm/50 focus:border-warm/50 transition-all bg-creamy/30 text-charcoal"
-                >
-                  {product.variants.map((variant, index) => (
-                    <option key={variant.id} value={index} disabled={!variant.availableForSale}>
-                      {variant.title}
-                      {!variant.availableForSale && " (Épuisé)"}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
+          {/* Prix - toujours en bas pour alignement uniforme entre cartes */}
+          <div className="mt-auto pt-2">
+            <span className="inline-flex items-baseline gap-1.5 px-4 py-1.5 bg-warm rounded-full shadow-sm">
+              <span className="text-base font-semibold text-charcoal tracking-tight leading-none">
+                {displayPrice}
+              </span>
+              <span className="text-[9px] font-semibold tracking-[0.2em] uppercase text-charcoal/70">
+                {currencyCode}
+              </span>
+            </span>
           </div>
         </div>
       </div>

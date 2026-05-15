@@ -190,76 +190,44 @@ export default function ProductPage() {
 
           {/* Informations du produit */}
           <div className="lg:py-4">
-            {/* Titre et prix */}
-            <div className="mb-8">
-              <div className="flex items-start justify-between gap-4 mb-6">
-                <h1 className="font-serif text-3xl lg:text-4xl text-charcoal leading-tight">
-                  {product.title}
-                </h1>
-                <FavoriteButton productId={product.id} className="mt-1" />
+            {/* Titre */}
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <h1 className="font-serif text-3xl lg:text-4xl text-charcoal leading-tight tracking-wide">
+                {product.title}
+              </h1>
+              <FavoriteButton productId={product.id} className="mt-1" />
+            </div>
+
+            {/* Prix + Disponibilité (style tag) */}
+            <div className="flex flex-wrap items-center gap-4 mb-8">
+              <div className="inline-flex items-baseline gap-2 px-6 py-3 bg-warm rounded-full shadow-sm">
+                <span className="text-2xl lg:text-3xl font-semibold text-charcoal tracking-tight leading-none">
+                  {price}
+                </span>
+                <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-charcoal/70">
+                  {currencyCode}
+                </span>
               </div>
               
-              <div className="flex items-center gap-6">
-                <div>
-                  <span className="text-3xl lg:text-4xl font-light text-charcoal">
-                    {price}
-                  </span>
-                  <span className="text-lg text-charcoal/55 ml-2">{currencyCode}</span>
-                </div>
-                
-                {/* Disponibilité */}
-                <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${
-                  selectedVariant?.availableForSale 
-                    ? 'bg-green-50 text-green-700' 
-                    : 'bg-red-50 text-red-600'
-                }`}>
-                  <div className={`w-2 h-2 rounded-full ${
-                    selectedVariant?.availableForSale ? 'bg-green-500' : 'bg-red-500'
-                  }`}></div>
-                  <span className="text-sm font-medium">
-                    {selectedVariant?.availableForSale ? 'En stock' : 'Épuisé'}
-                  </span>
-                </div>
+              {/* Disponibilité */}
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${
+                selectedVariant?.availableForSale 
+                  ? 'bg-green-50 text-green-700 border border-green-200' 
+                  : 'bg-red-50 text-red-600 border border-red-200'
+              }`}>
+                <div className={`w-2 h-2 rounded-full ${
+                  selectedVariant?.availableForSale ? 'bg-green-500' : 'bg-red-500'
+                }`}></div>
+                <span className="text-sm font-medium">
+                  {selectedVariant?.availableForSale ? 'En stock' : 'Épuisé'}
+                </span>
               </div>
             </div>
 
-            {/* Description */}
-            <div className="mb-8 pb-8 border-b border-charcoal/10">
-              {product.descriptionHtml ? (
-                <div 
-                  className="prose prose-charcoal max-w-none text-charcoal leading-relaxed font-normal [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:text-charcoal [&>p]:font-normal [&>li]:text-charcoal [&>li]:font-normal [&>ul]:text-charcoal [&>ol]:text-charcoal [&>h1]:text-charcoal [&>h2]:text-charcoal [&>h3]:text-charcoal [&>strong]:text-charcoal [&_strong]:text-charcoal [&_*]:text-charcoal"
-                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-                />
-              ) : (
-                <p className="text-charcoal leading-relaxed font-normal">
-                  {product.description || "Aucune description disponible."}
-                </p>
-              )}
-            </div>
-
-            {/* Encart "Réalisé à la main" */}
-            <div className="mb-8 bg-warm rounded-2xl p-6 shadow-sm">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-charcoal rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-serif text-lg text-charcoal mb-2 font-medium">
-                    Réalisé à la main
-                  </h4>
-                  <p className="text-sm text-charcoal leading-relaxed font-normal">
-                    Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique. De légères variations de texture, de dimensions ou de teinte peuvent apparaître d&apos;un article à l&apos;autre, rendant chaque pièce singulière. Ce qui pourrait être perçu comme une imperfection fait justement tout le charme et l&apos;authenticité de l&apos;artisanat fait main. De plus, l&apos;éclairage de la photo peut légèrement modifier la perception de la couleur de l&apos;article.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Sélecteur de variantes */}
+            {/* Sélecteur de variantes - directement sous le prix */}
             {hasMultipleVariants && (
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-charcoal mb-3">
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-charcoal mb-3 tracking-wide">
                   Choisissez une option
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -270,7 +238,7 @@ export default function ProductPage() {
                       disabled={!variant.availableForSale}
                       className={`px-5 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
                         selectedVariantIndex === index
-                          ? "bg-charcoal text-soft shadow-lg"
+                          ? "bg-rustic text-soft shadow-lg"
                           : variant.availableForSale
                           ? "bg-soft text-charcoal hover:bg-creamy/40 border border-charcoal/15"
                           : "bg-gray-100 text-gray-400 cursor-not-allowed line-through"
@@ -284,89 +252,90 @@ export default function ProductPage() {
               </div>
             )}
 
-            {/* Quantité et ajout au panier */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-medium text-charcoal">Quantité</span>
-                <div className="flex items-center bg-soft rounded-xl overflow-hidden">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-12 h-12 flex items-center justify-center text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                    </svg>
-                  </button>
-                  <span className="w-16 h-12 flex items-center justify-center font-medium text-charcoal border-x border-charcoal/10">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-12 h-12 flex items-center justify-center text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-colors"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
+            {/* Quantité - juste sous les variantes */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-charcoal mb-3 tracking-wide">
+                Quantité
+              </label>
+              <div className="inline-flex items-center bg-soft border border-charcoal/15 rounded-xl overflow-hidden">
                 <button
-                  onClick={handleAddToCart}
-                  disabled={cartLoading || !selectedVariant?.availableForSale || !selectedVariant?.id}
-                  className="flex-1 bg-charcoal text-soft px-8 py-4 rounded-xl font-medium hover:bg-warm transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-12 h-12 flex items-center justify-center text-charcoal hover:bg-charcoal/5 transition-colors"
                 >
-                  {cartLoading ? (
-                    <>
-                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Ajout en cours...
-                    </>
-                  ) : selectedVariant?.availableForSale ? (
-                    <>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                      </svg>
-                      Ajouter au panier
-                    </>
-                  ) : (
-                    "Non disponible"
-                  )}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                  </svg>
                 </button>
-                
-                <Link 
-                  href="/contact"
-                  className="flex-1 sm:flex-none border border-charcoal/20 text-charcoal px-8 py-4 rounded-xl font-medium hover:bg-soft hover:border-charcoal/30 transition-all duration-300 text-center"
+                <span className="w-16 h-12 flex items-center justify-center font-medium text-charcoal border-x border-charcoal/15">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="w-12 h-12 flex items-center justify-center text-charcoal hover:bg-charcoal/5 transition-colors"
                 >
-                  Une question ?
-                </Link>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
               </div>
+            </div>
+
+            {/* Boutons d'action */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <button
+                onClick={handleAddToCart}
+                disabled={cartLoading || !selectedVariant?.availableForSale || !selectedVariant?.id}
+                className="flex-1 bg-charcoal text-soft px-8 py-4 rounded-xl font-medium hover:bg-rustic transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg shadow-charcoal/20"
+              >
+                {cartLoading ? (
+                  <>
+                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Ajout en cours...
+                  </>
+                ) : selectedVariant?.availableForSale ? (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    Ajouter au panier
+                  </>
+                ) : (
+                  "Non disponible"
+                )}
+              </button>
+              
+              <Link 
+                href="/contact"
+                className="flex-1 sm:flex-none border border-charcoal/25 text-charcoal px-8 py-4 rounded-xl font-medium hover:bg-soft hover:border-charcoal/40 transition-all duration-300 text-center"
+              >
+                Une question ?
+              </Link>
             </div>
 
             {/* Avantages */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-charcoal/10">
               <div className="flex items-center gap-3 text-sm text-charcoal">
-                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-creamy/40 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-rustic" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span>Artisanat balinais</span>
+                <span>Fait main</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-charcoal">
-                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-creamy/40 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-rustic" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                 </div>
                 <span>Livraison soignée</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-charcoal">
-                <div className="w-10 h-10 bg-creamy/35 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-creamy/40 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-rustic" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
@@ -375,6 +344,51 @@ export default function ProductPage() {
             </div>
           </div>
         </div>
+
+        {/* Description - pleine largeur sous le grid */}
+        <section className="mt-16 lg:mt-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="font-serif text-2xl lg:text-3xl text-charcoal mb-3 tracking-wide font-light">
+                Description
+              </h2>
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto"></div>
+            </div>
+            {product.descriptionHtml ? (
+              <div 
+                className="prose prose-charcoal max-w-none text-charcoal leading-relaxed font-normal text-base lg:text-lg [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:text-charcoal [&>p]:font-normal [&>li]:text-charcoal [&>li]:font-normal [&>ul]:text-charcoal [&>ol]:text-charcoal [&>h1]:text-charcoal [&>h2]:text-charcoal [&>h3]:text-charcoal [&>strong]:text-charcoal [&_strong]:text-charcoal [&_*]:text-charcoal"
+                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+              />
+            ) : (
+              <p className="text-charcoal leading-relaxed font-normal text-base lg:text-lg">
+                {product.description || "Aucune description disponible."}
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Encart "Réalisé à la main" - pleine largeur sous le grid */}
+        <section className="mt-20 relative rounded-3xl bg-rustic overflow-hidden shadow-xl shadow-charcoal/10">
+          {/* Motifs décoratifs */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-warm/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-creamy/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+          </div>
+          <div className="relative max-w-4xl mx-auto px-8 lg:px-12 py-12 lg:py-16 text-center">
+            <div className="w-16 h-16 bg-soft/15 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg className="w-8 h-8 text-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+              </svg>
+            </div>
+            <h3 className="font-serif text-2xl lg:text-3xl text-soft mb-2 font-light tracking-wide">
+              Réalisé à la main
+            </h3>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-6"></div>
+            <p className="text-soft/90 leading-relaxed font-light max-w-3xl mx-auto">
+              Fidèles à notre engagement envers l&apos;artisanat d&apos;exception et le fait main, chaque création présente un caractère unique. De légères variations de texture, de dimensions ou de teinte peuvent apparaître d&apos;un article à l&apos;autre, rendant chaque pièce singulière. Ce qui pourrait être perçu comme une imperfection fait justement tout le charme et l&apos;authenticité de l&apos;artisanat fait main. De plus, l&apos;éclairage de la photo peut légèrement modifier la perception de la couleur de l&apos;article.
+            </p>
+          </div>
+        </section>
 
         {/* Section Avis */}
         <div className="mt-16">

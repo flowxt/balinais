@@ -5,12 +5,14 @@ import Navigation from "../components/Navigation";
 import CollectionProductGrid from "../components/CollectionProductGrid";
 import Cart from "../components/Cart";
 import Footer from "../components/Footer";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 import { categories } from "@/lib/categories";
 
 export default function Collections() {
   return (
     <div className="min-h-screen bg-soft">
       <Navigation />
+      <ScrollToTopButton />
       <main>
         {/* Hero Section Boutique */}
         <section className="relative py-20 lg:py-28 bg-rustic overflow-hidden">
@@ -32,12 +34,12 @@ export default function Collections() {
         </section>
 
         {/* Filtres rapides par catégorie */}
-        <section className="bg-warm border-b border-charcoal/20 sticky top-20 z-30 shadow-md">
+        <section className="bg-warm/85 backdrop-blur-md border-b border-charcoal/15 sticky top-20 z-30 shadow-sm">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4">
             <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto scrollbar-hide">
               <Link
                 href="/collections"
-                className="shrink-0 px-3.5 py-2 rounded-full bg-charcoal text-soft text-xs lg:text-sm font-medium hover:bg-charcoal/90 transition-colors whitespace-nowrap shadow-sm"
+                className="shrink-0 px-3.5 py-2 rounded-full bg-rustic text-soft text-xs lg:text-sm font-medium hover:bg-rustic/90 transition-colors whitespace-nowrap shadow-sm"
               >
                 Tous les articles
               </Link>
@@ -45,7 +47,7 @@ export default function Collections() {
                 <Link
                   key={category.id}
                   href={`/collections/${category.slug}`}
-                  className="shrink-0 px-3.5 py-2 rounded-full border border-charcoal/25 bg-soft/50 text-charcoal text-xs lg:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
+                  className="shrink-0 px-3.5 py-2 rounded-full border border-charcoal/25 bg-soft/60 text-charcoal text-xs lg:text-sm font-medium hover:bg-soft hover:border-charcoal/40 transition-all whitespace-nowrap shadow-sm"
                 >
                   {category.name}
                 </Link>

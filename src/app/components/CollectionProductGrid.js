@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { getAllProducts, getProductsByCategory } from "@/lib/shopify";
 import ProductCard from "./ProductCard";
 
 export default function CollectionProductGrid({ categoryFilter = null }) {
+  const pathname = usePathname();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,6 +38,111 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
 
     fetchProducts();
   }, [categoryFilter]);
+
+  // Désactiver la restauration de scroll native pour éviter tout conflit
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  // Sauvegarder la position de scroll AVANT toute navigation vers un article.
+  // C'est la clé : on capture le clic en phase de capture (donc avant que Next.js
+  // ne défile la page vers le haut), et on enregistre la position courante.
+  // On combine avec un listener scroll throttle qui maintient la dernière position
+  // connue dans une ref, au cas où.
+  useEffect(() => {
+    const key = `scroll-${pathname}`;
+    let lastKnownY = window.scrollY;
+    let throttleId = null;
+
+    const onScroll = () => {
+      if (throttleId !== null) return;
+      throttleId = window.setTimeout(() => {
+        lastKnownY = window.scrollY;
+        throttleId = null;
+      }, 80);
+    };
+
+    const persistFromEvent = (target) => {
+      // On utilise scrollY si > 0, sinon la dernière valeur connue (au cas où
+      // un autre script a déjà fait scrollTo(0, 0) juste avant le clic).
+      const y = window.scrollY > 0 ? window.scrollY : lastKnownY;
+      sessionStorage.setItem(key, String(y));
+    };
+
+    const onPointerDown = (e) => {
+      // Sauvegarder dès qu'on clique sur un lien vers /produit/*
+      const anchor = e.target?.closest?.("a");
+      if (!anchor) return;
+      try {
+        const url = new URL(anchor.href, window.location.origin);
+        if (url.pathname.startsWith("/produit/")) {
+          persistFromEvent();
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    const persistAll = () => {
+      const y = window.scrollY > 0 ? window.scrollY : lastKnownY;
+      sessionStorage.setItem(key, String(y));
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mousedown", onPointerDown, true);
+    document.addEventListener("touchstart", onPointerDown, true);
+    window.addEventListener("beforeunload", persistAll);
+    window.addEventListener("pagehide", persistAll);
+
+    return () => {
+      if (throttleId !== null) clearTimeout(throttleId);
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mousedown", onPointerDown, true);
+      document.removeEventListener("touchstart", onPointerDown, true);
+      window.removeEventListener("beforeunload", persistAll);
+      window.removeEventListener("pagehide", persistAll);
+    };
+  }, [pathname]);
+
+  // Restaurer la position de scroll après chargement des produits.
+  // Plusieurs tentatives pour gagner la course contre Next.js qui défile en haut.
+  useEffect(() => {
+    if (loading || products.length === 0) return;
+
+    const key = `scroll-${pathname}`;
+    const savedY = sessionStorage.getItem(key);
+    if (!savedY) return;
+
+    const targetY = parseInt(savedY, 10);
+    if (Number.isNaN(targetY) || targetY <= 0) return;
+
+    const restore = () => window.scrollTo(0, targetY);
+
+    restore();
+    const r1 = requestAnimationFrame(() => {
+      restore();
+      requestAnimationFrame(restore);
+    });
+    const t1 = setTimeout(restore, 50);
+    const t2 = setTimeout(restore, 150);
+    const t3 = setTimeout(restore, 300);
+    const t4 = setTimeout(() => {
+      restore();
+      // On supprime la clé une fois la restauration terminée pour qu'une
+      // visite ultérieure "fraîche" reparte du haut.
+      sessionStorage.removeItem(key);
+    }, 500);
+
+    return () => {
+      cancelAnimationFrame(r1);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
+  }, [loading, products.length, pathname]);
 
   // Fonction de tri des produits
   const sortedProducts = products.sort((a, b) => {

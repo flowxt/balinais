@@ -185,13 +185,9 @@ export default function Home() {
             <span className="inline-block text-charcoal/50 text-sm font-medium tracking-[0.3em] uppercase mb-6">
               Votre intérieur mérite l&apos;exception
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-light text-charcoal mb-8 tracking-wide leading-tight">
+            <h2 className="font-serif text-4xl md:text-5xl font-light text-charcoal mb-12 tracking-wide leading-tight">
               Prêt à transformer<br className="hidden md:block" /> votre espace de vie ?
             </h2>
-            <p className="text-lg text-charcoal/60 mb-12 leading-relaxed max-w-2xl mx-auto">
-              Découvrez nos créations et laissez-vous inspirer par
-              l&apos;élégance et la sérénité de l&apos;artisanat balinais authentique.
-            </p>
             <div className="flex flex-col sm:flex-row gap-5 justify-center">
               <Link
                 href="/collections"
