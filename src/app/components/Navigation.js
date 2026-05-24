@@ -15,7 +15,7 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-warm sticky top-0 z-50 border-b border-charcoal/10 shadow-sm">
+    <nav className="bg-warm/85 backdrop-blur-md sticky top-0 z-50 border-b border-charcoal/15 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}

@@ -27,8 +27,8 @@ export default function Collections() {
               La Boutique
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent mx-auto mb-6"></div>
-            <p className="text-lg text-soft/80 max-w-xl mx-auto leading-relaxed font-light">
-              Découvrez notre collection d&apos;articles uniques, sélectionnés avec passion à Bali
+            <p className="text-lg text-soft/80 max-w-2xl mx-auto leading-relaxed font-light">
+              Découvrez une collection de pièces artisanales uniques, sélectionnées avec amour à Bali pour sublimer votre intérieur.
             </p>
           </div>
         </section>

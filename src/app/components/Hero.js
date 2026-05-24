@@ -50,9 +50,9 @@ export default function Hero() {
 
           {/* Description */}
           <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg font-light">
-            Découvrez notre collection exclusive d&apos;objets artisanaux balinais,
-            où chaque pièce raconte une histoire et apporte une atmosphère zen et
-            élégante à votre intérieur.
+            Laissez entrer l&apos;âme de Bali dans votre intérieur à travers des
+            créations artisanales uniques, porteuses d&apos;histoires, de savoir-faire
+            et d&apos;authenticité.
           </p>
 
           {/* Boutons d'action */}

@@ -475,6 +475,37 @@ export async function fetchCheckout(checkoutId) {
   }
 }
 
+// Supprimer un ou plusieurs lineItem du checkout
+export async function removeFromCheckout(checkoutId, lineItemIds) {
+  try {
+    const shopifyClient = await getShopifyClient();
+    if (!shopifyClient) return null;
+    const checkout = await shopifyClient.checkout.removeLineItems(
+      checkoutId,
+      Array.isArray(lineItemIds) ? lineItemIds : [lineItemIds]
+    );
+    return checkout;
+  } catch (error) {
+    console.error("Erreur lors de la suppression du panier:", error);
+    return null;
+  }
+}
+
+// Mettre à jour la quantité d'un lineItem
+export async function updateCheckoutLineItem(checkoutId, lineItemId, quantity) {
+  try {
+    const shopifyClient = await getShopifyClient();
+    if (!shopifyClient) return null;
+    const checkout = await shopifyClient.checkout.updateLineItems(checkoutId, [
+      { id: lineItemId, quantity },
+    ]);
+    return checkout;
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du panier:", error);
+    return null;
+  }
+}
+
 // Fonction pour filtrer les produits par catégorie (basé sur les tags)
 export async function getProductsByCategory(categoryId) {
   try {

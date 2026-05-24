@@ -53,8 +53,8 @@ export default function APropos() {
               <h2 className="font-serif text-4xl text-charcoal mb-8 leading-tight">
                 Rencontrez Sandra
               </h2>
-              <div className="space-y-6 text-charcoal/85 leading-relaxed">
-                <p className="text-lg">
+              <div className="space-y-6 text-charcoal/85 leading-relaxed text-lg">
+                <p>
                   Je m&apos;appelle Sandra, j&apos;ai 35 ans, et je suis heureuse
                   de vous accueillir dans mon univers.
                 </p>
@@ -95,21 +95,23 @@ export default function APropos() {
             </div>
           </div>
 
-          {/* Citation mise en avant */}
-          <div className="relative py-16 mb-32 rounded-3xl bg-rustic overflow-hidden shadow-xl shadow-charcoal/10">
-            {/* Motifs décoratifs */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-warm/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
-              <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-creamy/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
-            </div>
-            <div className="relative max-w-3xl mx-auto text-center px-8">
-              <svg className="w-12 h-12 text-warm/70 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-              </svg>
-              <p className="text-xl lg:text-2xl text-soft leading-relaxed font-light italic mb-6">
-                Promouvoir l&apos;artisanat est, pour moi, une façon de remettre de l&apos;âme dans les objets qui nous entourent. Chaque création porte en elle des mains, du temps, une histoire et un savoir-faire. En choisissant une pièce artisanale, vous n&apos;achetez pas seulement un objet&nbsp;: vous participez à faire vivre des traditions, un savoir-faire et des valeurs humaines précieuses.
-              </p>
-              <span className="text-warm font-medium tracking-wide">— Sandra</span>
+          {/* Citation mise en avant - encart plus étroit pour ne pas faire un gros bloc marron */}
+          <div className="mb-32 flex justify-center">
+            <div className="relative py-14 px-6 sm:px-10 w-full max-w-3xl rounded-3xl bg-rustic overflow-hidden shadow-xl shadow-charcoal/10">
+              {/* Motifs décoratifs */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[240px] h-[240px] bg-warm/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+                <div className="absolute bottom-0 left-0 w-[240px] h-[240px] bg-creamy/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+              </div>
+              <div className="relative text-center">
+                <svg className="w-10 h-10 text-warm/70 mx-auto mb-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                </svg>
+                <p className="text-lg lg:text-xl text-soft leading-relaxed font-light italic mb-5">
+                  Promouvoir l&apos;artisanat est, pour moi, une façon de remettre de l&apos;âme dans les objets qui nous entourent. Chaque création porte en elle des mains, du temps, une histoire et un savoir-faire. En choisissant une pièce artisanale, vous n&apos;achetez pas seulement un objet&nbsp;: vous participez à faire vivre des traditions, un savoir-faire et des valeurs humaines précieuses.
+                </p>
+                <span className="text-warm font-medium tracking-wide">— Sandra</span>
+              </div>
             </div>
           </div>
 
@@ -141,7 +143,7 @@ export default function APropos() {
               <h3 className="font-serif text-3xl text-charcoal mb-8 leading-tight">
                 De la passion à l&apos;aventure
               </h3>
-              <div className="space-y-6 text-charcoal/85 leading-relaxed">
+              <div className="space-y-6 text-charcoal/85 leading-relaxed text-lg">
                 <p>
                   La lecture du livre
                   <span className="text-charcoal font-medium"> « L&apos;homme qui voulait être heureux »</span> de Laurent Gounelle

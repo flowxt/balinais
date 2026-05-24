@@ -5,6 +5,16 @@ import { usePathname } from "next/navigation";
 import { getAllProducts, getProductsByCategory } from "@/lib/shopify";
 import ProductCard from "./ProductCard";
 
+// Normalise une chaîne pour la recherche : minuscules + sans accents.
+// Permet de matcher "Décoration" avec "decoration", "boîte" avec "boite", etc.
+function normalizeForSearch(str = "") {
+  return String(str)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
 export default function CollectionProductGrid({ categoryFilter = null }) {
   const pathname = usePathname();
   const [products, setProducts] = useState([]);
@@ -12,6 +22,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState("grid"); // grid ou list
   const [sortBy, setSortBy] = useState("featured");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchProducts() {
@@ -144,8 +155,26 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
     };
   }, [loading, products.length, pathname]);
 
-  // Fonction de tri des produits
-  const sortedProducts = products.sort((a, b) => {
+  // Filtre par recherche (titre + description + tags, insensible aux accents/casse)
+  const normalizedQuery = normalizeForSearch(searchQuery);
+  const filteredProducts = normalizedQuery
+    ? products.filter((p) => {
+        const haystack = [
+          p.title,
+          p.description,
+          ...(Array.isArray(p.tags) ? p.tags : []),
+        ]
+          .map(normalizeForSearch)
+          .join(" ");
+        // On match dès qu'un des mots saisis apparaît (recherche tolérante)
+        const terms = normalizedQuery.split(/\s+/).filter(Boolean);
+        return terms.every((term) => haystack.includes(term));
+      })
+    : products;
+
+  // Fonction de tri des produits (sur la liste filtrée pour éviter de réordonner
+  // tous les produits si on a déjà filtré).
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case "price-low":
         return (
@@ -160,7 +189,7 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
       case "name":
         return a.title.localeCompare(b.title);
       default:
-        return 0; // ordre par défaut
+        return 0;
     }
   });
 
@@ -248,12 +277,46 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
         <div className="absolute bottom-20 left-0 w-[400px] h-[400px] bg-creamy/20 rounded-full blur-3xl"></div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Barre de recherche - large, au-dessus des contrôles */}
+        <div className="mb-8">
+          <div className="relative max-w-2xl mx-auto">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg className="w-5 h-5 text-charcoal/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Rechercher (ex : rotin, coquillage, palmier, boîte…)"
+              className="w-full pl-12 pr-12 py-3.5 rounded-full bg-soft border border-charcoal/15 text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-warm/50 focus:border-warm/50 transition-all shadow-sm"
+              aria-label="Rechercher un article"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Effacer la recherche"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-charcoal/40 hover:text-charcoal transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Contrôles d'affichage et tri */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-16 pb-8 border-b border-charcoal/10">
           <div className="mb-4 md:mb-0">
             <p className="text-charcoal/60 font-medium">
-              {products.length} {products.length === 1 ? "article" : "articles"}{" "}
-              disponible{products.length > 1 ? "s" : ""}
+              {sortedProducts.length}{" "}
+              {sortedProducts.length === 1 ? "article" : "articles"}
+              {normalizedQuery
+                ? ` correspond${sortedProducts.length === 1 ? "" : "ent"} à votre recherche`
+                : ` disponible${sortedProducts.length > 1 ? "s" : ""}`}
             </p>
           </div>
 
@@ -315,25 +378,48 @@ export default function CollectionProductGrid({ categoryFilter = null }) {
           </div>
         </div>
 
-        {/* Grille de produits */}
-        <div
-          className={
-            viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              : "space-y-4"
-          }
-        >
-          {sortedProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              viewMode={viewMode}
-            />
-          ))}
-        </div>
+        {/* Aucun résultat de recherche */}
+        {normalizedQuery && sortedProducts.length === 0 ? (
+          <div className="text-center py-16 px-6 bg-gradient-to-br from-warm/15 to-creamy/25 rounded-3xl border border-charcoal/5">
+            <div className="w-16 h-16 mx-auto mb-5 bg-soft rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-charcoal/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 className="font-serif text-2xl text-charcoal mb-3">
+              Aucun article trouvé
+            </h3>
+            <p className="text-charcoal/70 max-w-md mx-auto mb-6 leading-relaxed">
+              Aucun résultat pour <strong>« {searchQuery} »</strong>. Essayez avec un autre mot-clé (rotin, bambou, coquillage, palmier, perles…).
+            </p>
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="inline-flex items-center gap-2 bg-charcoal text-soft px-6 py-3 rounded-full font-medium hover:bg-warm transition-colors"
+            >
+              Effacer la recherche
+            </button>
+          </div>
+        ) : (
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                : "space-y-4"
+            }
+          >
+            {sortedProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                viewMode={viewMode}
+              />
+            ))}
+          </div>
+        )}
 
-        {/* Message informatif si peu de produits */}
-        {products.length <= 3 && (
+        {/* Message informatif si peu de produits (et pas de recherche en cours) */}
+        {!normalizedQuery && products.length <= 3 && (
           <div className="mt-20 text-center p-12 bg-gradient-to-br from-warm/20 to-creamy/30 rounded-3xl border border-charcoal/5">
             <div className="max-w-2xl mx-auto">
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-charcoal to-rustic rounded-2xl flex items-center justify-center">

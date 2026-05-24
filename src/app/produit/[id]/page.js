@@ -198,27 +198,27 @@ export default function ProductPage() {
               <FavoriteButton productId={product.id} className="mt-1" />
             </div>
 
-            {/* Prix + Disponibilité (style tag) */}
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              <div className="inline-flex items-baseline gap-2 px-6 py-3 bg-warm rounded-full shadow-sm">
-                <span className="text-2xl lg:text-3xl font-semibold text-charcoal tracking-tight leading-none">
+            {/* Prix + Disponibilité (style tag - même hauteur visuelle) */}
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <div className="inline-flex items-baseline gap-2 px-5 py-3 bg-warm rounded-full shadow-sm">
+                <span className="text-xl lg:text-2xl font-semibold text-charcoal tracking-tight leading-none">
                   {price}
                 </span>
                 <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-charcoal/70">
                   {currencyCode}
                 </span>
               </div>
-              
-              {/* Disponibilité */}
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${
-                selectedVariant?.availableForSale 
-                  ? 'bg-green-50 text-green-700 border border-green-200' 
+
+              {/* Disponibilité - même hauteur que le tag prix (px-5 py-3) */}
+              <div className={`inline-flex items-center gap-2 px-5 py-3 rounded-full shadow-sm ${
+                selectedVariant?.availableForSale
+                  ? 'bg-green-50 text-green-700 border border-green-200'
                   : 'bg-red-50 text-red-600 border border-red-200'
               }`}>
-                <div className={`w-2 h-2 rounded-full ${
+                <div className={`w-2.5 h-2.5 rounded-full ${
                   selectedVariant?.availableForSale ? 'bg-green-500' : 'bg-red-500'
                 }`}></div>
-                <span className="text-sm font-medium">
+                <span className="text-base lg:text-lg font-semibold tracking-tight leading-none">
                   {selectedVariant?.availableForSale ? 'En stock' : 'Épuisé'}
                 </span>
               </div>

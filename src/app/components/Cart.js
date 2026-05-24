@@ -12,6 +12,8 @@ export default function Cart() {
     getTotalItems,
     getTotalPrice,
     redirectToCheckout,
+    removeFromCart,
+    updateQuantity,
   } = useCart();
 
   if (!isOpen) return null;
@@ -97,7 +99,7 @@ export default function Cart() {
                 {lineItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-4 p-4 bg-soft rounded-xl shadow-sm border border-warm/20 hover:border-warm/40 transition-colors"
+                    className="relative flex items-start gap-4 p-4 bg-soft rounded-xl shadow-sm border border-warm/20 hover:border-warm/40 transition-colors"
                   >
                     {/* Image du produit */}
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
@@ -116,13 +118,47 @@ export default function Cart() {
                     </div>
 
                     {/* Informations du produit */}
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-8">
                       <h4 className="font-serif text-sm text-charcoal leading-tight mb-1 line-clamp-2">
                         {item.title}
                       </h4>
-                      <p className="text-charcoal/60 text-xs mb-2">
-                        Quantité&nbsp;: {item.quantity}
-                      </p>
+                      {item.variant?.title && item.variant.title !== "Default Title" && (
+                        <p className="text-charcoal/55 text-[11px] mb-2">
+                          {item.variant.title}
+                        </p>
+                      )}
+
+                      {/* Sélecteur de quantité - / nombre / + */}
+                      <div className="flex items-center gap-2 mt-2 mb-2">
+                        <div className="inline-flex items-center bg-creamy/40 border border-warm/30 rounded-lg overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            disabled={loading}
+                            aria-label="Diminuer la quantité"
+                            className="w-7 h-7 flex items-center justify-center text-charcoal hover:bg-warm/30 transition-colors disabled:opacity-40"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
+                            </svg>
+                          </button>
+                          <span className="w-8 h-7 flex items-center justify-center text-xs font-semibold text-charcoal border-x border-warm/30">
+                            {item.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            disabled={loading}
+                            aria-label="Augmenter la quantité"
+                            className="w-7 h-7 flex items-center justify-center text-charcoal hover:bg-warm/30 transition-colors disabled:opacity-40"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
                       <span className="inline-flex items-baseline gap-1 px-2.5 py-1 bg-warm rounded-full">
                         <span className="text-xs font-semibold text-charcoal leading-none">
                           {item.variant?.price?.amount}
@@ -132,6 +168,19 @@ export default function Cart() {
                         </span>
                       </span>
                     </div>
+
+                    {/* Bouton supprimer en haut à droite */}
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.id)}
+                      disabled={loading}
+                      aria-label="Supprimer cet article du panier"
+                      className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full text-charcoal/50 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-40"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
                   </div>
                 ))}
               </div>

@@ -6,7 +6,7 @@ export const categories = [
     name: "Luminaires",
     slug: "luminaires",
     description:
-      "Illuminez votre intérieur avec nos lampes et suspensions balinaises artisanales, créées à partir de matériaux naturels comme le bambou et le rotin.",
+      "Créez une ambiance douce et chaleureuse dans chaque pièce de votre intérieur avec nos luminaires, réalisés à la main dans des matières naturelles.",
     image: "/images/categories/luminaires.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",
@@ -16,7 +16,7 @@ export const categories = [
     name: "Arts de la table",
     slug: "arts-de-la-table",
     description:
-      "Découvrez notre vaisselle et accessoires de table sculptés dans le bois noble, pour des repas empreints de spiritualité balinaise.",
+      "Chaque détail compte autour d'une table, nos accessoires artisanaux y apportent chaleur, authenticité et charme.",
     image: "/images/categories/arts-table.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",
@@ -26,7 +26,7 @@ export const categories = [
     name: "Décoration murale",
     slug: "decoration-murale",
     description:
-      "Ornez vos murs avec nos sculptures, masques et panneaux décoratifs traditionnels, témoins de l'art ancestral balinais.",
+      "Habillez vos murs avec notre décoration murale artisanale, pensée pour créer une ambiance chaleureuse et authentique.",
     image: "/images/categories/decoration-murale.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",
@@ -36,7 +36,7 @@ export const categories = [
     name: "Boîtes d'offrandes",
     slug: "boites-offrandes",
     description:
-      "Objets sacrés chargés de spiritualité, nos boîtes d'offrandes apportent paix et harmonie dans votre espace de méditation.",
+      "Apportez une touche d'authenticité et de sérénité à votre intérieur avec nos boîtes d'offrandes artisanales, inspirées des traditions balinaises.",
     image: "/images/categories/boites-offrandes.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",
@@ -46,7 +46,7 @@ export const categories = [
     name: "Décoration",
     slug: "decoration",
     description:
-      "Sublimez votre intérieur avec nos objets décoratifs : statuettes, porte-encens, photophores et accessoires artisanaux balinais.",
+      "Sublimez votre intérieur avec nos pièces décoratives artisanales sélectionnées pour leur charme et leur beauté.",
     image: "/images/categories/decoration.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",
@@ -56,7 +56,7 @@ export const categories = [
     name: "Vases",
     slug: "vases",
     description:
-      "Découvrez nos vases artisanaux balinais, façonnés avec soin pour sublimer vos compositions florales et votre décoration.",
+      "Découvrez nos vases artisanaux en matières naturelles, pensés pour apporter une touche chaleureuse et élégante à votre intérieur.",
     image: "/images/categories/vases.jpg",
     color: "from-warm to-creamy",
     textColor: "text-charcoal",

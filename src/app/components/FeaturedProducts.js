@@ -5,6 +5,23 @@ import Link from "next/link";
 import { getAllProducts } from "@/lib/shopify";
 import ProductCard from "./ProductCard";
 
+// Coups de cœur fixés par Sandra (3 produits sélectionnés manuellement).
+// On normalise (minuscules + sans accents) pour matcher de manière robuste.
+const FEATURED_TITLES = [
+  "Plateau artisanal perlé en bambou naturel",
+  "Panier en fibres de bananier avec couvercle",
+  "Rond mural en coquillages et raphia",
+];
+
+function normalize(str = "") {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default function FeaturedProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,16 +32,30 @@ export default function FeaturedProducts() {
       try {
         setLoading(true);
         const fetchedProducts = await getAllProducts();
-        
-        // Mélanger aléatoirement les produits (Fisher-Yates shuffle)
-        const shuffled = [...fetchedProducts];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        
-        // Prendre les 3 premiers produits après mélange
-        setProducts(shuffled.slice(0, 3));
+
+        // Match exact d'abord, sinon fallback "starts with" / "includes"
+        const normalizedTargets = FEATURED_TITLES.map((t) => ({
+          original: t,
+          norm: normalize(t),
+        }));
+
+        const matched = normalizedTargets
+          .map(({ original, norm }) => {
+            const byExact = fetchedProducts.find(
+              (p) => normalize(p.title) === norm
+            );
+            if (byExact) return byExact;
+            const byStartsWith = fetchedProducts.find((p) =>
+              normalize(p.title).startsWith(norm.slice(0, 20))
+            );
+            if (byStartsWith) return byStartsWith;
+            return fetchedProducts.find((p) => normalize(p.title).includes(norm.slice(0, 15)));
+          })
+          .filter(Boolean);
+
+        // Si on ne trouve aucun (rare), on retombe sur les 3 premiers produits
+        const result = matched.length > 0 ? matched : fetchedProducts.slice(0, 3);
+        setProducts(result);
       } catch (err) {
         setError("Erreur lors du chargement des produits");
         console.error(err);

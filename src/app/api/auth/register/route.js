@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 const SHOPIFY_STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const API_VERSION = "2024-10";
 
 export async function POST(request) {
   try {
@@ -51,7 +52,7 @@ export async function POST(request) {
     };
 
     const createResponse = await fetch(
-      `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`,
+      `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
       {
         method: "POST",
         headers: {
@@ -116,7 +117,7 @@ export async function POST(request) {
     };
 
     const loginResponse = await fetch(
-      `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`,
+      `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
       {
         method: "POST",
         headers: {
