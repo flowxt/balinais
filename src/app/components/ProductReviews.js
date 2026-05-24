@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 
-export default function ProductReviews({ productId, productTitle }) {
+// showAll=true  → affiche tous les avis de la boutique (section "Avis clients")
+// showAll=false → affiche uniquement les avis du produit en cours (comportement précédent)
+export default function ProductReviews({ productId, productTitle, showAll = true }) {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [count, setCount] = useState(0);
@@ -23,7 +25,12 @@ export default function ProductReviews({ productId, productTitle }) {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const response = await fetch(`/api/reviews?productId=${encodeURIComponent(productId)}`);
+        // showAll=true → on récupère TOUS les avis de la boutique (?all=1)
+        // showAll=false → uniquement les avis du produit courant
+        const url = showAll
+          ? "/api/reviews?all=1"
+          : `/api/reviews?productId=${encodeURIComponent(productId)}`;
+        const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
           setReviews(data.reviews || []);
@@ -37,10 +44,10 @@ export default function ProductReviews({ productId, productTitle }) {
       }
     }
 
-    if (productId) {
+    if (productId || showAll) {
       fetchReviews();
     }
-  }, [productId]);
+  }, [productId, showAll]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -250,7 +257,7 @@ export default function ProductReviews({ productId, productTitle }) {
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
-                  <div className="flex items-center gap-3 mb-1">
+                  <div className="flex items-center gap-3 mb-1 flex-wrap">
                     <span className="font-medium text-charcoal">
                       {review.reviewer?.name || "Client"}
                     </span>
@@ -259,10 +266,16 @@ export default function ProductReviews({ productId, productTitle }) {
                         Achat vérifié
                       </span>
                     )}
+                    {/* En mode "tous les avis", on affiche le nom du produit concerné */}
+                    {showAll && (review.product_title || review.reviewable?.name) && (
+                      <span className="text-[10px] text-charcoal/50 bg-creamy/60 px-2 py-0.5 rounded-full truncate max-w-[180px]">
+                        {review.product_title || review.reviewable?.name}
+                      </span>
+                    )}
                   </div>
                   <StarRating rating={review.rating} count={0} showCount={false} size="sm" />
                 </div>
-                <span className="text-xs text-charcoal/40">
+                <span className="text-xs text-charcoal/40 shrink-0">
                   {formatDate(review.created_at)}
                 </span>
               </div>

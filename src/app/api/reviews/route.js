@@ -8,24 +8,9 @@ const PRIVATE_TOKEN = process.env.JUDGEME_PRIVATE_TOKEN;
 // - fresh : retourne immédiatement la valeur en cache si encore valide
 // - stale : si l'API échoue (429, timeout...), on retourne une valeur périmée
 //   plutôt que des données vides — meilleure expérience utilisateur.
-const CACHE_FRESH_MS = 5 * 60 * 1000; // 5 minutes : on n'interroge Judge.me qu'une fois toutes les 5 min par produit
-const CACHE_STALE_MS = 24 * 60 * 60 * 1000; // 24h : on peut servir des données périmées en cas d'erreur API
-const reviewsCache = new Map(); // numericId -> { data, fetchedAt }
-
-// Filtre strict : ne garder que les avis dont l'external_id correspond
-// exactement au produit demandé (sécurise contre toute fuite d'avis
-// appartenant à d'autres articles)
-function makeMatcher(numericId) {
-  return (review) => {
-    const candidates = [
-      review.product_external_id,
-      review.external_id,
-      review.reviewable_id,
-      review.reviewable?.id,
-    ];
-    return candidates.some((c) => c != null && String(c) === String(numericId));
-  };
-}
+const CACHE_FRESH_MS = 5 * 60 * 1000;      // 5 min
+const CACHE_STALE_MS = 24 * 60 * 60 * 1000; // 24 h
+const reviewsCache = new Map(); // cacheKey -> { data, fetchedAt }
 
 function buildPayload(reviews) {
   const rating =
@@ -39,43 +24,53 @@ function buildPayload(reviews) {
   };
 }
 
-// GET - Récupérer les avis d'un produit
+// Fetche les avis depuis Judge.me.
+// Si numericId est fourni → filtre par produit.
+// Si null → récupère tous les avis de la boutique (100 premiers).
+async function fetchFromJudgeMe(numericId) {
+  const params = new URLSearchParams({
+    api_token: PRIVATE_TOKEN,
+    shop_domain: SHOP_DOMAIN,
+    per_page: "100",
+  });
+  if (numericId) params.set("external_id", numericId);
+
+  const response = await fetch(
+    `https://judge.me/api/v1/reviews?${params.toString()}`,
+    { headers: { "Content-Type": "application/json" } }
+  );
+  return response;
+}
+
+// GET - Récupérer les avis
+// ?productId=gid://shopify/Product/123  → avis de ce produit uniquement
+// ?all=1                                → tous les avis de la boutique
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const productId = searchParams.get("productId");
+    const fetchAll = searchParams.get("all") === "1";
 
-    if (!productId) {
+    if (!productId && !fetchAll) {
       return NextResponse.json({ reviews: [], rating: 0, count: 0 });
     }
 
-    const numericId = productId.replace("gid://shopify/Product/", "");
+    const numericId = productId
+      ? productId.replace("gid://shopify/Product/", "")
+      : null;
+    const cacheKey = numericId ?? "__all__";
     const now = Date.now();
-    const cached = reviewsCache.get(numericId);
+    const cached = reviewsCache.get(cacheKey);
 
     // Cache frais → on renvoie sans appeler Judge.me
     if (cached && now - cached.fetchedAt < CACHE_FRESH_MS) {
-      return NextResponse.json(cached.data, {
-        headers: { "X-Cache": "HIT" },
-      });
+      return NextResponse.json(cached.data, { headers: { "X-Cache": "HIT" } });
     }
-
-    const matchesProduct = makeMatcher(numericId);
 
     let response;
     try {
-      response = await fetch(
-        `https://judge.me/api/v1/reviews?` +
-          `api_token=${PRIVATE_TOKEN}&` +
-          `shop_domain=${SHOP_DOMAIN}&` +
-          `external_id=${numericId}&` +
-          `per_page=50`,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      response = await fetchFromJudgeMe(numericId);
     } catch (fetchErr) {
-      // Erreur réseau → fallback stale
       if (cached && now - cached.fetchedAt < CACHE_STALE_MS) {
         return NextResponse.json(cached.data, {
           headers: { "X-Cache": "STALE-NETWORK-ERROR" },
@@ -85,7 +80,6 @@ export async function GET(request) {
     }
 
     if (!response.ok) {
-      // Si Judge.me limite (429) ou autre erreur, servir le cache stale
       if (cached && now - cached.fetchedAt < CACHE_STALE_MS) {
         return NextResponse.json(cached.data, {
           headers: { "X-Cache": `STALE-${response.status}` },
@@ -96,14 +90,27 @@ export async function GET(request) {
     }
 
     const data = await response.json();
-    const reviews = (data.reviews || []).filter(matchesProduct);
+    let reviews = data.reviews || [];
+
+    // Si on filtre par produit, on vérifie l'external_id strict
+    if (numericId) {
+      reviews = reviews.filter((review) => {
+        const candidates = [
+          review.product_external_id,
+          review.external_id,
+          review.reviewable_id,
+          review.reviewable?.id,
+        ];
+        return candidates.some(
+          (c) => c != null && String(c) === String(numericId)
+        );
+      });
+    }
+
     const payload = buildPayload(reviews);
+    reviewsCache.set(cacheKey, { data: payload, fetchedAt: now });
 
-    reviewsCache.set(numericId, { data: payload, fetchedAt: now });
-
-    return NextResponse.json(payload, {
-      headers: { "X-Cache": "MISS" },
-    });
+    return NextResponse.json(payload, { headers: { "X-Cache": "MISS" } });
   } catch (error) {
     console.error("Erreur lors de la récupération des avis:", error);
     return NextResponse.json({ reviews: [], rating: 0, count: 0 });
