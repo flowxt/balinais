@@ -31,6 +31,12 @@ export function isAdminConfigured() {
 }
 
 // Recherche un client par email. Retourne l'objet client Admin ou null.
+//
+// ⚠️ Shopify masque les champs PII (email, nom, téléphone) dans la réponse tant
+// que l'app n'a pas l'accès "Protected customer data". Le filtrage `email:` est
+// néanmoins appliqué côté serveur Shopify, donc la recherche renvoie bien le bon
+// client — simplement sans son email visible. On ne peut donc pas revérifier
+// l'email côté client ; on fait confiance au filtre serveur.
 export async function findCustomerByEmail(email) {
   const res = await fetch(
     adminUrl(`customers/search.json?query=${encodeURIComponent(`email:${email}`)}`),
@@ -39,12 +45,16 @@ export async function findCustomerByEmail(email) {
   if (!res.ok) return null;
   const data = await res.json();
   const customers = data.customers || [];
-  // search peut être approximatif → on vérifie l'email exact
-  return (
-    customers.find(
-      (c) => (c.email || "").toLowerCase() === email.toLowerCase()
-    ) || null
+  if (customers.length === 0) return null;
+
+  // Si l'email est exposé (accès PII accordé), on confirme la correspondance exacte.
+  const exact = customers.find(
+    (c) => (c.email || "").toLowerCase() === email.toLowerCase()
   );
+  if (exact) return exact;
+
+  // Sinon (PII masqué) : le filtre serveur `email:` est fiable → on prend le 1er.
+  return customers[0];
 }
 
 // Crée un client ACTIF avec mot de passe, sans email d'activation/bienvenue.

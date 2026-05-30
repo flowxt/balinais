@@ -75,6 +75,7 @@ export async function POST(request) {
 
     const customer = await findCustomerByEmail(email);
     if (!customer) {
+      console.warn(`forgot-password: aucun client trouvé pour ${email}`);
       // On renvoie quand même un succès générique (anti-énumération).
       return genericResponse;
     }
@@ -92,16 +93,25 @@ export async function POST(request) {
       email
     )}`;
 
+    // resend.emails.send NE LÈVE PAS d'exception en cas d'erreur API :
+    // il renvoie { data, error }. Il faut donc inspecter `error`.
     try {
-      await resend.emails.send({
+      const { data, error } = await resend.emails.send({
         from: FROM_EMAIL,
         to: [email],
         subject: "Réinitialisation de votre mot de passe - Bohemian House",
         html: buildEmailHtml(resetLink),
       });
+
+      if (error) {
+        console.error("forgot-password: Resend a renvoyé une erreur:", error);
+      } else {
+        console.log(
+          `forgot-password: email envoyé à ${email} (id Resend: ${data?.id}) depuis ${FROM_EMAIL}`
+        );
+      }
     } catch (mailErr) {
-      console.error("forgot-password: erreur envoi Resend", mailErr);
-      // On reste générique pour l'utilisateur.
+      console.error("forgot-password: exception envoi Resend", mailErr);
     }
 
     return genericResponse;
