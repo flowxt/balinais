@@ -1,29 +1,101 @@
 import { NextResponse } from "next/server";
+import {
+  isAdminConfigured,
+  findCustomerByEmail,
+  verifyResetToken,
+  clearResetToken,
+  updateCustomerPassword,
+} from "@/lib/shopifyAdmin";
 
 const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 const SHOPIFY_STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 const API_VERSION = "2024-10";
 
-/**
- * POST /api/auth/reset-password
- *
- * Réinitialise le mot de passe d'un client à partir de l'URL de reset générée
- * par Shopify (celle qu'on reçoit dans l'email de "mot de passe oublié").
- *
- * Deux modes pris en charge :
- *   - Mode "URL complète" : on passe { resetUrl, password }
- *     → utilise la mutation customerResetByUrl(resetUrl, password)
- *
- *   - Mode "token + id" : on passe { customerId, resetToken, password }
- *     → utilise la mutation customerReset(id, input)
- *
- * Le premier mode est le plus simple : on prend directement le lien Shopify
- * et on laisse l'API gérer l'extraction du token.
- */
+// Connexion Storefront (email + mot de passe) → { accessToken, customer } ou null
+async function storefrontLogin(email, password) {
+  const loginQuery = `
+    mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+      customerAccessTokenCreate(input: $input) {
+        customerAccessToken { accessToken expiresAt }
+        customerUserErrors { code field message }
+      }
+    }
+  `;
+  const loginRes = await fetch(
+    `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({
+        query: loginQuery,
+        variables: { input: { email, password } },
+      }),
+    }
+  );
+  const loginData = await loginRes.json();
+  const accessToken =
+    loginData?.data?.customerAccessTokenCreate?.customerAccessToken?.accessToken;
+  if (!accessToken) return null;
+
+  const customerQuery = `
+    query getCustomer($customerAccessToken: String!) {
+      customer(customerAccessToken: $customerAccessToken) {
+        id firstName lastName email phone createdAt
+      }
+    }
+  `;
+  const customerRes = await fetch(
+    `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({
+        query: customerQuery,
+        variables: { customerAccessToken: accessToken },
+      }),
+    }
+  );
+  const customerData = await customerRes.json();
+  return { accessToken, customer: customerData?.data?.customer || null };
+}
+
+// Fallback : ancien lien Shopify (customerResetByUrl). Conservé au cas où un
+// email Shopify historique serait encore utilisé.
+async function resetViaShopifyUrl(resetUrl, password) {
+  const query = `
+    mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
+      customerResetByUrl(resetUrl: $resetUrl, password: $password) {
+        customer { id firstName lastName email }
+        customerAccessToken { accessToken expiresAt }
+        customerUserErrors { code field message }
+      }
+    }
+  `;
+  const res = await fetch(
+    `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({ query, variables: { resetUrl, password } }),
+    }
+  );
+  const { data } = await res.json();
+  return data?.customerResetByUrl || null;
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { resetUrl, customerId, resetToken, password } = body;
+    const { email, token, password, resetUrl } = body;
 
     if (!password || password.length < 5) {
       return NextResponse.json(
@@ -32,122 +104,90 @@ export async function POST(request) {
       );
     }
 
-    let query, variables, resultKey;
+    // --- Mode principal : jeton maison (email + token) ---
+    if (email && token) {
+      if (!isAdminConfigured()) {
+        return NextResponse.json(
+          { error: "Configuration serveur incomplète (Admin API)." },
+          { status: 500 }
+        );
+      }
 
+      const customer = await findCustomerByEmail(email);
+      if (!customer) {
+        return NextResponse.json(
+          {
+            error:
+              "Lien invalide ou expiré. Merci de refaire une demande de mot de passe oublié.",
+          },
+          { status: 400 }
+        );
+      }
+
+      const valid = await verifyResetToken(customer.id, token);
+      if (!valid) {
+        return NextResponse.json(
+          {
+            error:
+              "Ce lien de réinitialisation est invalide ou a expiré. Merci de refaire une demande.",
+          },
+          { status: 400 }
+        );
+      }
+
+      const updated = await updateCustomerPassword(customer.id, password);
+      if (updated.error) {
+        console.error("reset-password: maj mot de passe échouée", updated.error);
+        return NextResponse.json(
+          { error: "Erreur lors de la mise à jour du mot de passe." },
+          { status: 500 }
+        );
+      }
+
+      // Jeton à usage unique
+      await clearResetToken(customer.id);
+
+      // Connexion automatique
+      const session = await storefrontLogin(email, password);
+      if (!session?.accessToken) {
+        return NextResponse.json({ success: true, requiresLogin: true });
+      }
+      return NextResponse.json({
+        success: true,
+        accessToken: session.accessToken,
+        customer: session.customer,
+      });
+    }
+
+    // --- Fallback : ancien lien Shopify ---
     if (resetUrl) {
-      // Mode URL complète : la mutation extrait token + id automatiquement
-      query = `
-        mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
-          customerResetByUrl(resetUrl: $resetUrl, password: $password) {
-            customer {
-              id
-              firstName
-              lastName
-              email
-            }
-            customerAccessToken {
-              accessToken
-              expiresAt
-            }
-            customerUserErrors {
-              code
-              field
-              message
-            }
-          }
-        }
-      `;
-      variables = { resetUrl, password };
-      resultKey = "customerResetByUrl";
-    } else if (customerId && resetToken) {
-      // Mode token + id (fallback si on a parsé l'URL en amont)
-      query = `
-        mutation customerReset($id: ID!, $input: CustomerResetInput!) {
-          customerReset(id: $id, input: $input) {
-            customer {
-              id
-              firstName
-              lastName
-              email
-            }
-            customerAccessToken {
-              accessToken
-              expiresAt
-            }
-            customerUserErrors {
-              code
-              field
-              message
-            }
-          }
-        }
-      `;
-      variables = {
-        id: customerId,
-        input: { resetToken, password },
-      };
-      resultKey = "customerReset";
-    } else {
-      return NextResponse.json(
-        { error: "Lien de réinitialisation manquant ou invalide" },
-        { status: 400 }
-      );
+      const result = await resetViaShopifyUrl(resetUrl, password);
+      if (!result) {
+        return NextResponse.json(
+          { error: "Réponse invalide. Merci de refaire une demande." },
+          { status: 400 }
+        );
+      }
+      if (result.customerUserErrors?.length > 0) {
+        return NextResponse.json(
+          {
+            error:
+              "Ce lien de réinitialisation est invalide ou a expiré. Merci de refaire une demande.",
+          },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json({
+        success: true,
+        accessToken: result.customerAccessToken?.accessToken,
+        customer: result.customer,
+      });
     }
 
-    const response = await fetch(
-      `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
-        },
-        body: JSON.stringify({ query, variables }),
-      }
+    return NextResponse.json(
+      { error: "Lien de réinitialisation manquant ou invalide" },
+      { status: 400 }
     );
-
-    const { data, errors } = await response.json();
-
-    if (errors) {
-      console.error("Erreurs GraphQL reset-password:", errors);
-      return NextResponse.json(
-        { error: "Erreur lors de la réinitialisation du mot de passe" },
-        { status: 500 }
-      );
-    }
-
-    const result = data?.[resultKey];
-    if (!result) {
-      return NextResponse.json(
-        { error: "Réponse Shopify invalide" },
-        { status: 500 }
-      );
-    }
-
-    if (result.customerUserErrors && result.customerUserErrors.length > 0) {
-      const err = result.customerUserErrors[0];
-      // Messages d'erreur plus parlants en français
-      const code = err.code || "";
-      let message = err.message || "Erreur lors de la réinitialisation";
-
-      if (code === "TOKEN_INVALID" || /token/i.test(message)) {
-        message =
-          "Ce lien de réinitialisation est invalide ou a expiré. Merci de refaire une demande de mot de passe oublié.";
-      } else if (code === "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE") {
-        message = "Le mot de passe ne peut pas commencer ou finir par un espace.";
-      } else if (/password.*too.*short|too short/i.test(message)) {
-        message = "Mot de passe trop court (minimum 5 caractères).";
-      }
-
-      return NextResponse.json({ error: message }, { status: 400 });
-    }
-
-    const accessToken = result.customerAccessToken?.accessToken;
-    return NextResponse.json({
-      success: true,
-      accessToken,
-      customer: result.customer,
-    });
   } catch (error) {
     console.error("Erreur reset-password:", error);
     return NextResponse.json(

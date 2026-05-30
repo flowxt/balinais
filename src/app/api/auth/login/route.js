@@ -171,8 +171,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           error:
-            "Votre compte client est géré par le nouveau système Shopify (vérification par email obligatoire). " +
-            "Pour autoriser la connexion directe sur le site, l'administrateur Shopify doit activer \"Classic customer accounts\" dans Settings > Customer accounts.",
+            "Connexion impossible pour le moment. Si vous aviez déjà un compte, utilisez \"Mot de passe oublié\" pour définir un nouveau mot de passe.",
         },
         { status: 401 }
       );

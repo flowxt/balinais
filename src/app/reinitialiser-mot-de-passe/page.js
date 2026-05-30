@@ -20,23 +20,19 @@ function ReinitialiserContent() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // L'email Shopify de reset envoie un lien du type :
-  //   https://VOTRE_DOMAIN/account/reset/CUSTOMER_ID/RESET_TOKEN
-  // ou bien la version moderne :
-  //   https://VOTRE_DOMAIN/r/...
-  // On accepte plusieurs façons de recevoir ce lien :
-  //   - en query string : ?url=<URL Shopify complète>
-  //   - en query string : ?customerId=...&token=...
-  const { resetUrl, customerId, resetToken, isReady } = useMemo(() => {
+  // Notre lien maison (envoyé par Resend) est du type :
+  //   https://bohemianhouse.fr/reinitialiser-mot-de-passe?token=...&email=...
+  // On conserve aussi le fallback "ancien lien Shopify" (?url=...).
+  const { resetUrl, email, token, isReady } = useMemo(() => {
     const url = searchParams.get("url") || searchParams.get("resetUrl");
-    const cid = searchParams.get("customerId") || searchParams.get("id");
+    const mail = searchParams.get("email");
     const tok = searchParams.get("token") || searchParams.get("resetToken");
 
     return {
       resetUrl: url || null,
-      customerId: cid || null,
-      resetToken: tok || null,
-      isReady: Boolean(url || (cid && tok)),
+      email: mail || null,
+      token: tok || null,
+      isReady: Boolean((mail && tok) || url),
     };
   }, [searchParams]);
 
@@ -67,7 +63,7 @@ function ReinitialiserContent() {
     try {
       const payload = resetUrl
         ? { resetUrl, password }
-        : { customerId, resetToken, password };
+        : { email, token, password };
 
       const response = await fetch("/api/auth/reset-password", {
         method: "POST",
