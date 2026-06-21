@@ -16,6 +16,13 @@ export default function Navigation() {
 
   return (
     <nav className="bg-warm/85 backdrop-blur-md sticky top-0 z-50 border-b border-charcoal/15 shadow-sm">
+      {/* Bandeau livraison - PC uniquement */}
+      <div className="hidden lg:block bg-rustic text-soft text-center text-xs font-medium tracking-wide py-1.5">
+        <span className="inline-flex items-center gap-1.5">
+          <span aria-hidden="true">🚚</span>
+          Livraison offerte dès 180&nbsp;€ d&apos;achat
+        </span>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -248,6 +255,11 @@ export default function Navigation() {
         {/* Menu mobile */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-charcoal/10 py-4 space-y-1">
+            {/* Bandeau livraison - version mobile */}
+            <div className="flex items-center gap-2 px-4 py-3 mb-1 rounded-lg bg-rustic text-soft text-sm font-medium">
+              <span aria-hidden="true">🚚</span>
+              Livraison offerte dès 180&nbsp;€ d&apos;achat
+            </div>
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}

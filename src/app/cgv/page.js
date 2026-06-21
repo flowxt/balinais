@@ -251,10 +251,10 @@ export default function CGV() {
                 <p>
                   En cas d&apos;exercice valable du droit de rétractation, Sandra PENSADO EI procédera
                   au remboursement des sommes versées par le Client, y compris les frais de livraison
-                  initiaux standard, dans un délai de quatorze (14) jours suivant la notification de
-                  la rétractation. Le remboursement pourra toutefois être différé jusqu&apos;à la
-                  récupération du produit ou jusqu&apos;à ce que le Client fournisse une preuve
-                  d&apos;expédition du produit.
+                  initiaux standard, à l&apos;exclusion des frais de retour, dans un délai de quatorze (14)
+                  jours suivant la notification de la rétractation. Le remboursement pourra toutefois être
+                  différé jusqu&apos;à la récupération du produit ou jusqu&apos;à ce que le Client fournisse
+                  une preuve d&apos;expédition du produit.
                 </p>
                 <p>
                   Le droit de rétractation ne s&apos;applique pas aux produits confectionnés selon les
