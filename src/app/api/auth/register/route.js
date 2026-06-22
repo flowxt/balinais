@@ -3,6 +3,7 @@ import {
   isAdminConfigured,
   createCustomerWithPassword,
 } from "@/lib/shopifyAdmin";
+import { sendPasswordEmail } from "@/lib/passwordReset";
 
 const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 const SHOPIFY_STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
@@ -104,9 +105,21 @@ export async function POST(request) {
     });
 
     if (created.error === "EMAIL_TAKEN") {
+      // L'email existe déjà (souvent un client ayant commandé en tant qu'invité,
+      // ou un compte déjà créé). Pour des raisons de sécurité, on ne crée pas
+      // l'accès directement : on envoie un email permettant de DÉFINIR le mot de
+      // passe (ce qui prouve qu'il est bien propriétaire de l'adresse).
+      const sent = await sendPasswordEmail({ email, request, mode: "claim" });
+
       return NextResponse.json(
-        { error: "Cette adresse email est déjà utilisée." },
-        { status: 400 }
+        {
+          accountExists: true,
+          emailSent: sent.ok,
+          message: sent.ok
+            ? "Un compte existe déjà avec cette adresse. Nous venons de vous envoyer un email pour définir votre mot de passe et accéder à votre compte."
+            : "Un compte existe déjà avec cette adresse. Utilisez « Mot de passe oublié » pour définir votre mot de passe.",
+        },
+        { status: 409 }
       );
     }
 

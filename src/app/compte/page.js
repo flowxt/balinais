@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import Navigation from "@/app/components/Navigation";
@@ -47,6 +48,14 @@ export default function Compte() {
 
   // Formater les commandes
   const orders = customer?.orders?.edges?.map((edge) => edge.node) || [];
+
+  // Affiche un montant : "9.00 €" (ou code devise si autre qu'EUR)
+  const formatPrice = (money) => {
+    if (!money?.amount) return "—";
+    const amount = parseFloat(money.amount).toFixed(2);
+    const symbol = money.currencyCode === "EUR" ? "€" : ` ${money.currencyCode}`;
+    return money.currencyCode === "EUR" ? `${amount} ${symbol}` : `${amount}${symbol}`;
+  };
 
   return (
     <>
@@ -218,29 +227,72 @@ export default function Compte() {
                         </p>
                       </div>
                       <div className="text-right">
+                        <p className="text-xs text-charcoal/50 mb-0.5">Total payé</p>
                         <p className="font-medium text-charcoal text-lg">
-                          {order.totalPrice.amount} {order.totalPrice.currencyCode}
+                          {formatPrice(order.totalPrice)}
                         </p>
                       </div>
                     </div>
 
-                    {/* Aperçu des articles */}
+                    {/* Articles commandés avec photo + détail prix */}
                     {order.lineItems?.edges?.length > 0 && (
-                      <div className="mt-4 pt-4 border-t border-charcoal/5">
-                        <div className="flex flex-wrap gap-2">
-                          {order.lineItems.edges.slice(0, 3).map((item, index) => (
-                            <span
-                              key={index}
-                              className="text-xs text-charcoal/60 bg-soft px-3 py-1 rounded-full"
-                            >
-                              {item.node.title} × {item.node.quantity}
+                      <div className="mt-4 pt-4 border-t border-charcoal/5 space-y-3">
+                        {order.lineItems.edges.map((item, index) => {
+                          const node = item.node;
+                          const img = node.variant?.image;
+                          return (
+                            <div key={index} className="flex items-center gap-3">
+                              <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-soft border border-warm/20">
+                                {img?.url ? (
+                                  <Image
+                                    src={img.url}
+                                    alt={img.altText || node.title}
+                                    fill
+                                    sizes="56px"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <svg className="w-6 h-6 text-charcoal/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm text-charcoal font-medium truncate">
+                                  {node.title}
+                                </p>
+                                <p className="text-xs text-charcoal/50">
+                                  Quantité&nbsp;: {node.quantity}
+                                </p>
+                              </div>
+                              <div className="text-sm text-charcoal/80 font-medium whitespace-nowrap">
+                                {formatPrice(node.originalTotalPrice)}
+                              </div>
+                            </div>
+                          );
+                        })}
+
+                        {/* Détail du prix : articles / livraison / total */}
+                        <div className="pt-3 mt-1 border-t border-charcoal/10 space-y-1.5 text-sm">
+                          <div className="flex justify-between text-charcoal/70">
+                            <span>Sous-total articles</span>
+                            <span>{formatPrice(order.subtotalPrice)}</span>
+                          </div>
+                          <div className="flex justify-between text-charcoal/70">
+                            <span>Livraison</span>
+                            <span>
+                              {order.totalShippingPrice &&
+                              parseFloat(order.totalShippingPrice.amount) > 0
+                                ? formatPrice(order.totalShippingPrice)
+                                : "Offerte"}
                             </span>
-                          ))}
-                          {order.lineItems.edges.length > 3 && (
-                            <span className="text-xs text-charcoal/40 px-3 py-1">
-                              +{order.lineItems.edges.length - 3} autre(s)
-                            </span>
-                          )}
+                          </div>
+                          <div className="flex justify-between text-charcoal font-semibold pt-1.5 border-t border-charcoal/10">
+                            <span>Total</span>
+                            <span>{formatPrice(order.totalPrice)}</span>
+                          </div>
                         </div>
                       </div>
                     )}

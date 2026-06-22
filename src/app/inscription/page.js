@@ -19,6 +19,7 @@ export default function Inscription() {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   // Rediriger si déjà connecté
@@ -38,6 +39,7 @@ export default function Inscription() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setInfo("");
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
@@ -59,6 +61,12 @@ export default function Inscription() {
 
     if (result.success) {
       router.push("/compte");
+    } else if (result.accountExists) {
+      // Email déjà connu : on affiche un message bienveillant (pas une erreur).
+      setInfo(
+        result.info ||
+          "Un compte existe déjà avec cette adresse. Consultez votre boîte mail pour définir votre mot de passe."
+      );
     } else {
       setError(result.error || "Erreur lors de l'inscription");
     }
@@ -93,6 +101,19 @@ export default function Inscription() {
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
                   {error}
+                </div>
+              )}
+
+              {/* Message informatif (compte déjà existant, email envoyé) */}
+              {info && (
+                <div className="bg-warm/15 border border-warm/40 text-charcoal px-4 py-3 rounded-xl text-sm space-y-2">
+                  <p>{info}</p>
+                  <Link
+                    href="/connexion"
+                    className="inline-flex items-center gap-1 font-medium text-charcoal underline underline-offset-2 hover:text-warm transition-colors"
+                  >
+                    Aller à la page de connexion
+                  </Link>
                 </div>
               )}
 

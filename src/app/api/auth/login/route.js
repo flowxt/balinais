@@ -121,22 +121,44 @@ export async function POST(request) {
           email
           phone
           createdAt
-          orders(first: 20) {
+          orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
             edges {
               node {
                 id
                 orderNumber
+                processedAt
+                fulfillmentStatus
                 totalPrice {
                   amount
                   currencyCode
                 }
-                processedAt
-                fulfillmentStatus
-                lineItems(first: 10) {
+                subtotalPrice {
+                  amount
+                  currencyCode
+                }
+                totalShippingPrice {
+                  amount
+                  currencyCode
+                }
+                lineItems(first: 50) {
                   edges {
                     node {
                       title
                       quantity
+                      variant {
+                        image {
+                          url
+                          altText
+                        }
+                        price {
+                          amount
+                          currencyCode
+                        }
+                      }
+                      originalTotalPrice {
+                        amount
+                        currencyCode
+                      }
                     }
                   }
                 }

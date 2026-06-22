@@ -81,6 +81,16 @@ export function AuthProvider({ children }) {
 
       const data = await response.json();
 
+      // Cas particulier : email déjà connu (ex : commande passée en invité).
+      // On a envoyé un email pour définir le mot de passe → message informatif.
+      if (response.status === 409 && data.accountExists) {
+        return {
+          success: false,
+          accountExists: true,
+          info: data.message,
+        };
+      }
+
       if (!response.ok) {
         throw new Error(data.error || "Erreur lors de l'inscription");
       }
