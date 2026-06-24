@@ -53,8 +53,32 @@ export default function Compte() {
   const formatPrice = (money) => {
     if (!money?.amount) return "—";
     const amount = parseFloat(money.amount).toFixed(2);
-    const symbol = money.currencyCode === "EUR" ? "€" : ` ${money.currencyCode}`;
-    return money.currencyCode === "EUR" ? `${amount} ${symbol}` : `${amount}${symbol}`;
+    return money.currencyCode === "EUR"
+      ? `${amount} €`
+      : `${amount} ${money.currencyCode}`;
+  };
+
+  // Statut affiché : on prend en compte annulation / remboursement avant le suivi logistique.
+  const getOrderStatus = (order) => {
+    if (order.canceledAt) {
+      return { label: "Annulée", className: "bg-red-100 text-red-700" };
+    }
+    if (order.financialStatus === "REFUNDED") {
+      return { label: "Remboursée", className: "bg-red-100 text-red-700" };
+    }
+    if (order.financialStatus === "PARTIALLY_REFUNDED") {
+      return {
+        label: "Partiellement remboursée",
+        className: "bg-orange-100 text-orange-700",
+      };
+    }
+    if (order.fulfillmentStatus === "FULFILLED") {
+      return { label: "Livrée", className: "bg-green-100 text-green-700" };
+    }
+    if (order.fulfillmentStatus === "IN_PROGRESS") {
+      return { label: "En cours", className: "bg-yellow-100 text-yellow-700" };
+    }
+    return { label: "En préparation", className: "bg-gray-100 text-gray-700" };
   };
 
   return (
@@ -191,7 +215,18 @@ export default function Compte() {
               </div>
             ) : (
               <div className="space-y-4">
-                {orders.map((order) => (
+                {orders.map((order) => {
+                  const status = getOrderStatus(order);
+                  const isCancelled =
+                    !!order.canceledAt || order.financialStatus === "REFUNDED";
+                  // Montants "actuels" : ils tiennent compte des remboursements
+                  // (frais de port remboursés => 0, total remboursé => 0, etc.)
+                  const subtotal = order.currentSubtotalPrice || order.subtotalPrice;
+                  const shipping =
+                    order.currentTotalShippingPrice || order.totalShippingPrice;
+                  const total = order.currentTotalPrice || order.totalPrice;
+
+                  return (
                   <div
                     key={order.id}
                     className="border border-charcoal/10 rounded-2xl p-6 hover:border-warm/30 transition-colors"
@@ -203,19 +238,9 @@ export default function Compte() {
                             Commande #{order.orderNumber}
                           </span>
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${
-                              order.fulfillmentStatus === "FULFILLED"
-                                ? "bg-green-100 text-green-700"
-                                : order.fulfillmentStatus === "IN_PROGRESS"
-                                ? "bg-yellow-100 text-yellow-700"
-                                : "bg-gray-100 text-gray-700"
-                            }`}
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${status.className}`}
                           >
-                            {order.fulfillmentStatus === "FULFILLED"
-                              ? "Livrée"
-                              : order.fulfillmentStatus === "IN_PROGRESS"
-                              ? "En cours"
-                              : "En préparation"}
+                            {status.label}
                           </span>
                         </div>
                         <p className="text-sm text-charcoal/60">
@@ -227,12 +252,26 @@ export default function Compte() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-charcoal/50 mb-0.5">Total payé</p>
+                        <p className="text-xs text-charcoal/50 mb-0.5">
+                          {isCancelled ? "Total remboursé" : "Total payé"}
+                        </p>
                         <p className="font-medium text-charcoal text-lg">
-                          {formatPrice(order.totalPrice)}
+                          {formatPrice(total)}
                         </p>
                       </div>
                     </div>
+
+                    {/* Bandeau d'annulation / remboursement */}
+                    {isCancelled && (
+                      <div className="mt-4 flex items-start gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-100 text-sm text-red-700">
+                        <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                        </svg>
+                        <span>
+                          Cette commande a été annulée et intégralement remboursée. Aucun montant ne reste à votre charge.
+                        </span>
+                      </div>
+                    )}
 
                     {/* Articles commandés avec photo + détail prix */}
                     {order.lineItems?.edges?.length > 0 && (
@@ -241,7 +280,12 @@ export default function Compte() {
                           const node = item.node;
                           const img = node.variant?.image;
                           return (
-                            <div key={index} className="flex items-center gap-3">
+                            <div
+                              key={index}
+                              className={`flex items-center gap-3 ${
+                                isCancelled ? "opacity-60" : ""
+                              }`}
+                            >
                               <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-soft border border-warm/20">
                                 {img?.url ? (
                                   <Image
@@ -260,14 +304,22 @@ export default function Compte() {
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm text-charcoal font-medium truncate">
+                                <p
+                                  className={`text-sm text-charcoal font-medium truncate ${
+                                    isCancelled ? "line-through" : ""
+                                  }`}
+                                >
                                   {node.title}
                                 </p>
                                 <p className="text-xs text-charcoal/50">
                                   Quantité&nbsp;: {node.quantity}
                                 </p>
                               </div>
-                              <div className="text-sm text-charcoal/80 font-medium whitespace-nowrap">
+                              <div
+                                className={`text-sm text-charcoal/80 font-medium whitespace-nowrap ${
+                                  isCancelled ? "line-through" : ""
+                                }`}
+                              >
                                 {formatPrice(node.originalTotalPrice)}
                               </div>
                             </div>
@@ -278,26 +330,28 @@ export default function Compte() {
                         <div className="pt-3 mt-1 border-t border-charcoal/10 space-y-1.5 text-sm">
                           <div className="flex justify-between text-charcoal/70">
                             <span>Sous-total articles</span>
-                            <span>{formatPrice(order.subtotalPrice)}</span>
+                            <span>{formatPrice(subtotal)}</span>
                           </div>
                           <div className="flex justify-between text-charcoal/70">
                             <span>Livraison</span>
                             <span>
-                              {order.totalShippingPrice &&
-                              parseFloat(order.totalShippingPrice.amount) > 0
-                                ? formatPrice(order.totalShippingPrice)
+                              {isCancelled
+                                ? formatPrice(shipping)
+                                : shipping && parseFloat(shipping.amount) > 0
+                                ? formatPrice(shipping)
                                 : "Offerte"}
                             </span>
                           </div>
                           <div className="flex justify-between text-charcoal font-semibold pt-1.5 border-t border-charcoal/10">
-                            <span>Total</span>
-                            <span>{formatPrice(order.totalPrice)}</span>
+                            <span>{isCancelled ? "Total remboursé" : "Total"}</span>
+                            <span>{formatPrice(total)}</span>
                           </div>
                         </div>
                       </div>
                     )}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

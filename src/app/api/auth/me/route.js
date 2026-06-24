@@ -33,6 +33,8 @@ export async function GET(request) {
                 orderNumber
                 processedAt
                 fulfillmentStatus
+                financialStatus
+                canceledAt
                 totalPrice {
                   amount
                   currencyCode
@@ -42,6 +44,18 @@ export async function GET(request) {
                   currencyCode
                 }
                 totalShippingPrice {
+                  amount
+                  currencyCode
+                }
+                currentTotalPrice {
+                  amount
+                  currencyCode
+                }
+                currentSubtotalPrice {
+                  amount
+                  currencyCode
+                }
+                currentTotalShippingPrice {
                   amount
                   currencyCode
                 }
