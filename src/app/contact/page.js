@@ -236,8 +236,8 @@ export default function Contact() {
                   <div>
                     <h3 className="font-serif text-xl font-medium text-charcoal mb-2">Téléphone</h3>
                     <p className="text-charcoal/80 leading-relaxed">
-                      <a href="tel:+33772776090" className="hover:text-warm transition-colors">
-                        07 72 77 60 90
+                      <a href="tel:+33770222377" className="hover:text-warm transition-colors">
+                        07 70 22 23 77
                       </a>
                     </p>
                   </div>

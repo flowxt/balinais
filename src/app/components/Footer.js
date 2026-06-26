@@ -94,13 +94,13 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="tel:0772776090" className="text-soft/80 hover:text-soft transition-colors flex items-center gap-3 group">
+                <a href="tel:0770222377" className="text-soft/80 hover:text-soft transition-colors flex items-center gap-3 group">
                   <div className="w-8 h-8 rounded-lg bg-soft/10 flex items-center justify-center group-hover:bg-warm/30 transition-colors">
                     <svg className="w-4 h-4 text-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
-                  07 72 77 60 90
+                  07 70 22 23 77
                 </a>
               </li>
               <li className="flex items-center gap-3 text-soft/60">

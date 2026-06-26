@@ -378,12 +378,36 @@ export default function CGV() {
                   en vue de la résolution amiable d&apos;un litige, sous réserve d&apos;avoir
                   préalablement adressé une réclamation écrite à Sandra PENSADO EI.
                 </p>
-                <p className="text-sm text-charcoal/70">
-                  Médiateur de la consommation&nbsp;: informations disponibles sur demande à{" "}
-                  <a href="mailto:contact@bohemianhouse.fr" className="text-warm hover:underline">
-                    contact@bohemianhouse.fr
-                  </a>.
-                </p>
+                <div className="text-sm text-charcoal/80 bg-creamy/40 rounded-xl p-4 border border-warm/20">
+                  <p className="font-medium text-charcoal mb-1">
+                    Médiateur de la consommation
+                  </p>
+                  <p>CM2C</p>
+                  <p>49 rue de Ponthieu, 75008 Paris</p>
+                  <p>
+                    Tél.&nbsp;:{" "}
+                    <a href="tel:+33189470014" className="text-warm hover:underline">
+                      01 89 47 00 14
+                    </a>
+                  </p>
+                  <p>
+                    Site internet&nbsp;:{" "}
+                    <a
+                      href="https://www.cm2c.net/declarer-un-litige.php"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-warm hover:underline break-all"
+                    >
+                      https://www.cm2c.net/declarer-un-litige.php
+                    </a>
+                  </p>
+                  <p>
+                    Mail&nbsp;:{" "}
+                    <a href="mailto:litiges@cm2c.net" className="text-warm hover:underline">
+                      litiges@cm2c.net
+                    </a>
+                  </p>
+                </div>
                 <p>
                   À défaut de résolution amiable, le litige pourra être porté devant les juridictions
                   françaises compétentes, conformément aux règles de droit commun applicables.

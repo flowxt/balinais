@@ -86,7 +86,7 @@ export default function MentionsLegales() {
                 </p>
                 <p>
                   <span className="font-medium text-charcoal">Téléphone :</span>{" "}
-                  <a href="tel:+33772776090" className="text-warm hover:underline">07 72 77 60 90</a>
+                  <a href="tel:+33770222377" className="text-warm hover:underline">07 70 22 23 77</a>
                 </p>
                 <p className="pt-1 text-sm text-charcoal/70">
                   Le site bohemianhouse.fr est exploité sous l&apos;enseigne commerciale{" "}
