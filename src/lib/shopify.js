@@ -338,6 +338,10 @@ export async function getProduct(productId) {
           descriptionHtml
           tags
           availableForSale
+          options {
+            name
+            values
+          }
           images(first: 10) {
             edges {
               node {
@@ -353,6 +357,14 @@ export async function getProduct(productId) {
                 title
                 availableForSale
                 quantityAvailable
+                selectedOptions {
+                  name
+                  value
+                }
+                image {
+                  url
+                  altText
+                }
                 priceV2 {
                   amount
                   currencyCode
@@ -401,6 +413,10 @@ export async function getProduct(productId) {
       descriptionHtml: node.descriptionHtml,
       tags: node.tags,
       availableForSale: node.availableForSale,
+      options: (node.options || []).map((option) => ({
+        name: option.name,
+        values: option.values,
+      })),
       images: node.images.edges.map(({ node: imageNode }) => ({
         src: imageNode.url,
         altText: imageNode.altText,
@@ -410,6 +426,13 @@ export async function getProduct(productId) {
         title: variantNode.title,
         availableForSale: variantNode.availableForSale,
         quantityAvailable: variantNode.quantityAvailable,
+        selectedOptions: (variantNode.selectedOptions || []).map((o) => ({
+          name: o.name,
+          value: o.value,
+        })),
+        image: variantNode.image
+          ? { src: variantNode.image.url, altText: variantNode.image.altText }
+          : null,
         price: {
           amount: variantNode.priceV2.amount,
           currencyCode: variantNode.priceV2.currencyCode,

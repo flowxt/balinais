@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,8 +19,40 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState({});
   const [quantity, setQuantity] = useState(1);
+
+  // Variante correspondant à la combinaison d'options choisie (Couleur + Taille).
+  const selectedVariant = useMemo(() => {
+    if (!product?.variants?.length) return null;
+    const match = product.variants.find((v) =>
+      (v.selectedOptions || []).every(
+        (o) => selectedOptions[o.name] === o.value
+      )
+    );
+    return match || product.variants[0];
+  }, [product, selectedOptions]);
+
+  // Initialise la sélection sur la première variante disponible au chargement.
+  useEffect(() => {
+    if (!product?.variants?.length) return;
+    const first =
+      product.variants.find((v) => v.availableForSale) || product.variants[0];
+    const init = {};
+    (first.selectedOptions || []).forEach((o) => {
+      init[o.name] = o.value;
+    });
+    setSelectedOptions(init);
+  }, [product]);
+
+  // Quand la variante change, on bascule la photo principale sur celle de la variante.
+  useEffect(() => {
+    if (!selectedVariant?.image?.src || !product?.images?.length) return;
+    const idx = product.images.findIndex(
+      (img) => img.src === selectedVariant.image.src
+    );
+    if (idx >= 0) setSelectedImageIndex(idx);
+  }, [selectedVariant, product]);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -48,7 +80,6 @@ export default function ProductPage() {
   }, [params.id]);
 
   const handleAddToCart = async () => {
-    const selectedVariant = product?.variants?.[selectedVariantIndex];
     if (selectedVariant?.id) {
       await addToCart(selectedVariant.id, quantity);
     }
@@ -98,11 +129,26 @@ export default function ProductPage() {
     );
   }
 
-  const selectedVariant = product.variants?.[selectedVariantIndex] || product.variants?.[0];
   const price = selectedVariant?.price?.amount || "0";
   const currencyCode = selectedVariant?.price?.currencyCode || "EUR";
   const images = product.images || [];
-  const hasMultipleVariants = product.variants && product.variants.length > 1;
+
+  // Options réelles (on ignore l'option Shopify par défaut "Title" / "Default Title").
+  const realOptions = (product.options || []).filter(
+    (opt) => !(opt.name === "Title" && opt.values?.length === 1)
+  );
+  const hasOptions = realOptions.length > 0;
+
+  // Une valeur d'option est disponible s'il existe une variante en stock qui la porte
+  // et qui respecte les autres options déjà sélectionnées.
+  const isValueAvailable = (optionName, value) =>
+    product.variants.some((v) => {
+      if (!v.availableForSale) return false;
+      return (v.selectedOptions || []).every((o) => {
+        if (o.name === optionName) return o.value === value;
+        return !selectedOptions[o.name] || selectedOptions[o.name] === o.value;
+      });
+    });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-soft via-creamy/20 to-soft relative overflow-hidden">
@@ -224,31 +270,43 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Sélecteur de variantes - directement sous le prix */}
-            {hasMultipleVariants && (
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-charcoal mb-3 tracking-wide">
-                  Choisissez une option
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {product.variants.map((variant, index) => (
-                    <button
-                      key={variant.id}
-                      onClick={() => setSelectedVariantIndex(index)}
-                      disabled={!variant.availableForSale}
-                      className={`px-5 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
-                        selectedVariantIndex === index
-                          ? "bg-rustic text-soft shadow-lg"
-                          : variant.availableForSale
-                          ? "bg-soft text-charcoal hover:bg-creamy/40 border border-charcoal/15"
-                          : "bg-gray-100 text-gray-400 cursor-not-allowed line-through"
-                      }`}
-                    >
-                      {variant.title}
-                      {!variant.availableForSale && " (Épuisé)"}
-                    </button>
-                  ))}
-                </div>
+            {/* Sélecteur d'options groupées (ex : Couleur, puis Taille) */}
+            {hasOptions && (
+              <div className="mb-6 space-y-5">
+                {realOptions.map((option) => (
+                  <div key={option.name}>
+                    <label className="block text-sm font-medium text-charcoal mb-3 tracking-wide">
+                      {option.name}
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {option.values.map((value) => {
+                        const isSelected = selectedOptions[option.name] === value;
+                        const available = isValueAvailable(option.name, value);
+                        return (
+                          <button
+                            key={value}
+                            onClick={() =>
+                              setSelectedOptions((prev) => ({
+                                ...prev,
+                                [option.name]: value,
+                              }))
+                            }
+                            disabled={!available}
+                            className={`px-5 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 ${
+                              isSelected
+                                ? "bg-rustic text-soft shadow-lg"
+                                : available
+                                ? "bg-soft text-charcoal hover:bg-creamy/40 border border-charcoal/15"
+                                : "bg-gray-100 text-gray-400 cursor-not-allowed line-through"
+                            }`}
+                          >
+                            {value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
