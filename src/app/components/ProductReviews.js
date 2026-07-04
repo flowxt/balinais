@@ -267,9 +267,9 @@ export default function ProductReviews({ productId, productTitle, showAll = true
                       </span>
                     )}
                     {/* En mode "tous les avis", on affiche le nom du produit concerné */}
-                    {showAll && (review.product_title || review.reviewable?.name) && (
+                    {showAll && review.product_title && (
                       <span className="text-[10px] text-charcoal/50 bg-creamy/60 px-2 py-0.5 rounded-full truncate max-w-[180px]">
-                        {review.product_title || review.reviewable?.name}
+                        {review.product_title}
                       </span>
                     )}
                   </div>

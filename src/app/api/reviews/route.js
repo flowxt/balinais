@@ -12,15 +12,53 @@ const CACHE_FRESH_MS = 5 * 60 * 1000;      // 5 min
 const CACHE_STALE_MS = 24 * 60 * 60 * 1000; // 24 h
 const reviewsCache = new Map(); // cacheKey -> { data, fetchedAt }
 
+// Un avis n'est affiché que s'il est publié et non caché/archivé côté Judge.me.
+function isDisplayable(review) {
+  if (review.hidden === true) return false;
+  if (review.published === false) return false;
+  if (review.curated === "spam") return false;
+  return true;
+}
+
+// Formate le nom pour l'affichage public : "Florian Barjon" → "Florian B."
+// Les noms vides ou "Anonymous" deviennent "Client".
+function formatDisplayName(rawName) {
+  const name = (rawName || "").trim();
+  if (!name || /^anonym/i.test(name)) return "Client";
+  const parts = name.split(/\s+/);
+  if (parts.length === 1) return parts[0];
+  const firstName = parts[0];
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
+  return `${firstName} ${lastInitial}.`;
+}
+
+// Ne renvoie au navigateur que les champs nécessaires (jamais l'email ni le
+// nom complet du client).
+function sanitizeReview(review) {
+  return {
+    id: review.id,
+    rating: review.rating,
+    title: review.title,
+    body: review.body,
+    created_at: review.created_at,
+    // Judge.me : seuls "buyer" / "verified-purchase" = achat réellement vérifié
+    // ("not-yet" et "nothing" ne doivent pas afficher le badge)
+    verified: ["buyer", "verified-purchase"].includes(review.verified),
+    product_title: review.product_title || review.reviewable?.name || null,
+    reviewer: { name: formatDisplayName(review.reviewer?.name) },
+  };
+}
+
 function buildPayload(reviews) {
+  const visible = reviews.filter(isDisplayable).map(sanitizeReview);
   const rating =
-    reviews.length > 0
-      ? reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length
+    visible.length > 0
+      ? visible.reduce((acc, r) => acc + (r.rating || 0), 0) / visible.length
       : 0;
   return {
-    reviews,
+    reviews: visible,
     rating: Math.round(rating * 10) / 10,
-    count: reviews.length,
+    count: visible.length,
   };
 }
 
