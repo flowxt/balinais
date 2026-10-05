@@ -169,7 +169,7 @@ export default function CGV() {
 
             {/* Article 6 */}
             <div>
-              <h2 className="font-serif text-2xl text-charcoal mb-4">Article 6 — Livraison</h2>
+              <h2 className="font-serif text-2xl text-charcoal mb-4">Article 6 — Livraison et retrait à l&apos;entrepôt</h2>
               <div className="text-charcoal/85 leading-relaxed space-y-3">
                 <p>
                   Les produits sont livrés à l&apos;adresse indiquée par le Client lors de la commande.
@@ -183,6 +183,24 @@ export default function CGV() {
                   dans les meilleurs délais après validation du paiement, sous réserve de disponibilité
                   des produits. Sauf indication contraire, la livraison interviendra au plus tard dans
                   un délai de trente (30) jours à compter de la validation de la commande.
+                </p>
+                <p>
+                  Lorsque le mode de livraison « Retrait à l&apos;entrepôt — sur rendez-vous » est proposé sur le
+                  site, le Client peut choisir de venir retirer sa commande directement à l&apos;endroit où la
+                  marchandise est stockée. Bohemian House ne dispose pas de magasin physique : le retrait
+                  ne s&apos;effectue donc pas en boutique, mais uniquement sur rendez-vous, dans un lieu de
+                  stockage situé à Annemasse.
+                </p>
+                <p>
+                  Une fois la commande confirmée, Sandra PENSADO EI contactera le Client afin de convenir
+                  d&apos;un jour et d&apos;une heure de retrait. L&apos;adresse exacte du lieu de retrait sera communiquée au
+                  Client après confirmation de la commande. Le Client s&apos;engage à se présenter au créneau
+                  convenu ou à prévenir le Vendeur en cas d&apos;empêchement afin de fixer un nouveau rendez-vous.
+                </p>
+                <p>
+                  Le retrait à l&apos;entrepôt ne constitue pas une vente en magasin. La commande étant passée en
+                  ligne, le Client bénéficie des droits applicables à la vente à distance, notamment du droit de
+                  rétractation dans les conditions prévues aux présentes CGV.
                 </p>
                 <p>
                   En cas de retard de livraison, le Client est invité à contacter le Vendeur

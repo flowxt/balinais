@@ -294,11 +294,26 @@ export default function Contact() {
 
             <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
               <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
-                Comment puis-je passer commande ?
+                Votre marchandise est-elle déjà en France ou est-elle envoyée depuis Bali ?
               </h3>
               <p className="text-charcoal/80 leading-relaxed">
-                Toutes nos commandes se font directement en ligne via notre boutique. 
-                Parcourez nos collections, ajoutez vos coups de cœur au panier et finalisez votre achat en toute simplicité !
+                Toute notre marchandise est déjà en France et stockée à Annemasse. Vos commandes ne
+                sont pas expédiées depuis Bali après achat, ce qui nous permet également de proposer le
+                retrait à l&apos;entrepôt sur rendez-vous.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-creamy/40 to-soft rounded-2xl p-6 shadow-md border border-creamy/70">
+              <h3 className="font-serif text-lg font-medium text-charcoal mb-3">
+                Comment se déroule le retrait à l&apos;entrepôt ?
+              </h3>
+              <p className="text-charcoal/80 leading-relaxed">
+                Après avoir sélectionné l&apos;option « Retrait à l&apos;entrepôt » lors de votre commande, Bohemian
+                House vous contactera par message afin de convenir ensemble d&apos;un jour et d&apos;une heure de
+                retrait.
+                Bohemian House ne possède pas de magasin physique. Le retrait s&apos;effectue donc sur
+                rendez-vous, à l&apos;endroit où notre marchandise est stockée, à Annemasse. L&apos;adresse exacte
+                vous sera communiquée lors de notre échange.
               </p>
             </div>
 
