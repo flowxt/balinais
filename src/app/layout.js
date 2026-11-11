@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import VacationModal from "@/app/components/VacationModal";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-sans",
@@ -101,7 +102,10 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <FavoritesProvider>
-            <CartProvider>{children}</CartProvider>
+            <CartProvider>
+              {children}
+              <VacationModal />
+            </CartProvider>
           </FavoritesProvider>
         </AuthProvider>
       </body>
