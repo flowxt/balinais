@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
-  const images = ["/images/hero1.jpg", "/images/hero2.jpg", "/images/hero3.jpg", "/images/hero4.jpg"];
+  const images = ["/images/hero1.png", "/images/hero2.png", "/images/hero3.png", "/images/hero4.png"];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
