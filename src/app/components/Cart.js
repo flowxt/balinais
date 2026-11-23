@@ -2,6 +2,7 @@
 
 import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
+import shopifyImageLoader from "@/lib/shopifyImageLoader";
 
 export default function Cart() {
   const {
@@ -105,6 +106,7 @@ export default function Cart() {
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
                       {item.variant?.image ? (
                         <Image
+                          loader={shopifyImageLoader}
                           src={item.variant.image.src}
                           alt={item.title}
                           fill

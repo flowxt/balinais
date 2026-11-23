@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import { extractProductId } from "@/lib/utils";
+import shopifyImageLoader from "@/lib/shopifyImageLoader";
 import FavoriteButton from "./FavoriteButton";
 import ProductRating from "./ProductRating";
 
@@ -45,6 +46,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
             {image ? (
               <>
                 <Image
+                  loader={shopifyImageLoader}
                   src={image.src}
                   alt={product.title}
                   fill
@@ -145,6 +147,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
             <>
               {/* Image principale */}
               <Image
+                loader={shopifyImageLoader}
                 src={image.src}
                 alt={product.title}
                 fill
@@ -154,6 +157,7 @@ export default function ProductCard({ product, viewMode = "grid" }) {
               {/* Deuxième image au hover (si disponible) */}
               {secondImage && (
                 <Image
+                  loader={shopifyImageLoader}
                   src={secondImage.src}
                   alt={`${product.title} - vue alternative`}
                   fill

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import shopifyImageLoader from "@/lib/shopifyImageLoader";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import Navigation from "@/app/components/Navigation";
@@ -289,6 +290,7 @@ export default function Compte() {
                               <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-soft border border-warm/20">
                                 {img?.url ? (
                                   <Image
+                                    loader={shopifyImageLoader}
                                     src={img.url}
                                     alt={img.altText || node.title}
                                     fill

@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getProduct } from "@/lib/shopify";
+import shopifyImageLoader from "@/lib/shopifyImageLoader";
 import { useCart } from "@/contexts/CartContext";
 import FavoriteButton from "../../components/FavoriteButton";
 import ProductReviews from "../../components/ProductReviews";
@@ -194,6 +195,7 @@ export default function ProductPage() {
             <div className="relative aspect-square bg-soft/30 rounded-3xl overflow-hidden">
               {images.length > 0 ? (
                 <Image
+                  loader={shopifyImageLoader}
                   src={images[selectedImageIndex]?.src || images[0]?.src}
                   alt={product.title}
                   fill
@@ -223,6 +225,7 @@ export default function ProductPage() {
                     }`}
                   >
                     <Image
+                      loader={shopifyImageLoader}
                       src={image.src}
                       alt={`${product.title} ${index + 1}`}
                       fill
